@@ -51,32 +51,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:layout_width="408dp"
-        android:layout_height="123dp"
-        android:layout_marginTop="65dp"
-        android:orientation="vertical"
-        android:padding="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:context=".MainActivity">
-
-        <EditText
-            android:id="@+id/editText"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:hint="Enter your name"
-            android:inputType="textShortMessage" />
-
-        <Button
-            android:id="@+id/configSubmit"
-            android:layout_width="124dp"
-            android:layout_height="60dp"
-            android:onClick="onSubmitClick"
-            android:text="Submit"
-            android:textAlignment="center" />
-    </LinearLayout>
-
     <Button
         android:id="@+id/char2"
         android:layout_width="wrap_content"
@@ -103,8 +77,8 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="172dp"
-        android:layout_marginTop="424dp"
+        android:layout_marginStart="176dp"
+        android:layout_marginTop="432dp"
         android:text="Difficulty"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -182,6 +156,35 @@
         android:layout_marginStart="168dp"
         android:layout_marginTop="197dp"
         android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="380dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="88dp"
+        android:hint="Username"
+        android:inputType="textShortMessage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="168dp"
+        android:layout_marginTop="165dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/difficultyLevel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="174dp"
+        android:layout_marginTop="455dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
