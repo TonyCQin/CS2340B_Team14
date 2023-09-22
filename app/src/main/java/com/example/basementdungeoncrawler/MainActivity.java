@@ -5,25 +5,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
-import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
     private EditText editText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.config_screen);
 
         //username check
         EditText usernameInput = findViewById(R.id.editText);
@@ -40,10 +35,10 @@ public class MainActivity extends AppCompatActivity {
                 username[0] = usernameInput.getText().toString();
                 TextView usernameText = findViewById(R.id.username);
                 usernameText.setText(username[0]);
-                Intent displayUsername = new Intent(MainActivity.this, GameScreen.class);
+//                Intent displayUsername = new Intent(MainActivity.this, GameScreen.class);
                 // Add the username data to the intent using the key "username"
-                displayUsername.putExtra("username", username[0]);
-                startActivity(displayUsername);
+//                displayUsername.putExtra("username", username[0]);
+//                startActivity(displayUsername);
             }
 
             @Override
@@ -63,26 +58,31 @@ public class MainActivity extends AppCompatActivity {
         Button char2 = findViewById(R.id.char2);
         Button char3 = findViewById(R.id.char3);
         final boolean[] charSelected = {false};
+        final int[] charIdentifierSelected = {0};
 
         char1.setOnClickListener(a -> {
             charText.setText("Character 1 selected");
             charSelected[0] = true;
-            Intent char1Transfer = new Intent(MainActivity.this, GameScreen.class);
-            char1Transfer.putExtra("charSelected", 1);
+            charIdentifierSelected[0] = 1;
+
+//            Intent char1Transfer = new Intent(MainActivity.this, GameScreen.class);
+//            char1Transfer.putExtra("charSelected", 1);
         });
 
         char2.setOnClickListener(b -> {
             charText.setText("Character 2 selected");
             charSelected[0] = true;
-            Intent char2Transfer = new Intent(MainActivity.this, GameScreen.class);
-            char2Transfer.putExtra("charSelected", 2);
+            charIdentifierSelected[0] = 2;
+//            Intent char2Transfer = new Intent(MainActivity.this, GameScreen.class);
+//            char2Transfer.putExtra("charSelected", 2);
         });
 
         char3.setOnClickListener(c -> {
             charText.setText("Character 3 selected");
             charSelected[0] = true;
-            Intent char3Transfer = new Intent(MainActivity.this, GameScreen.class);
-            char3Transfer.putExtra("charSelected", 3);
+            charIdentifierSelected[0] = 3;
+//            Intent char3Transfer = new Intent(MainActivity.this, GameScreen.class);
+//            char3Transfer.putExtra("charSelected", 3);
         });
 
         //---------------------------------------------------------------------
@@ -119,9 +119,9 @@ public class MainActivity extends AppCompatActivity {
                 TextView difficultyLevelText = findViewById(R.id.difficultyLevel);
                 difficultyLevelText.setText(difficultyText);
 
-                Intent setHPonDifficulty = new Intent(MainActivity.this, GameScreen.class);
+//                Intent setHPonDifficulty = new Intent(MainActivity.this, GameScreen.class);
                 // Add the difficulty data to the intent using the key difficultyWanted
-                setHPonDifficulty.putExtra("difficultyWanted", difficulty);
+//                setHPonDifficulty.putExtra("difficultyWanted", difficulty);
 
             }
         });
@@ -131,10 +131,6 @@ public class MainActivity extends AppCompatActivity {
         Button configContinue = findViewById(R.id.configContinue);
         configContinue.setOnClickListener(v -> {
             //this text view is for debugging for now
-
-
-
-
 
             //alert for not having one of the elements selected
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -154,6 +150,13 @@ public class MainActivity extends AppCompatActivity {
 
             if (!difficultySelected[0] || username[0].equals("") || !charSelected[0]) {
                 dialog.show();
+            } else {
+                Intent game = new Intent(MainActivity.this, GameScreen.class);
+                game.putExtra("charSelected", charIdentifierSelected[0]);
+                game.putExtra("difficultyWanted", difficultySelected[0]);
+                game.putExtra("username", username[0]);
+                startActivity(game);
+                finish();
             }
         });
     }
