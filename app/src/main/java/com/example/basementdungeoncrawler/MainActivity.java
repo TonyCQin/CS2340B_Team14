@@ -1,6 +1,7 @@
 package com.example.basementdungeoncrawler;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -39,6 +40,10 @@ public class MainActivity extends AppCompatActivity {
                 username[0] = usernameInput.getText().toString();
                 TextView usernameText = findViewById(R.id.username);
                 usernameText.setText(username[0]);
+                Intent displayUsername = new Intent(MainActivity.this, GameScreen.class);
+                // Add the username data to the intent using the key "username"
+                displayUsername.putExtra("username", username[0]);
+                startActivity(displayUsername);
             }
 
             @Override
@@ -62,16 +67,22 @@ public class MainActivity extends AppCompatActivity {
         char1.setOnClickListener(a -> {
             charText.setText("Character 1 selected");
             charSelected[0] = true;
+            Intent char1Transfer = new Intent(MainActivity.this, GameScreen.class);
+            char1Transfer.putExtra("charSelected", 1);
         });
 
         char2.setOnClickListener(b -> {
             charText.setText("Character 2 selected");
             charSelected[0] = true;
+            Intent char2Transfer = new Intent(MainActivity.this, GameScreen.class);
+            char2Transfer.putExtra("charSelected", 2);
         });
 
         char3.setOnClickListener(c -> {
             charText.setText("Character 3 selected");
             charSelected[0] = true;
+            Intent char3Transfer = new Intent(MainActivity.this, GameScreen.class);
+            char3Transfer.putExtra("charSelected", 3);
         });
 
         //---------------------------------------------------------------------
@@ -107,6 +118,11 @@ public class MainActivity extends AppCompatActivity {
 
                 TextView difficultyLevelText = findViewById(R.id.difficultyLevel);
                 difficultyLevelText.setText(difficultyText);
+
+                Intent setHPonDifficulty = new Intent(MainActivity.this, GameScreen.class);
+                // Add the difficulty data to the intent using the key difficultyWanted
+                setHPonDifficulty.putExtra("difficultyWanted", difficulty);
+
             }
         });
 
