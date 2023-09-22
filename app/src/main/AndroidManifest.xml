@@ -33,7 +33,7 @@
             android:exported="false" />
 
         <activity
-            android:name=".StartScreen"
+            android:name=".ConfigScreen"
             android:exported="false" />
 
 

@@ -15,7 +15,7 @@ public class EndScreen extends AppCompatActivity {
         //sets up the restart button
         Button toStartScreen = findViewById(R.id.toStartScreen);
         toStartScreen.setOnClickListener(v -> {
-            Intent restart = new Intent(EndScreen.this, StartScreen.class);
+            Intent restart = new Intent(EndScreen.this, MainActivity.class);
             startActivity(restart);
         });
     }

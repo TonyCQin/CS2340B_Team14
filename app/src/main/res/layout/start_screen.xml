@@ -5,7 +5,7 @@
     android:background = "#2C0404"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".StartScreen">
+    tools:context=".MainActivity">
 
     <TextView
         android:layout_width="wrap_content"
