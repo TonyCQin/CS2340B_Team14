@@ -44,10 +44,10 @@ public class GameScreen extends AppCompatActivity{
         String nameHelper = intent.getStringExtra("username");
         name.setText(nameHelper);
 
-        Double difficultyHelper = intent.getDoubleExtra("difficultyWanted", 1);
-        if (difficultyHelper == 2) {
+        int difficultyHelper = intent.getIntExtra("difficultyWanted", 1);
+        if (difficultyHelper == 3) {
             HP = 100;
-        } else if (difficultyHelper == 1.5) {
+        } else if (difficultyHelper == 2) {
             HP = 150;
         } else if (difficultyHelper == 1) {
             HP = 200;

@@ -5,16 +5,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class ConfigScreen extends AppCompatActivity {
-    private EditText editText;
+    private RadioGroup difficulties;
+    private RadioButton difficultySelectedButton;
+    private TextView difficultyLevelText;
+    private String difficultyText;
+    private Boolean difficultyIsSelected = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,35 +95,65 @@ public class ConfigScreen extends AppCompatActivity {
         //---------------------------------------------------------------------
 
         //difficulty config
-        RadioGroup difficulties = findViewById(R.id.difficultyRadioGroup);
-        final boolean[] difficultySelected = {false};
+        difficulties = findViewById(R.id.difficultyRadioGroup);
+        difficultyLevelText = findViewById(R.id.difficultyLevel);
+        final int[] difficultySelected = {0};
+
+        int radioDifficultyID = difficulties.getCheckedRadioButtonId();
+        difficultySelectedButton = findViewById(radioDifficultyID);
+
+        RadioButton easyButton = findViewById(R.id.difficultyEasy);
+        RadioButton mediumButton = findViewById(R.id.difficultyMedium);
+        RadioButton hardButton = findViewById(R.id.difficultyHard);
+
+        if (difficultySelectedButton.equals(easyButton)) {
+            difficultyIsSelected = true;
+            difficultySelected[0] = 1;
+            difficultyText = "Easy mode is selected";
+        } else if (difficultySelectedButton.equals(mediumButton)) {
+            difficultyIsSelected = true;
+            difficultySelected[0] = 2;
+            difficultyText = "Medium mode is selected";
+        } else if (difficultySelectedButton.equals(hardButton)) {
+            difficultyIsSelected = true;
+            difficultySelected[0] = 3;
+            difficultyText = "Hard mode is selected";
+        } else {
+            difficultyText = "No Difficulty Selected";
+        }
+
+        difficultyLevelText.setText(difficultyText);
+        /*
         difficulties.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                double difficulty = 1;
-                String difficultyId = String.valueOf(difficulties.getCheckedRadioButtonId());
+            public void onRadioButtonClicked(RadioGroup radioGroup, int i) {
+                int difficulty = 1;
                 String difficultyText;
+                RadioButton easyButton = findViewById(R.id.difficultyEasy);
+                RadioButton mediumButton = findViewById(R.id.difficultyMedium);
+                RadioButton hardButton = findViewById(R.id.difficultyHard);
 
-
-                if (difficultyId.equals("2131230859")) {
+                if (hardButton.isChecked()) {
+                    difficulty = 3;
+                    difficultyIsSelected[0] = true;
+                    difficultySelected[0] = difficulty;
+                } else if (mediumButton.isChecked()) {
                     difficulty = 2;
-                    difficultySelected[0] = true;
-                } else if (difficultyId.equals("2131230860")) {
-                    difficulty = 1.5;
-                    difficultySelected[0] = true;
-                } else {
+                    difficultyIsSelected[0] = true;
+                    difficultySelected[0] = difficulty;
+                } else if (easyButton.isChecked()) {
                     difficulty = 1;
-                    difficultySelected[0] = true;
+                    difficultyIsSelected[0] = true;
+                    difficultySelected[0] = difficulty;
                 }
 
-                if (difficultyId.equals("-1")) {
+                if (difficulties.getCheckedRadioButtonId() == -1) {
                     difficultyText = "No difficulty selected";
-                    difficultySelected[0] = false;
+                    difficultyIsSelected[0] = false;
                 } else {
                     difficultyText = String.format("Difficulty : %.1f", difficulty);
                 }
 
-                TextView difficultyLevelText = findViewById(R.id.difficultyLevel);
                 difficultyLevelText.setText(difficultyText);
 
 //                Intent setHPonDifficulty = new Intent(MainActivity.this, GameScreen.class);
@@ -125,6 +162,7 @@ public class ConfigScreen extends AppCompatActivity {
 
             }
         });
+*/
 
         //---------------------------------------------------------------------
 
@@ -148,7 +186,7 @@ public class ConfigScreen extends AppCompatActivity {
             // Create the AlertDialog and show it
             AlertDialog dialog = builder.create();
 
-            if (!difficultySelected[0] || username[0].equals("") || !charSelected[0]) {
+            if (!difficultyIsSelected || username[0].equals("") || !charSelected[0]) {
                 dialog.show();
             } else {
                 Intent game = new Intent(ConfigScreen.this, GameScreen.class);
@@ -159,5 +197,12 @@ public class ConfigScreen extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    public void onRadioButtonClicked(View view) {
+        int radioDifficultyID = difficulties.getCheckedRadioButtonId();
+        difficultySelectedButton = findViewById(radioDifficultyID);
+
+        Toast.makeText(this, "Selected Difficulty: " + difficultySelectedButton.getText(), Toast.LENGTH_SHORT).show();
     }
 }
