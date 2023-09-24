@@ -46,9 +46,9 @@ public class GameScreen extends AppCompatActivity {
         if (characterNumber == 1) {
             charSprite.setImageResource(R.drawable.idle_crop1);
         } else if (characterNumber == 2) {
-            charSprite.setImageResource(R.drawable.idle_crop1);
+            charSprite.setImageResource(R.drawable.pumpkin_crop);
         } else if (characterNumber == 3) {
-            charSprite.setImageResource(R.drawable.idle_crop1);
+            charSprite.setImageResource(R.drawable.doc_crop);
         }
     }
 }
