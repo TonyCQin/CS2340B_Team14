@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Basement Dungeon Crawler</string>
+    <string name="restart">Restart</string>
+    <string name="Leaderboard">Leaderboard</string>
+    <string name="Die">Die</string>
+    <string name="Username">Username</string>
 </resources>
