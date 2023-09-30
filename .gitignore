@@ -13,6 +13,3 @@
 .externalNativeBuild
 .cxx
 local.properties
-.idea/checkstyle-idea.xml
-.idea/misc.xml
-.idea/vcs.xml
