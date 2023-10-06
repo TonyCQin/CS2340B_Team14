@@ -8,6 +8,7 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
     private Button quitButton;
+    private Button startButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,6 +21,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 MainActivity.this.finish();
                 System.exit(0);
+            }
+        });
+
+        startButton = findViewById(R.id.StartButton);
+        startButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mainActivity(view);
             }
         });
     }
