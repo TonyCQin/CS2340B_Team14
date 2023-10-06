@@ -2,3 +2,17 @@
 plugins {
 id 'com.android.application' version '8.1.1' apply false
 }
+
+android {
+
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    implementation 'androidx.lifecycle:lifecycle-viewmodel:2.6.2' // ViewModel
+    implementation 'androidx.lifecycle:lifecycle-runtime:2.6.2'   // ViewModel
+    implementation 'androidx.lifecycle:lifecycle-common-java8:2.6.2' // ViewModel for Java 8
+    implementation 'androidx.databinding:databinding-runtime:8.1.2' // Data Binding
+}

@@ -1,5 +1,6 @@
-package com.example.basementdungeoncrawler;
+package com.example.basementdungeoncrawler.view;
 
+import com.example.basementdungeoncrawler.R;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
