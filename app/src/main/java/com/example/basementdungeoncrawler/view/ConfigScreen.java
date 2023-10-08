@@ -1,6 +1,9 @@
 package com.example.basementdungeoncrawler.view;
 
 import com.example.basementdungeoncrawler.R;
+import com.example.basementdungeoncrawler.viewModel.GameViewModel;
+import com.example.basementdungeoncrawler.viewModel.PlayerViewModel;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,15 +17,24 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+
+import org.w3c.dom.Text;
 
 public class ConfigScreen extends AppCompatActivity {
     private TextView difficultyLevelText;
     private String difficultyText;
     private Boolean difficultyIsSelected = false;
+    private PlayerViewModel playerViewModel;
+    private GameViewModel gameViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.config_screen);
+
+        playerViewModel = new ViewModelProvider(this).get(PlayerViewModel.class);
+        gameViewModel = new ViewModelProvider(this).get(GameViewModel.class);
+
 
         //username check
         EditText usernameInput = findViewById(R.id.editText);
@@ -89,11 +101,13 @@ public class ConfigScreen extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
                 RadioButton selectedRadioButton = findViewById(checkedId);
+                TextView DifficultyText = findViewById(R.id.difficultyText);
 
                 if (selectedRadioButton == null) {
                     difficultyText = "No Difficulty Selected";
                     difficultyIsSelected = false;
                     difficultySelected[0] = 0;
+                    DifficultyText.setText("0");
                 } else {
                     // Get the text from the selected radio button
                     String selectedDifficultyText = selectedRadioButton.getText().toString();
@@ -102,19 +116,22 @@ public class ConfigScreen extends AppCompatActivity {
                     if (selectedDifficultyText.equals("Easy")) {
                         difficultyIsSelected = true;
                         difficultySelected[0] = 1;
+                        DifficultyText.setText("1");
                     } else if (selectedDifficultyText.equals("Medium")) {
                         difficultyIsSelected = true;
                         difficultySelected[0] = 2;
+                        DifficultyText.setText("2");
                     } else if (selectedDifficultyText.equals("Hard")) {
                         difficultyIsSelected = true;
                         difficultySelected[0] = 3;
+                        DifficultyText.setText("3");
                     } else {
                         difficultyText = "No Difficulty Selected";
                         difficultyIsSelected = false;
                         difficultySelected[0] = 0;
+                        DifficultyText.setText("0");
                     }
                 }
-
                 difficultyLevelText.setText(difficultyText);
             }
         });
@@ -145,10 +162,10 @@ public class ConfigScreen extends AppCompatActivity {
             if (!difficultyIsSelected || username[0].equals("") || !charSelected[0]) {
                 dialog.show();
             } else {
+                playerViewModel.setUsername(username[0]);
+                playerViewModel.setSprite(charIdentifierSelected[0]);
+                gameViewModel.setDifficulty(difficultySelected[0]);
                 Intent game = new Intent(ConfigScreen.this, GameScreen.class);
-                game.putExtra("charSelected", charIdentifierSelected[0]);
-                game.putExtra("difficultyWanted", difficultySelected[0]);
-                game.putExtra("username", username[0]);
                 startActivity(game);
                 finish();
             }
