@@ -1,5 +1,6 @@
 package com.example.basementdungeoncrawler.view;
 
+import com.example.basementdungeoncrawler.Model.Game;
 import com.example.basementdungeoncrawler.R;
 import com.example.basementdungeoncrawler.viewModel.GameViewModel;
 import com.example.basementdungeoncrawler.viewModel.PlayerViewModel;
@@ -9,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.ImageView;
@@ -43,22 +45,57 @@ public class GameScreen extends AppCompatActivity {
         name.setText(nameHelper);
 
         int difficultyHelper = gameViewModel.getDifficulty();
-        if (difficultyHelper == 3) {
-            hitPoints = 100;
-        } else if (difficultyHelper == 2) {
-            hitPoints = 150;
-        } else if (difficultyHelper == 1) {
-            hitPoints = 200;
-        }
-        charHealth.setText(String.valueOf(hitPoints));
+        charHealth.setText(String.valueOf(setHP(difficultyHelper)));
 
         int characterNumber = playerViewModel.getSprite();
+        charSprite.setImageResource(setSprite(characterNumber));
+
+        TextView score = findViewById(R.id.score);
+        score.setText("60");
+
+        startTimer(60000, score);
+    }
+    private int setSprite(int characterNumber) {
         if (characterNumber == 1) {
-            charSprite.setImageResource(R.drawable.idle_crop1);
-        } else if (characterNumber == 2) {
-            charSprite.setImageResource(R.drawable.pumpkin_crop);
-        } else if (characterNumber == 3) {
-            charSprite.setImageResource(R.drawable.doc_crop);
+            return(R.drawable.idle_crop1);
         }
+        if (characterNumber == 2) {
+            return(R.drawable.pumpkin_crop);
+        }
+        if (characterNumber == 3) {
+            return(R.drawable.doc_crop);
+        }
+        return 0;
+    }
+
+    private int setHP(int difficulty) {
+        if (difficulty == 3) {
+            hitPoints = 100;
+        } else if (difficulty == 2) {
+            hitPoints = 150;
+        } else if (difficulty == 1) {
+            hitPoints = 200;
+        }
+        return hitPoints;
+    }
+
+    private void startTimer(long milliseconds, TextView score) {
+        CountDownTimer timer = new CountDownTimer(milliseconds, 1000) {
+            @Override
+            //ticks every seconds based on interval specified in CountDownTimer
+            //checks the score stored in Game, decrements it for the next call
+            public void onTick(long millisecondsLeft) {
+                int newScore = gameViewModel.getScore();
+                score.setText(String.valueOf(newScore));
+                gameViewModel.setScore(newScore - 1);
+            }
+
+            //self explanatory method
+            public void onFinish() {
+                score.setText(0);
+            }
+        };
+
+        timer.start();
     }
 }

@@ -1,16 +1,21 @@
 package com.example.basementdungeoncrawler.Model;
 
+import android.os.CountDownTimer;
+import android.widget.TextView;
+
 public class Game {
     private int difficulty;
     private volatile static Game game;
+    private int score;
 
 
-    public Game(int difficulty) {
+    public Game(int difficulty, int score) {
         this.difficulty = difficulty;
+        this.score = score;
     }
 
     public Game() {
-        this(0);
+        this(0, 60);
     }
 
     public static Game getGame() {
@@ -30,5 +35,13 @@ public class Game {
 
     public int getDifficulty() {
         return difficulty;
+    }
+
+    public void setScore(int newScore) {
+        score = newScore;
+    }
+
+    public int getScore() {
+        return score;
     }
 }
