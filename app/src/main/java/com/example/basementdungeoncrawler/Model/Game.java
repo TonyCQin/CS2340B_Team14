@@ -1,8 +1,4 @@
 package com.example.basementdungeoncrawler.Model;
-
-import android.os.CountDownTimer;
-import android.widget.TextView;
-
 public class Game {
     private int difficulty;
     private volatile static Game game;
@@ -31,6 +27,7 @@ public class Game {
 
     public void setDifficulty(int newDifficulty) {
         this.difficulty = newDifficulty;
+        setPlayerHP(difficulty);
     }
 
     public int getDifficulty() {
@@ -43,5 +40,15 @@ public class Game {
 
     public int getScore() {
         return score;
+    }
+
+    private void setPlayerHP(int difficulty) {
+        if (difficulty == 3) {
+            Player.getPlayer().setHP(100);
+        } else if (difficulty == 2) {
+            Player.getPlayer().setHP(150);
+        } else if (difficulty == 1) {
+            Player.getPlayer().setHP(200);
+        }
     }
 }

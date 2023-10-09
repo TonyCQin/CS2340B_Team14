@@ -4,6 +4,7 @@ package com.example.basementdungeoncrawler.viewModel;
 import androidx.lifecycle.ViewModel;
 
 import com.example.basementdungeoncrawler.Model.Player;
+import com.example.basementdungeoncrawler.R;
 
 public class PlayerViewModel extends ViewModel {
 
@@ -29,5 +30,13 @@ public class PlayerViewModel extends ViewModel {
 
     public int getSprite() {
         return player.getSpriteSelected();
+    }
+
+    public void setHP(int newHP) {
+        player.setHP(newHP);
+    }
+
+    public int getHP() {
+        return player.getHP();
     }
 }

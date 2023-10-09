@@ -41,43 +41,18 @@ public class GameScreen extends AppCompatActivity {
         ImageView charSprite = findViewById(R.id.charViewSprite);
 
         // Retrieve data from ViewModels
-        String nameHelper = playerViewModel.getUsername();
-        name.setText(nameHelper);
+        name.setText(playerViewModel.getUsername());
 
-        int difficultyHelper = gameViewModel.getDifficulty();
-        charHealth.setText(String.valueOf(setHP(difficultyHelper)));
+        charHealth.setText(String.valueOf(playerViewModel.getHP()));
 
-        int characterNumber = playerViewModel.getSprite();
-        charSprite.setImageResource(setSprite(characterNumber));
+        charSprite.setImageResource(playerViewModel.getSprite());
 
         TextView score = findViewById(R.id.score);
         score.setText("60");
 
         startTimer(60000, score);
     }
-    private int setSprite(int characterNumber) {
-        if (characterNumber == 1) {
-            return(R.drawable.idle_crop1);
-        }
-        if (characterNumber == 2) {
-            return(R.drawable.pumpkin_crop);
-        }
-        if (characterNumber == 3) {
-            return(R.drawable.doc_crop);
-        }
-        return 0;
-    }
 
-    private int setHP(int difficulty) {
-        if (difficulty == 3) {
-            hitPoints = 100;
-        } else if (difficulty == 2) {
-            hitPoints = 150;
-        } else if (difficulty == 1) {
-            hitPoints = 200;
-        }
-        return hitPoints;
-    }
 
     private void startTimer(long milliseconds, TextView score) {
         CountDownTimer timer = new CountDownTimer(milliseconds, 1000) {
