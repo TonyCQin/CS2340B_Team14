@@ -1,5 +1,6 @@
 package com.example.basementdungeoncrawler.view;
 
+import com.example.basementdungeoncrawler.Model.Game;
 import com.example.basementdungeoncrawler.R;
 import com.example.basementdungeoncrawler.viewModel.GameViewModel;
 import com.example.basementdungeoncrawler.viewModel.PlayerViewModel;
@@ -9,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.ImageView;
@@ -39,26 +41,36 @@ public class GameScreen extends AppCompatActivity {
         ImageView charSprite = findViewById(R.id.charViewSprite);
 
         // Retrieve data from ViewModels
-        String nameHelper = playerViewModel.getUsername();
-        name.setText(nameHelper);
+        name.setText(playerViewModel.getUsername());
 
-        int difficultyHelper = gameViewModel.getDifficulty();
-        if (difficultyHelper == 3) {
-            hitPoints = 100;
-        } else if (difficultyHelper == 2) {
-            hitPoints = 150;
-        } else if (difficultyHelper == 1) {
-            hitPoints = 200;
-        }
-        charHealth.setText(String.valueOf(hitPoints));
+        charHealth.setText(String.valueOf(playerViewModel.getHP()));
 
-        int characterNumber = playerViewModel.getSprite();
-        if (characterNumber == 1) {
-            charSprite.setImageResource(R.drawable.idle_crop1);
-        } else if (characterNumber == 2) {
-            charSprite.setImageResource(R.drawable.pumpkin_crop);
-        } else if (characterNumber == 3) {
-            charSprite.setImageResource(R.drawable.doc_crop);
-        }
+        charSprite.setImageResource(playerViewModel.getSprite());
+
+        TextView score = findViewById(R.id.score);
+        score.setText("60");
+
+        startTimer(60000, score);
+    }
+
+
+    private void startTimer(long milliseconds, TextView score) {
+        CountDownTimer timer = new CountDownTimer(milliseconds, 1000) {
+            @Override
+            //ticks every seconds based on interval specified in CountDownTimer
+            //checks the score stored in Game, decrements it for the next call
+            public void onTick(long millisecondsLeft) {
+                int newScore = gameViewModel.getScore();
+                score.setText(String.valueOf(newScore));
+                gameViewModel.setScore(newScore - 1);
+            }
+
+            //self explanatory method
+            public void onFinish() {
+                score.setText(0);
+            }
+        };
+
+        timer.start();
     }
 }

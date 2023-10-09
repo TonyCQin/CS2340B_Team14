@@ -1,8 +1,12 @@
 package com.example.basementdungeoncrawler.Model;
+
+import com.example.basementdungeoncrawler.R;
+
 public class Player {
 
     private String username;
     private int spriteSelected;
+    private int HP;
 
     private volatile static Player player;
 
@@ -53,6 +57,22 @@ public class Player {
     }
 
     public void setSpriteSelected(int newSprite) {
-        spriteSelected = newSprite;
+        if (newSprite == 1) {
+            spriteSelected = (R.drawable.idle_crop1);
+        }
+        if (newSprite == 2) {
+            spriteSelected = (R.drawable.pumpkin_crop);
+        }
+        if (newSprite == 3) {
+            spriteSelected = (R.drawable.doc_crop);
+        }
+    }
+
+    public void setHP(int HP) {
+        this.HP = HP;
+    }
+
+    public int getHP() {
+        return HP;
     }
 }
