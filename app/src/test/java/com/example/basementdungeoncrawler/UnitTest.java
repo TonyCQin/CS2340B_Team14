@@ -54,6 +54,20 @@ public class UnitTest {
     }
 
     @Test
+    public void noEmptyUsernames() {
+        assertEquals(ConfigScreen.isOnlyWhitespace(" "), true);
+        assertEquals(ConfigScreen.isOnlyWhitespace("               " +
+                " "), true);
+    }
+
+    @Test
+    public void validUsernames() {
+        assertEquals(ConfigScreen.isOnlyWhitespace("M ich e l l e"), false);
+        assertEquals(ConfigScreen.isOnlyWhitespace("       Jeffrey"), false);
+        assertEquals(ConfigScreen.isOnlyWhitespace("Tony"), false);
+        assertEquals(ConfigScreen.isOnlyWhitespace("    n   "), false);
+      
+    @Test
     public void correctScoresList() {
         GameViewModel gameViewModel = new GameViewModel();
 
