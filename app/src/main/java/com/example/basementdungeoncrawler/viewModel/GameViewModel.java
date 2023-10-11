@@ -28,7 +28,10 @@ public class GameViewModel extends ViewModel {
 
     public void setScore(int newScore) {
         game.setScore(newScore);
-        list.addScore(newScore);
+    }
+
+    public void addListScore(int finalScore) {
+        list.addScore(finalScore);
     }
 
     //newest score for leaderboard display
