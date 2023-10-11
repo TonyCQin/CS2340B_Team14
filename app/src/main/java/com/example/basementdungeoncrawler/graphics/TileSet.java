@@ -15,7 +15,7 @@ public class TileSet {
     public TileSet(Context context) {
         BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
         bitmapOptions.inScaled = false;
-        bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.Dungeon_Tileset, bitmapOptions);
+        bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.dungeon_tileset, bitmapOptions);
     }
 
     public TileS getLeftWallTop() {
@@ -29,15 +29,22 @@ public class TileSet {
                 idxRow*Sprite_Height_Pixels,
                 (idxCol + 1) * Sprite_Width_Pixels,
                 (idxCol + 1) * Sprite_Height_Pixels
-
         ));
     }
 
     public TileS getWantedTile() {
-        return new TileS(this, new Rect(0, 0, 16, 16))
+        return new TileS(this, new Rect(0, 0, 16, 16));
     }
 
     public Bitmap getBitMap() {
         return bitmap;
+    }
+
+    public TileS getEmpty() {
+        return getTileByIndex(7, 7);
+    }
+
+    public TileS getF1() {
+        return getTileByIndex(0, 6);
     }
 }

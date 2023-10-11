@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context="com.example.basementdungeoncrawler.view.GameScreen"
+    android:background = "@drawable/map1">
 
     <Button
         android:id="@+id/toEndButton"
@@ -12,6 +16,8 @@
         android:background="#3A6C67"
         android:backgroundTint="#955E2521"
         android:text="@string/Die"
+        app:layout_constraintTop_toTopOf = "parent"
+        app:layout_constraintLeft_toLeftOf = "parent"
         app:strokeColor="#A6BD5048" />
 
     <ImageView
@@ -19,12 +25,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        app:layout_constraintTop_toTopOf = "parent"
+        app:layout_constraintLeft_toRightOf = "@id/toEndButton"
         app:srcCompat="@drawable/ic_launcher_background" />
 
     <TextView
         android:id="@+id/UserOutput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf = "parent"
+        app:layout_constraintLeft_toRightOf = "@id/charViewSprite"
         android:layout_weight="1"
         android:text="@string/Username" />
 
@@ -32,6 +42,8 @@
         android:id="@+id/HP"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf = "parent"
+        app:layout_constraintLeft_toRightOf = "@id/UserOutput"
         android:layout_weight="1"
         android:text="TextView" />
 
@@ -39,7 +51,9 @@
         android:id="@+id/score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf = "parent"
+        app:layout_constraintLeft_toRightOf = "@id/HP"
         android:layout_weight="1"
         android:text="TextView" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

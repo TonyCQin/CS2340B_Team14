@@ -2,6 +2,8 @@ package com.example.basementdungeoncrawler.view;
 
 import com.example.basementdungeoncrawler.Model.Game;
 import com.example.basementdungeoncrawler.R;
+import com.example.basementdungeoncrawler.map.MapOneLayout;
+import com.example.basementdungeoncrawler.map.TilemapOne;
 import com.example.basementdungeoncrawler.viewModel.GameViewModel;
 import com.example.basementdungeoncrawler.viewModel.PlayerViewModel;
 
@@ -9,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.widget.Button;
@@ -19,6 +22,8 @@ public class GameScreen extends AppCompatActivity {
     private int hitPoints;
     private PlayerViewModel playerViewModel;
     private GameViewModel gameViewModel;
+    //private ImageView mapImageView;
+    //private MapOneLayout tilemapOne;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +57,6 @@ public class GameScreen extends AppCompatActivity {
 
         startTimer(60000, score);
     }
-
 
     private void startTimer(long milliseconds, TextView score) {
         CountDownTimer timer = new CountDownTimer(milliseconds, 1000) {

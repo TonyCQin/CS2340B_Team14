@@ -13,7 +13,7 @@ public class TileS {
         this.rect = rect;
     }
 
-    public void draw(Canvas canvas) {
+    public void draw(Canvas canvas, int left, int top) {
         canvas.drawBitmap(
                 tileSet.getBitMap(),
                 rect,
