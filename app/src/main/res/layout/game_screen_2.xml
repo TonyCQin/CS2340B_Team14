@@ -5,9 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id = "@+id/layout"
+    android:id = "@+id/layout2"
     tools:context="com.example.basementdungeoncrawler.view.GameScreen"
-    android:background = "@drawable/map1">
+    android:background = "@drawable/map2">
 
     <Button
         android:id="@+id/toEndButton"
@@ -25,10 +25,10 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id = "@+id/nextScreen"
+        android:id = "@+id/nextScreen2"
+        android:onClick = "toScreen3"
         app:layout_constraintTop_toBottomOf = "@id/toEndButton"
         app:layout_constraintLeft_toLeftOf = "parent"
-        android:onClick="toScreen2"
         android:text = "Next"
         />
 

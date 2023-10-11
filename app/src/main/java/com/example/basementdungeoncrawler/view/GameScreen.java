@@ -1,22 +1,20 @@
 package com.example.basementdungeoncrawler.view;
 
-import com.example.basementdungeoncrawler.Model.Game;
 import com.example.basementdungeoncrawler.R;
-import com.example.basementdungeoncrawler.map.MapOneLayout;
-import com.example.basementdungeoncrawler.map.TilemapOne;
 import com.example.basementdungeoncrawler.viewModel.GameViewModel;
 import com.example.basementdungeoncrawler.viewModel.PlayerViewModel;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.ImageView;
+import android.view.View;
 
 public class GameScreen extends AppCompatActivity {
     private int hitPoints;
@@ -56,6 +54,26 @@ public class GameScreen extends AppCompatActivity {
         score.setText("60");
 
         startTimer(60000, score);
+        /**
+        nextScreen.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                if (currentDrawable == R.drawable.map1) {
+                    setContentView(R.layout.game_screen_2);
+                    charHealth
+                } else {
+                    setContentView(R.layout.game_screen_3);
+                }
+            }
+        });
+         */
+    }
+
+    public void toScreen2(View view) {
+        setContentView(R.layout.game_screen_2);
+    }
+
+    public void toScreen3(View view) {
+        setContentView(R.layout.game_screen_3);
     }
 
     private void startTimer(long milliseconds, TextView score) {
