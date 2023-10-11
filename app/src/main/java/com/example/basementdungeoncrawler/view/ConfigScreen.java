@@ -159,7 +159,7 @@ public class ConfigScreen extends AppCompatActivity {
             // Create the AlertDialog and show it
             AlertDialog dialog = builder.create();
 
-            if (!difficultyIsSelected || username[0].equals("") || !charSelected[0]) {
+            if (!difficultyIsSelected || username[0].equals("") || username == null || isOnlyWhitespace(username[0]) || !charSelected[0]) {
                 dialog.show();
             } else {
                 playerViewModel.setUsername(username[0]);
@@ -170,5 +170,13 @@ public class ConfigScreen extends AppCompatActivity {
                 finish();
             }
         });
+    }
+    public static boolean isOnlyWhitespace(String n) {
+        for (int i = 0; i < n.length(); i++) {
+            if (!Character.isWhitespace(n.charAt(i))){
+                return false;
+            }
+        }
+        return true;
     }
 }

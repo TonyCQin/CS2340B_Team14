@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.basementdungeoncrawler.Model.Game;
 import com.example.basementdungeoncrawler.Model.Player;
+import com.example.basementdungeoncrawler.view.ConfigScreen;
 import com.example.basementdungeoncrawler.viewModel.GameViewModel;
 import com.example.basementdungeoncrawler.viewModel.PlayerViewModel;
 
@@ -44,5 +45,18 @@ public class UnitTest {
 
         playerViewModel.setSprite(3);
         assertEquals(R.drawable.doc_crop, playerViewModel.getSprite());
+    }
+
+    @Test
+    public void noEmptyUsernames() {
+        assertEquals(ConfigScreen.isOnlyWhitespace(" "), true);
+        assertEquals(ConfigScreen.isOnlyWhitespace("               " +
+                " "), true);
+    }
+
+    @Test
+    public void validUsernames() {
+        assertEquals(ConfigScreen.isOnlyWhitespace("M ich e l l e"), false);
+        assertEquals(ConfigScreen.isOnlyWhitespace("       Jeffrey"), false);
     }
 }
