@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.basementdungeoncrawler.Model.Game;
 import com.example.basementdungeoncrawler.Model.ScoresList;
 import java.util.ArrayList;
+import com.example.basementdungeoncrawler.Model.Score;
 
 public class GameViewModel extends ViewModel {
     private Game game;
@@ -30,8 +31,8 @@ public class GameViewModel extends ViewModel {
         game.setScore(newScore);
     }
 
-    public void addListScore(int finalScore) {
-        list.addScore(finalScore);
+    public void addListScore(String username, int finalScore) {
+        list.addScore(username, finalScore);
     }
 
     //newest score for leaderboard display
@@ -40,7 +41,7 @@ public class GameViewModel extends ViewModel {
     }
 
     //top five scores for leaderboard display
-    public ArrayList<Integer> getScoresList() {
+    public ArrayList<Score> getScoresList() {
         return list.getScores(); }
 
 }
