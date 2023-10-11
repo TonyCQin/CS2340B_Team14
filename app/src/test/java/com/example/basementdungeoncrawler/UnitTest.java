@@ -3,13 +3,16 @@ package com.example.basementdungeoncrawler;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.basementdungeoncrawler.Model.Game;
 import com.example.basementdungeoncrawler.Model.Player;
 import com.example.basementdungeoncrawler.Model.ScoresList;
+import com.example.basementdungeoncrawler.view.EndScreen;
 import com.example.basementdungeoncrawler.viewModel.GameViewModel;
+import com.example.basementdungeoncrawler.viewModel.LeaderBoardAdapter;
 import com.example.basementdungeoncrawler.viewModel.PlayerViewModel;
 import java.util.ArrayList;
 
@@ -91,5 +94,12 @@ public class UnitTest {
             scores.get(4);
             throw new AssertionError("IndexOutOfBoundsException expected");
         } catch (IndexOutOfBoundsException e) {}
+    }
+
+    @Test
+    public void testAdapter() {
+        LeaderBoardAdapter testAdapter = new LeaderBoardAdapter(null,
+                new ArrayList<String>(), new ArrayList<String>());
+        assertEquals(0, testAdapter.getCount());
     }
 }

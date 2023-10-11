@@ -24,6 +24,7 @@
             android:gravity="center"
             android:text="@string/Leaderboard" />
     </LinearLayout>
+
     <ListView
         android:id="@+id/leaderBoard"
         android:layout_width="match_parent"

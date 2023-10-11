@@ -2,13 +2,16 @@ package com.example.basementdungeoncrawler.view;
 
 import com.example.basementdungeoncrawler.Model.ScoresList;
 import com.example.basementdungeoncrawler.R;
+import com.example.basementdungeoncrawler.viewModel.LeaderBoardAdapter;
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.ArrayList;
 
 public class EndScreen extends AppCompatActivity {
     @Override
@@ -22,17 +25,23 @@ public class EndScreen extends AppCompatActivity {
             Intent restart = new Intent(EndScreen.this, MainActivity.class);
             startActivity(restart);
         });
+
+        ArrayList<String> l1 = new ArrayList<>();
+        l1.add("item1");
+        l1.add("item2");
+        l1.add("item3");
+        l1.add("item4");
+        l1.add("item5");
+
+        ArrayList<String> l2 = new ArrayList<>();
+        l2.add("sub item1");
+        l2.add("sub item2");
+        l2.add("sub item3");
+        l2.add("sub item4");
+        l2.add("sub item5");
+
+        LeaderBoardAdapter adapter = new LeaderBoardAdapter(getApplicationContext(), l1, l2);
         ListView leaderBoard = findViewById(R.id.leaderBoard);
-        // Define the data you want to display in the ListView
-        String[] data = {"player 1", "player 2", "player 3", "player 4", "player 5"};
-        ScoresList scoreslist = ScoresList.getList();
-//        TODO: scoreslist.getTopFive.list
-//        pass that into the adapter
-
-        // Create an ArrayAdapter to bind the data to the ListView
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, data);
-
-        // Set the adapter to the ListView
         leaderBoard.setAdapter(adapter);
     }
 }

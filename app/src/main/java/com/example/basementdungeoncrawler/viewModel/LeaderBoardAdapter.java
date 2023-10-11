@@ -1,51 +1,53 @@
-//package com.example.basementdungeoncrawler.viewModel;
-//
-//import android.content.Context;
-//import android.view.LayoutInflater;
-//import android.view.View;
-//import android.view.ViewGroup;
-//import android.widget.BaseAdapter;
-//import android.widget.ImageView;
-//import android.widget.TextView;
-//
-//import com.example.basementdungeoncrawler.R;
-//
-//public class LeaderBoardAdapter extends BaseAdapter {
-//    Context context;
-//    String countryList[];
-//    int flags[];
-//    LayoutInflater inflter;
-//
-//    public LeaderBoardAdapter(Context applicationContext, String[] countryList, int[] flags) {
-//        this.context = context;
-//        this.countryList = countryList;
-//        this.flags = flags;
-//        inflter = (LayoutInflater.from(applicationContext));
-//    }
-//
-//    @Override
-//    public int getCount() {
-//        return countryList.length;
-//    }
-//
-//    @Override
-//    public Object getItem(int i) {
-//        return null;
-//    }
-//
-//    @Override
-//    public long getItemId(int i) {
-//        return 0;
-//    }
-//
-//    @Override
-//    public View getView(int i, View view, ViewGroup viewGroup) {
-//        view = inflter.inflate(R.layout.end_screen, null);
-//        TextView country = (TextView) view.findViewById(R.id.textView);
-////        ImageView icon = (ImageView) view.findViewById(R.id.icon);
-//        country.setText(countryList[i]);
-//        icon.setImageResource(flags[i]);
-//        return view;
-//    }
-//
+package com.example.basementdungeoncrawler.viewModel;
 
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.TextView;
+
+import com.example.basementdungeoncrawler.R;
+
+import java.util.ArrayList;
+
+public class LeaderBoardAdapter extends BaseAdapter {
+    private Context context;
+    private ArrayList<String> dataList1;
+    private ArrayList<String> dataList2;
+
+    public LeaderBoardAdapter(Context context, ArrayList<String> row1, ArrayList<String> row2) {
+        this.context = context;
+        this.dataList1 = row1;
+        this.dataList2 = row2;
+
+    }
+
+    @Override
+    public int getCount() {
+        return dataList1.size();
+    }
+
+    @Override
+    public Object getItem(int i) {
+        return null;
+    }
+
+    @Override
+    public long getItemId(int i) {
+        return 0;
+    }
+
+    @Override
+    public View getView(int i, View view, ViewGroup viewGroup) {
+        LayoutInflater inflater = (LayoutInflater.from(context));
+        view = inflater.inflate(R.layout.end_screen, null);
+        TextView line1TextView = view.findViewById(R.id.line1TextView);
+        TextView line2TextView = view.findViewById(R.id.line2TextView);
+
+        line1TextView.setText(dataList1.get(i));
+        line2TextView.setText(dataList2.get(i));
+
+        return view;
+    }
+}
