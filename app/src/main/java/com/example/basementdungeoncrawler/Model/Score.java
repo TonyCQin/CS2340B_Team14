@@ -20,4 +20,16 @@ public class Score implements Comparable<Score> {
     public int compareTo(Score other) {
         return this.score - other.score;
     }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public ZonedDateTime getTimeOfAttempt() {
+        return timeOfAttempt;
+    }
+
+    public int getScore() {
+        return score;
+    }
 }

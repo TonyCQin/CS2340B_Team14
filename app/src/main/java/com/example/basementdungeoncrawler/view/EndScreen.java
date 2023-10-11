@@ -1,7 +1,7 @@
 package com.example.basementdungeoncrawler.view;
 
-import com.example.basementdungeoncrawler.Model.ScoresList;
 import com.example.basementdungeoncrawler.R;
+import com.example.basementdungeoncrawler.viewModel.EndScreenViewModel;
 import com.example.basementdungeoncrawler.viewModel.LeaderBoardAdapter;
 
 import android.content.Intent;
@@ -11,10 +11,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import java.util.ArrayList;
 
 public class EndScreen extends AppCompatActivity {
+    private EndScreenViewModel endScreenViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,24 +29,14 @@ public class EndScreen extends AppCompatActivity {
             startActivity(restart);
         });
 
-        ArrayList<String> l1 = new ArrayList<>();
-        l1.add("item1");
-        l1.add("item2");
-        l1.add("item3");
-        l1.add("item4");
-        l1.add("item5");
-
-        ArrayList<String> l2 = new ArrayList<>();
-        l2.add("sub item1");
-        l2.add("sub item2");
-        l2.add("sub item3");
-        l2.add("sub item4");
-        l2.add("sub item5");
+        endScreenViewModel = new ViewModelProvider(this).get(EndScreenViewModel.class);
+        ArrayList<String> l1 = endScreenViewModel.getUserNames();
+        ArrayList<String> l2 = endScreenViewModel.getScoreAndTime();
 
         TextView recentUserName = findViewById(R.id.line1TextViewRecent);
         TextView recentScoreTime = findViewById(R.id.line2TextViewRecent);
-        recentUserName.setText("Recent userName"/*get recent attempt user name from EndScreenViewModel*/);
-        recentScoreTime.setText("Recent score and time"/*get recent attempt score and time from EndScreenViewModel*/);
+        recentUserName.setText(endScreenViewModel.getRecentUserName());
+        recentScoreTime.setText(endScreenViewModel.getRecentScoreAndTime());
 
         LeaderBoardAdapter adapter = new LeaderBoardAdapter(EndScreen.this, l1, l2);
         ListView leaderBoard = findViewById(R.id.leaderBoard);

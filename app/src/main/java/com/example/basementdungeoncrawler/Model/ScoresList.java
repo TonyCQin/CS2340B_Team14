@@ -15,10 +15,12 @@ public class ScoresList {
     private ArrayList<Score> scores;
     //relevant scores
     private ArrayList<Score> topFive;
+    private Score recentAttempt;
 
     private ScoresList() {
         scores = new ArrayList<>();
         topFive = new ArrayList<>();
+        recentAttempt = new Score("placeholder", 0);
     }
 
     //retrieves an instance of ScoresList
@@ -36,6 +38,7 @@ public class ScoresList {
     //adds new score to list to display on leaderboard and enforces descending order
     public synchronized void addScore(String username, int newScore) {
         Score score = new Score(username, newScore);
+        recentAttempt = score;
         scores.add(score);
         Collections.sort(scores, Collections.reverseOrder());
         updateScores();
@@ -44,6 +47,9 @@ public class ScoresList {
     //retrieves relevant list of scores
     public synchronized ArrayList<Score> getScores() {
         return topFive;
+    }
+    public synchronized Score getRecentScore() {
+        return recentAttempt;
     }
 
     //iterates through sorted list and adds the top five, stops if there are fewer than five scores
