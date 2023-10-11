@@ -5,6 +5,7 @@ import com.example.basementdungeoncrawler.R;
 import com.example.basementdungeoncrawler.viewModel.GameViewModel;
 import com.example.basementdungeoncrawler.viewModel.PlayerViewModel;
 
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -16,7 +17,6 @@ import android.widget.TextView;
 import android.widget.ImageView;
 
 public class GameScreen extends AppCompatActivity {
-    private int hitPoints;
     private PlayerViewModel playerViewModel;
     private GameViewModel gameViewModel;
 
@@ -31,6 +31,7 @@ public class GameScreen extends AppCompatActivity {
         //connecting the buttons, name, character health,
         Button toEndScreen = findViewById(R.id.toEndButton);
         toEndScreen.setOnClickListener(v -> {
+            addScore(playerViewModel.getUsername(), gameViewModel.getScore());
             Intent die = new Intent(GameScreen.this, EndScreen.class);
             startActivity(die);
         });
@@ -72,5 +73,9 @@ public class GameScreen extends AppCompatActivity {
         };
 
         timer.start();
+    }
+
+    private void addScore(String username, int finalScore) {
+        gameViewModel.addListScore(username, finalScore);
     }
 }

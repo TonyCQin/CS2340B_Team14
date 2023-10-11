@@ -1,14 +1,20 @@
 package com.example.basementdungeoncrawler.Model;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Collections;
+import com.example.basementdungeoncrawler.Model.Score;
+//time imports
+import org.threeten.bp.zone.TzdbZoneRulesProvider;
+import org.threeten.bp.zone.ZoneRulesProvider;
+import org.threeten.bp.ZonedDateTime;
 
 public class ScoresList {
     private volatile static ScoresList list;
     //all recorded scores
-    private ArrayList<Integer> scores;
+    private ArrayList<Score> scores;
     //relevant scores
-    private ArrayList<Integer> topFive;
+    private ArrayList<Score> topFive;
 
     private ScoresList() {
         scores = new ArrayList<>();
@@ -28,14 +34,15 @@ public class ScoresList {
     }
 
     //adds new score to list to display on leaderboard and enforces descending order
-    public synchronized void addScore(int newScore) {
-        scores.add(newScore);
+    public synchronized void addScore(String username, int newScore) {
+        Score score = new Score(username, newScore);
+        scores.add(score);
         Collections.sort(scores, Collections.reverseOrder());
         updateScores();
     }
 
     //retrieves relevant list of scores
-    public synchronized ArrayList<Integer> getScores() {
+    public synchronized ArrayList<Score> getScores() {
         return topFive;
     }
 
@@ -46,5 +53,4 @@ public class ScoresList {
             topFive.add(scores.get(i));
         }
     }
-
 }
