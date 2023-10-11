@@ -20,7 +20,6 @@ public class LeaderBoardAdapter extends BaseAdapter {
         this.context = context;
         this.dataList1 = row1;
         this.dataList2 = row2;
-
     }
 
     @Override
@@ -40,8 +39,10 @@ public class LeaderBoardAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        LayoutInflater inflater = (LayoutInflater.from(context));
-        view = inflater.inflate(R.layout.end_screen, null);
+        if (view == null) {
+            LayoutInflater inflater = LayoutInflater.from(context);
+            view = inflater.inflate(R.layout.list_item_layout, viewGroup, false);
+        }
         TextView line1TextView = view.findViewById(R.id.line1TextView);
         TextView line2TextView = view.findViewById(R.id.line2TextView);
 

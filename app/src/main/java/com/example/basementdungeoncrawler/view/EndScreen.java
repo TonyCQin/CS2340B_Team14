@@ -40,7 +40,7 @@ public class EndScreen extends AppCompatActivity {
         l2.add("sub item4");
         l2.add("sub item5");
 
-        LeaderBoardAdapter adapter = new LeaderBoardAdapter(getApplicationContext(), l1, l2);
+        LeaderBoardAdapter adapter = new LeaderBoardAdapter(EndScreen.this, l1, l2);
         ListView leaderBoard = findViewById(R.id.leaderBoard);
         leaderBoard.setAdapter(adapter);
     }
