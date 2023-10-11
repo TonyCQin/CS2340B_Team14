@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id = "@+id/layout"
     tools:context="com.example.basementdungeoncrawler.view.GameScreen"
     android:background = "@drawable/map1">
 
@@ -14,11 +15,30 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:background="#3A6C67"
-        android:backgroundTint="#955E2521"
+        android:backgroundTint="#000000"
         android:text="@string/Die"
+        android:textColor = "#FFFFFFFF"
         app:layout_constraintTop_toTopOf = "parent"
         app:layout_constraintLeft_toLeftOf = "parent"
         app:strokeColor="#A6BD5048" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id = "@+id/nextScreen"
+        app:layout_constraintTop_toBottomOf = "@id/toEndButton"
+        app:layout_constraintLeft_toLeftOf = "parent"
+        android:text = "Next"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id = "@+id/nextScreen2"
+        app:layout_constraintTop_toBottomOf = "@id/toEndButton"
+        app:layout_constraintLeft_toLeftOf = "parent"
+        android:text = "Next"
+        />
 
     <ImageView
         android:id="@+id/charViewSprite"
@@ -34,16 +54,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf = "parent"
+        android:paddingLeft = "25dp"
         app:layout_constraintLeft_toRightOf = "@id/charViewSprite"
         android:layout_weight="1"
+        android:textColor = "#FFFFFFFF"
         android:text="@string/Username" />
 
     <TextView
         android:id="@+id/HP"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingLeft = "25dp"
         app:layout_constraintTop_toTopOf = "parent"
         app:layout_constraintLeft_toRightOf = "@id/UserOutput"
+        android:textColor = "#FFFFFFFF"
         android:layout_weight="1"
         android:text="TextView" />
 
@@ -51,6 +75,8 @@
         android:id="@+id/score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor = "#FFFFFFFF"
+        android:paddingLeft = "25dp"
         app:layout_constraintTop_toTopOf = "parent"
         app:layout_constraintLeft_toRightOf = "@id/HP"
         android:layout_weight="1"

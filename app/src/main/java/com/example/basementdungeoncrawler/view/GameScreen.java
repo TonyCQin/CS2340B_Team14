@@ -1,26 +1,22 @@
 package com.example.basementdungeoncrawler.view;
 
-import com.example.basementdungeoncrawler.Model.Game;
 import com.example.basementdungeoncrawler.R;
-import com.example.basementdungeoncrawler.map.MapOneLayout;
-import com.example.basementdungeoncrawler.map.TilemapOne;
 import com.example.basementdungeoncrawler.viewModel.GameViewModel;
 import com.example.basementdungeoncrawler.viewModel.PlayerViewModel;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.ImageView;
+import android.view.View;
 
 public class GameScreen extends AppCompatActivity {
-    private int hitPoints;
-    private PlayerViewModel playerViewModel;
     private GameViewModel gameViewModel;
     //private ImageView mapImageView;
     //private MapOneLayout tilemapOne;
@@ -31,7 +27,8 @@ public class GameScreen extends AppCompatActivity {
         //sets the view to the UI of the game screen
         setContentView(R.layout.game_screen);
         //view models
-        playerViewModel = new ViewModelProvider(this).get(PlayerViewModel.class);
+        //private int hitPoints;
+        PlayerViewModel playerViewModel = new ViewModelProvider(this).get(PlayerViewModel.class);
         gameViewModel = new ViewModelProvider(this).get(GameViewModel.class);
         //connecting the buttons, name, character health,
         Button toEndScreen = findViewById(R.id.toEndButton);
@@ -56,6 +53,22 @@ public class GameScreen extends AppCompatActivity {
         score.setText("60");
 
         startTimer(60000, score);
+        Button nextScreen2;
+        Button nextScreen3;
+        final ConstraintLayout constraintLayout = findViewById(R.id.layout);
+        nextScreen2 = findViewById(R.id.nextScreen);
+        nextScreen3 = findViewById(R.id.nextScreen2);
+        nextScreen3.setVisibility(View.GONE);
+        nextScreen2.setOnClickListener(view -> {
+            constraintLayout.setBackgroundResource(R.drawable.map2);
+            nextScreen2.setVisibility(View.GONE);
+            nextScreen3.setVisibility(View.VISIBLE);
+        });
+
+        nextScreen3.setOnClickListener(view -> {
+            constraintLayout.setBackgroundResource(R.drawable.map3);
+            nextScreen3.setVisibility(View.GONE);
+        });
     }
 
     private void startTimer(long milliseconds, TextView score) {
