@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -39,6 +40,11 @@ public class EndScreen extends AppCompatActivity {
         l2.add("sub item3");
         l2.add("sub item4");
         l2.add("sub item5");
+
+        TextView recentUserName = findViewById(R.id.line1TextViewRecent);
+        TextView recentScoreTime = findViewById(R.id.line2TextViewRecent);
+        recentUserName.setText("Recent userName"/*get recent attempt user name from EndScreenViewModel*/);
+        recentScoreTime.setText("Recent score and time"/*get recent attempt score and time from EndScreenViewModel*/);
 
         LeaderBoardAdapter adapter = new LeaderBoardAdapter(EndScreen.this, l1, l2);
         ListView leaderBoard = findViewById(R.id.leaderBoard);

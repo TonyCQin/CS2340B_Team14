@@ -17,18 +17,85 @@
             android:text="@string/restart" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/leaderboardandRecentAttemptTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="@string/Leaderboard" />
+            android:text="Leaderboard&#160;&amp;&#160;Recent&#160;Attempt" />
     </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/recentAttempTextView"
+        android:layout_width="match_parent"
+        android:layout_height="190dp"
+        android:layout_weight="1"
+        android:text="Most&#160;Recent&#160;Attempt"
+        android:textSize="20sp"
+        android:paddingTop="10dp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/divider" />
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="8dp"
+        android:paddingLeft="8dp">
+
+        <TextView
+            android:id="@+id/line1TextViewRecent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            android:text="Item0"
+            android:layout_marginBottom="2dp"/>
+
+        <TextView
+            android:id="@+id/line2TextViewRecent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="Subitem0"
+            android:textColor="@android:color/darker_gray"/>
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="7dp"
+        android:background="@drawable/divider" />
+
+    <TextView
+        android:id="@+id/leaderboardTextView"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_weight="1"
+        android:text="Leaderboard"
+        android:textSize="20sp"
+        android:paddingTop="10dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/divider" />
+
+    <TextView
+        android:id="@+id/leaderboardTitleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_weight="1"
+        android:text="Leader&#160;Board" />
 
     <ListView
         android:id="@+id/leaderBoard"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1" />
+
+
 </LinearLayout>
 
