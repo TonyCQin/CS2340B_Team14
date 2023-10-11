@@ -31,17 +31,11 @@ public class GameViewModel extends ViewModel {
         game.setScore(newScore);
     }
 
-    public void addListScore(String username, int finalScore) {
-        list.addScore(username, finalScore);
-    }
-
     //newest score for leaderboard display
-    public int getScore() {
-        return game.getScore();
-    }
+    public void addListScore(String username, int finalScore) { list.addScore(username, finalScore); }
+
+    public int getScore() { return game.getScore(); }
 
     //top five scores for leaderboard display
-    public ArrayList<Score> getScoresList() {
-        return list.getScores(); }
-
+    public ArrayList<Score> getScoresList() { return list.getScores(); }
 }
