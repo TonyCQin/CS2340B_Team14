@@ -11,6 +11,7 @@ import com.example.basementdungeoncrawler.Model.Game;
 import com.example.basementdungeoncrawler.Model.Player;
 import com.example.basementdungeoncrawler.Model.Score;
 import com.example.basementdungeoncrawler.Model.ScoresList;
+import com.example.basementdungeoncrawler.view.ConfigScreen;
 import com.example.basementdungeoncrawler.view.EndScreen;
 import com.example.basementdungeoncrawler.viewModel.GameViewModel;
 import com.example.basementdungeoncrawler.viewModel.LeaderBoardAdapter;
@@ -66,6 +67,7 @@ public class UnitTest {
         assertEquals(ConfigScreen.isOnlyWhitespace("       Jeffrey"), false);
         assertEquals(ConfigScreen.isOnlyWhitespace("Tony"), false);
         assertEquals(ConfigScreen.isOnlyWhitespace("    n   "), false);
+    }
       
     @Test
     public void correctScoresList() {
@@ -86,6 +88,7 @@ public class UnitTest {
         assertEquals(50, (int) scores.get(4).getScore());
     }
 
+
     @Test
     public void correctScoresListLessThanFiveScores() {
         GameViewModel gameViewModel = new GameViewModel();
@@ -97,7 +100,7 @@ public class UnitTest {
         assertEquals(100, (int) scores.get(0).getScore());
         assertEquals(25, (int) scores.get(1).getScore());
         assertThrows(IndexOutOfBoundsException.class, () -> {
-           scores.get(2);
+            scores.get(2);
         });
         assertThrows(IndexOutOfBoundsException.class, () -> {
             scores.get(3);
@@ -106,6 +109,7 @@ public class UnitTest {
             scores.get(4);
         });
     }
+
 
     @Test
     public void testAdapter() {
