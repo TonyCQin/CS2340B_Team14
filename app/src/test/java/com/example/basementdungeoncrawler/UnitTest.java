@@ -9,7 +9,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.basementdungeoncrawler.Model.Game;
 import com.example.basementdungeoncrawler.Model.Player;
+import com.example.basementdungeoncrawler.Model.Score;
 import com.example.basementdungeoncrawler.Model.ScoresList;
+import com.example.basementdungeoncrawler.view.ConfigScreen;
 import com.example.basementdungeoncrawler.view.EndScreen;
 import com.example.basementdungeoncrawler.viewModel.EndScreenViewModel;
 import com.example.basementdungeoncrawler.viewModel.GameViewModel;
@@ -53,49 +55,61 @@ public class UnitTest {
         assertEquals(R.drawable.doc_crop, playerViewModel.getSprite());
     }
 
-//    @Test
-//    public void correctScoresList() {
-//        GameViewModel gameViewModel = new GameViewModel();
-//
-//        gameViewModel.setScore(100);
-//        gameViewModel.setScore(25);
-//        gameViewModel.setScore(75);
-//        gameViewModel.setScore(50);
-//        gameViewModel.setScore(200);
-//        gameViewModel.setScore(150);
-//
-//        ArrayList<Integer> scores = gameViewModel.getScoresList();
-//        assertEquals(200, (int) scores.get(0));
-//        assertEquals(150, (int) scores.get(1));
-//        assertEquals(100, (int) scores.get(2));
-//        assertEquals(75, (int) scores.get(3));
-//        assertEquals(50, (int) scores.get(4));
-//    }
+    @Test
+    public void noEmptyUsernames() {
+        assertEquals(ConfigScreen.isOnlyWhitespace(" "), true);
+        assertEquals(ConfigScreen.isOnlyWhitespace("               " +
+                " "), true);
+    }
 
-//    @Test
-//    public void correctScoresListLessThanFiveScores() {
-//        GameViewModel gameViewModel = new GameViewModel();
-//
-//        gameViewModel.setScore(100);
-//        gameViewModel.setScore(25);
-//
-//        ArrayList<Integer> scores = gameViewModel.getScoresList();
-//        assertEquals(100, (int) scores.get(0));
-//        assertEquals(25, (int) scores.get(1));
-//        //unsure if there's a simpler way to do this, apologies for ugly
-//        try {
-//            scores.get(2);
-//            throw new AssertionError("IndexOutOfBoundsException expected");
-//        } catch (IndexOutOfBoundsException e) {}
-//        try {
-//            scores.get(3);
-//            throw new AssertionError("IndexOutOfBoundsException expected");
-//        } catch (IndexOutOfBoundsException e) {}
-//        try {
-//            scores.get(4);
-//            throw new AssertionError("IndexOutOfBoundsException expected");
-//        } catch (IndexOutOfBoundsException e) {}
-//    }
+    @Test
+    public void validUsernames() {
+        assertEquals(ConfigScreen.isOnlyWhitespace("M ich e l l e"), false);
+        assertEquals(ConfigScreen.isOnlyWhitespace("       Jeffrey"), false);
+        assertEquals(ConfigScreen.isOnlyWhitespace("Tony"), false);
+        assertEquals(ConfigScreen.isOnlyWhitespace("    n   "), false);
+    }
+      
+    @Test
+    public void correctScoresList() {
+        GameViewModel gameViewModel = new GameViewModel();
+
+        gameViewModel.addListScore("player1", 100);
+        gameViewModel.addListScore("player2", 25);
+        gameViewModel.addListScore("player3", 75);
+        gameViewModel.addListScore("player2", 50);
+        gameViewModel.addListScore("player1", 200);
+        gameViewModel.addListScore("player3", 150);
+
+        ArrayList<Score> scores = gameViewModel.getScoresList();
+        assertEquals(200, (int) scores.get(0).getScore());
+        assertEquals(150, (int) scores.get(1).getScore());
+        assertEquals(100, (int) scores.get(2).getScore());
+        assertEquals(75, (int) scores.get(3).getScore());
+        assertEquals(50, (int) scores.get(4).getScore());
+    }
+
+
+    @Test
+    public void correctScoresListLessThanFiveScores() {
+        GameViewModel gameViewModel = new GameViewModel();
+
+        gameViewModel.addListScore("player1", 100);
+        gameViewModel.addListScore("player2", 25);
+
+        ArrayList<Score> scores = gameViewModel.getScoresList();
+        assertEquals(100, (int) scores.get(0).getScore());
+        assertEquals(25, (int) scores.get(1).getScore());
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+            scores.get(2);
+        });
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+            scores.get(3);
+        });
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+            scores.get(4);
+        });
+    }
 
     @Test
     public void testAdapter() {

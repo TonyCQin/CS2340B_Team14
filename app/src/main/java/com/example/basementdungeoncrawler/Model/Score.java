@@ -17,8 +17,6 @@ public class Score implements Comparable<Score> {
         this.timeOfAttempt = dateFormat.format(calendar.getTime());
     }
 
-//
-
     @Override
     public int compareTo(Score other) {
         return this.score - other.score;
