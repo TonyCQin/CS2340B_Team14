@@ -19,8 +19,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import org.w3c.dom.Text;
-
 public class ConfigScreen extends AppCompatActivity {
     private TextView difficultyLevelText;
     private String difficultyText;
@@ -173,7 +171,7 @@ public class ConfigScreen extends AppCompatActivity {
     }
     public static boolean isOnlyWhitespace(String n) {
         for (int i = 0; i < n.length(); i++) {
-            if (!Character.isWhitespace(n.charAt(i))){
+            if (!Character.isWhitespace(n.charAt(i))) {
                 return false;
             }
         }

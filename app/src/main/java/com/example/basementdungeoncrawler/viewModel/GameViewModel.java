@@ -1,8 +1,5 @@
 package com.example.basementdungeoncrawler.viewModel;
 
-import android.os.CountDownTimer;
-import android.widget.TextView;
-
 import androidx.lifecycle.ViewModel;
 
 import com.example.basementdungeoncrawler.Model.Game;
@@ -32,10 +29,13 @@ public class GameViewModel extends ViewModel {
     }
 
     //newest score for leaderboard display
-    public void addListScore(String username, int finalScore) { list.addScore(username, finalScore); }
+    public void addListScore(String username, int finalScore) {
+        list.addScore(username, finalScore); }
 
-    public int getScore() { return game.getScore(); }
+    public int getScore() {
+        return game.getScore(); }
 
     //top five scores for leaderboard display
-    public ArrayList<Score> getScoresList() { return list.getScores(); }
+    public ArrayList<Score> getScoresList() {
+        return list.getScores(); }
 }

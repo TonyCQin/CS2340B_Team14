@@ -1,16 +1,10 @@
 package com.example.basementdungeoncrawler.Model;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Collections;
-import com.example.basementdungeoncrawler.Model.Score;
-//time imports
-import org.threeten.bp.zone.TzdbZoneRulesProvider;
-import org.threeten.bp.zone.ZoneRulesProvider;
-import org.threeten.bp.ZonedDateTime;
 
 public class ScoresList {
-    private volatile static ScoresList list;
+    private static volatile ScoresList list;
     //all recorded scores
     private ArrayList<Score> scores;
     //relevant scores
@@ -40,7 +34,7 @@ public class ScoresList {
         Score score = new Score(username, newScore);
         recentAttempt = score;
         scores.add(score);
-        Collections.sort(scores, Collections.reverseOrder());
+        scores.sort(Collections.reverseOrder());
         updateScores();
     }
 

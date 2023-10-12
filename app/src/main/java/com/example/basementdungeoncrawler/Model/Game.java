@@ -1,7 +1,7 @@
 package com.example.basementdungeoncrawler.Model;
 public class Game {
     private int difficulty;
-    private volatile static Game game;
+    private static volatile Game game;
     private int score;
 
 
