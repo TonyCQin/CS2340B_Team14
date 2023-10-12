@@ -113,15 +113,19 @@ public class UnitTest {
 
     @Test
     public void testAdapter() {
-        LeaderBoardAdapter testAdapter = new LeaderBoardAdapter(null,
-                new ArrayList<String>(), new ArrayList<String>());
-        assertEquals(0, testAdapter.getCount());
+        ArrayList<String> l1 = new ArrayList<>();
+        l1.add("item 1");
+        l1.add("item 2");
+        l1.add("item 3");
+        l1.add("item 4");
+        l1.add("item 5");
+        LeaderBoardAdapter testAdapter = new LeaderBoardAdapter(null, l1, l1);
+        assertEquals(5, testAdapter.getCount());
     }
 
     @Test
     public void testRecentUsername() throws IllegalAccessException, InstantiationException {
-        EndScreenViewModel endScreenViewModel =
-            new ViewModelProvider(EndScreen.class.newInstance()).get(EndScreenViewModel.class);
-        assertEquals("placeholder", endScreenViewModel.getRecentUserName());
+        EndScreenViewModel viewModel = new EndScreenViewModel();
+        assertEquals("placeholder: 0", viewModel.getRecentUserNameAndScore());
     }
 }
