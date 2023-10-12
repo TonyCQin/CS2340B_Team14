@@ -1,19 +1,20 @@
 package com.example.basementdungeoncrawler.Model;
 
-import org.threeten.bp.ZonedDateTime;
-import org.threeten.bp.zone.TzdbZoneRulesProvider;
-import org.threeten.bp.zone.ZoneRulesProvider;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class Score implements Comparable<Score> {
     private String username;
     private int score;
-    private ZonedDateTime timeOfAttempt;
+    private String timeOfAttempt;
 
     Score(String username, int score) {
-//        ZoneRulesProvider.registerProvider(new TzdbZoneRulesProvider()); caused issues with unit tests
         this.username = username;
         this.score = score;
-        this.timeOfAttempt = ZonedDateTime.now();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Calendar calendar = Calendar.getInstance();
+        this.timeOfAttempt = dateFormat.format(calendar.getTime());
     }
 
     @Override
@@ -21,5 +22,15 @@ public class Score implements Comparable<Score> {
         return this.score - other.score;
     }
 
-    public int getScore() { return this.score; }
+    public String getUsername() {
+        return username;
+    }
+
+    public String getTimeOfAttempt() {
+        return timeOfAttempt;
+    }
+
+    public int getScore() {
+        return score;
+    }
 }

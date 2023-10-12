@@ -13,6 +13,7 @@ import com.example.basementdungeoncrawler.Model.Score;
 import com.example.basementdungeoncrawler.Model.ScoresList;
 import com.example.basementdungeoncrawler.view.ConfigScreen;
 import com.example.basementdungeoncrawler.view.EndScreen;
+import com.example.basementdungeoncrawler.viewModel.EndScreenViewModel;
 import com.example.basementdungeoncrawler.viewModel.GameViewModel;
 import com.example.basementdungeoncrawler.viewModel.LeaderBoardAdapter;
 import com.example.basementdungeoncrawler.viewModel.PlayerViewModel;
@@ -110,11 +111,17 @@ public class UnitTest {
         });
     }
 
-
     @Test
     public void testAdapter() {
         LeaderBoardAdapter testAdapter = new LeaderBoardAdapter(null,
                 new ArrayList<String>(), new ArrayList<String>());
         assertEquals(0, testAdapter.getCount());
+    }
+
+    @Test
+    public void testRecentUsername() throws IllegalAccessException, InstantiationException {
+        EndScreenViewModel endScreenViewModel =
+            new ViewModelProvider(EndScreen.class.newInstance()).get(EndScreenViewModel.class);
+        assertEquals("placeholder", endScreenViewModel.getRecentUserName());
     }
 }
