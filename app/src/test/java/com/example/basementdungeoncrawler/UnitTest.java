@@ -128,4 +128,31 @@ public class UnitTest {
         EndScreenViewModel viewModel = new EndScreenViewModel();
         assertEquals("placeholder: 0", viewModel.getRecentUserNameAndScore());
     }
+
+    @Test
+    public void testNegativeScore() {
+        GameViewModel gameViewModel = new GameViewModel();
+
+        gameViewModel.addListScore("player1", -5);
+        ArrayList<Score> scores = gameViewModel.getScoresList();
+        assertEquals(-5, (int) scores.get(0).getScore());
+    }
+
+    @Test
+    public void testManyPosAndNeg() {
+        GameViewModel gameViewModel = new GameViewModel();
+
+        gameViewModel.addListScore("player1", -20);
+        gameViewModel.addListScore("player2", -10);
+        gameViewModel.addListScore("player3", 0);
+        gameViewModel.addListScore("player2", -100);
+        gameViewModel.addListScore("player1", 200);
+
+        ArrayList<Score> scores = gameViewModel.getScoresList();
+        assertEquals(200, (int) scores.get(0).getScore());
+        assertEquals(0, (int) scores.get(1).getScore());
+        assertEquals(-10, (int) scores.get(2).getScore());
+        assertEquals(-20, (int) scores.get(3).getScore());
+        assertEquals(-100, (int) scores.get(4).getScore());
+    }
 }
