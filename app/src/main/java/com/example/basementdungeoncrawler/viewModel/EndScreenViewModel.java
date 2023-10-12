@@ -48,6 +48,6 @@ public class EndScreenViewModel extends ViewModel {
 
     public String getRecentScoreAndTime() {
         recent = scoreslist.getRecentScore();
-        return "" + recent.getScore() + " at " + recent.getTimeOfAttempt().toString();
+        return "" + recent.getScore() + " at " + recent.getTimeOfAttempt();
     }
 }
