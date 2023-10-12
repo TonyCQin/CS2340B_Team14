@@ -10,44 +10,44 @@ import java.util.ArrayList;
 public class EndScreenViewModel extends ViewModel {
     private final ScoresList scoreslist = ScoresList.getList();
     private ArrayList<Score> top5 = new ArrayList<>();
-    private ArrayList<String> userNames = new ArrayList<>();
-    private ArrayList<String> scoreAndTime = new ArrayList<>();
+    private ArrayList<String> userNamesAndScore = new ArrayList<>();
+    private ArrayList<String> time = new ArrayList<>();
     private Score recent;
 
-    public void setUpUserNames() {
+    public void setUpUserNamesAndScores() {
         top5 = scoreslist.getScores();
-        userNames = new ArrayList<>();
+        userNamesAndScore = new ArrayList<>();
         for (int i = 0; i < top5.size(); i++) {
             Score cur = top5.get(i);
-            userNames.add(cur.getUsername());
+            userNamesAndScore.add(cur.getUsername() + ": " + cur.getScore());
         }
     }
-    public ArrayList<String> getUserNames() {
-        setUpUserNames();
-        return userNames;
+    public ArrayList<String> getUserNamesAndScores() {
+        setUpUserNamesAndScores();
+        return userNamesAndScore;
     }
 
-    public void setUpScoreAndTime() {
+    public void setUpTime() {
         top5 = scoreslist.getScores();
-        scoreAndTime = new ArrayList<>();
+        time = new ArrayList<>();
         for (int i = 0; i < top5.size(); i++) {
             Score cur = top5.get(i);
-            scoreAndTime.add("" + cur.getScore() + " at " + cur.getTimeOfAttempt().toString());
+            time.add(cur.getTimeOfAttempt());
         }
     }
 
-    public ArrayList<String> getScoreAndTime() {
-        setUpScoreAndTime();
-        return scoreAndTime;
+    public ArrayList<String> getTime() {
+        setUpTime();
+        return time;
     }
 
-    public String getRecentUserName() {
+    public String getRecentUserNameAndScore() {
         recent = scoreslist.getRecentScore();
-        return recent.getUsername();
+        return recent.getUsername() + ": " +recent.getScore();
     }
 
-    public String getRecentScoreAndTime() {
+    public String getRecentTime() {
         recent = scoreslist.getRecentScore();
-        return "" + recent.getScore() + " at " + recent.getTimeOfAttempt();
+        return recent.getTimeOfAttempt();
     }
 }

@@ -30,13 +30,13 @@ public class EndScreen extends AppCompatActivity {
         });
 
         endScreenViewModel = new ViewModelProvider(this).get(EndScreenViewModel.class);
-        ArrayList<String> l1 = endScreenViewModel.getUserNames();
-        ArrayList<String> l2 = endScreenViewModel.getScoreAndTime();
+        ArrayList<String> l1 = endScreenViewModel.getUserNamesAndScores();
+        ArrayList<String> l2 = endScreenViewModel.getTime();
 
         TextView recentUserName = findViewById(R.id.line1TextViewRecent);
         TextView recentScoreTime = findViewById(R.id.line2TextViewRecent);
-        recentUserName.setText(endScreenViewModel.getRecentUserName());
-        recentScoreTime.setText(endScreenViewModel.getRecentScoreAndTime());
+        recentUserName.setText(endScreenViewModel.getRecentUserNameAndScore());
+        recentScoreTime.setText(endScreenViewModel.getRecentTime());
 
         LeaderBoardAdapter adapter = new LeaderBoardAdapter(EndScreen.this, l1, l2);
         ListView leaderBoard = findViewById(R.id.leaderBoard);
