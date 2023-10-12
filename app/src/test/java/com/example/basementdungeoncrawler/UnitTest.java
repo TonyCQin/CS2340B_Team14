@@ -5,20 +5,13 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
-import androidx.lifecycle.ViewModelProvider;
-
-import com.example.basementdungeoncrawler.Model.Game;
-import com.example.basementdungeoncrawler.Model.Player;
 import com.example.basementdungeoncrawler.Model.Score;
-import com.example.basementdungeoncrawler.Model.ScoresList;
 import com.example.basementdungeoncrawler.view.ConfigScreen;
-import com.example.basementdungeoncrawler.view.EndScreen;
 import com.example.basementdungeoncrawler.viewModel.EndScreenViewModel;
 import com.example.basementdungeoncrawler.viewModel.GameViewModel;
 import com.example.basementdungeoncrawler.viewModel.LeaderBoardAdapter;
 import com.example.basementdungeoncrawler.viewModel.PlayerViewModel;
 import java.util.ArrayList;
-
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -57,17 +50,17 @@ public class UnitTest {
 
     @Test
     public void noEmptyUsernames() {
-        assertEquals(ConfigScreen.isOnlyWhitespace(" "), true);
-        assertEquals(ConfigScreen.isOnlyWhitespace("               " +
-                " "), true);
+        assertTrue(ConfigScreen.isOnlyWhitespace(" "));
+        assertTrue(ConfigScreen.isOnlyWhitespace("               " +
+                " "));
     }
 
     @Test
     public void validUsernames() {
-        assertEquals(ConfigScreen.isOnlyWhitespace("M ich e l l e"), false);
-        assertEquals(ConfigScreen.isOnlyWhitespace("       Jeffrey"), false);
-        assertEquals(ConfigScreen.isOnlyWhitespace("Tony"), false);
-        assertEquals(ConfigScreen.isOnlyWhitespace("    n   "), false);
+        assertFalse(ConfigScreen.isOnlyWhitespace("M ich e l l e"));
+        assertFalse(ConfigScreen.isOnlyWhitespace("       Jeffrey"));
+        assertFalse(ConfigScreen.isOnlyWhitespace("Tony"));
+        assertFalse(ConfigScreen.isOnlyWhitespace("    n   "));
     }
       
     @Test
@@ -91,7 +84,7 @@ public class UnitTest {
 
 
     @Test
-    public void correctScoresListLessThanFiveScores() {
+    public void correctScoresListLessThanFiveScores() throws IndexOutOfBoundsException {
         GameViewModel gameViewModel = new GameViewModel();
 
         gameViewModel.addListScore("player1", 100);
@@ -100,15 +93,9 @@ public class UnitTest {
         ArrayList<Score> scores = gameViewModel.getScoresList();
         assertEquals(100, (int) scores.get(0).getScore());
         assertEquals(25, (int) scores.get(1).getScore());
-        assertThrows(IndexOutOfBoundsException.class, () -> {
-            scores.get(2);
-        });
-        assertThrows(IndexOutOfBoundsException.class, () -> {
-            scores.get(3);
-        });
-        assertThrows(IndexOutOfBoundsException.class, () -> {
-            scores.get(4);
-        });
+        assertThrows(IndexOutOfBoundsException.class, () -> scores.get(2));
+        assertThrows(IndexOutOfBoundsException.class, () -> scores.get(3));
+        assertThrows(IndexOutOfBoundsException.class, () -> scores.get(4));
     }
 
     @Test
@@ -124,7 +111,7 @@ public class UnitTest {
     }
 
     @Test
-    public void testRecentUsername() throws IllegalAccessException, InstantiationException {
+    public void testRecentUsername() {
         EndScreenViewModel viewModel = new EndScreenViewModel();
         assertEquals("placeholder: 0", viewModel.getRecentUserNameAndScore());
     }

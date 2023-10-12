@@ -8,7 +8,7 @@ public class Player {
     private int spriteSelected;
     private int HP;
 
-    private volatile static Player player;
+    private static volatile Player player;
 
     /*
      * @param username username of player

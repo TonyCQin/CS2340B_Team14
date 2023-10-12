@@ -43,7 +43,7 @@ public class EndScreenViewModel extends ViewModel {
 
     public String getRecentUserNameAndScore() {
         recent = scoreslist.getRecentScore();
-        return recent.getUsername() + ": " +recent.getScore();
+        return recent.getUsername() + ": " + recent.getScore();
     }
 
     public String getRecentTime() {
