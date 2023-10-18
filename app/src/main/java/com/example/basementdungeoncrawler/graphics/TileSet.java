@@ -8,43 +8,33 @@ import android.graphics.Rect;
 import com.example.basementdungeoncrawler.R;
 
 public class TileSet {
-    private static int Sprite_Width_Pixels = 16;
-    private static int Sprite_Height_Pixels = 16;
-    private Bitmap bitmap;
+    private Bitmap tilesetImage;
+    private int tileWidth = 16;
+    private int tileHeight = 16;
+    private int columns;
+    private int rows;
 
-    public TileSet(Context context) {
-        BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
-        bitmapOptions.inScaled = false;
-        bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.dungeon_tileset, bitmapOptions);
+    public TileSet(Bitmap tilesetImage, int tileWidth, int tileHeight) {
+        //tileWidth, height in pixels
+        this.tilesetImage = tilesetImage;
+        this.tileWidth = tileWidth;
+        this.tileHeight = tileHeight;
+        this.columns = tilesetImage.getWidth() / tileWidth;
+        this.rows = tilesetImage.getHeight() / tileHeight;
     }
 
-    public TileS getLeftWallTop() {
-        return getTileByIndex(0, 0);
-    }
+    public Bitmap getTile(int tileId) {
+        if (tileId > 626) {
+            tileId -= 626;
+        } else if (tileId > 1){
+            tileId -= 1;
+        }
+        int col = tileId % columns;
+        int row = tileId / columns;
 
+        int startX = col * tileWidth;
+        int startY = row * tileHeight;
 
-    private TileS getTileByIndex(int idxRow, int idxCol) {
-        return new TileS(this, new Rect(
-                idxCol*Sprite_Width_Pixels,
-                idxRow*Sprite_Height_Pixels,
-                (idxCol + 1) * Sprite_Width_Pixels,
-                (idxCol + 1) * Sprite_Height_Pixels
-        ));
-    }
-
-    public TileS getWantedTile() {
-        return new TileS(this, new Rect(0, 0, 16, 16));
-    }
-
-    public Bitmap getBitMap() {
-        return bitmap;
-    }
-
-    public TileS getEmpty() {
-        return getTileByIndex(7, 7);
-    }
-
-    public TileS getF1() {
-        return getTileByIndex(0, 6);
+        return Bitmap.createBitmap(tilesetImage, startX, startY, tileWidth, tileHeight);
     }
 }
