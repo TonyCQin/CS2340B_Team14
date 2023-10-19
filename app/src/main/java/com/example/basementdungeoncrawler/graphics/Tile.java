@@ -1,21 +1,23 @@
 package com.example.basementdungeoncrawler.graphics;
 import android.graphics.Bitmap;
+import android.graphics.Rect;
 
 public class Tile {
     private int tileId;
-    private Bitmap bitmap;
+    private Rect rect;
 
-    public Tile(int tileId, Bitmap bitmap) {
+    public Tile(int tileId, Rect rect) {
         this.tileId = tileId;
-        this.bitmap = bitmap;
+        this.rect = rect;
     }
 
     public int getTileId() {
         return tileId;
     }
 
-    public Bitmap getBitmap() {
-        return bitmap;
+    public Rect getRect() {
+        return rect;
     }
+
 }
 

@@ -1,6 +1,7 @@
 package com.example.basementdungeoncrawler.view;
 
 import com.example.basementdungeoncrawler.R;
+import com.example.basementdungeoncrawler.graphics.TmxParser;
 import com.example.basementdungeoncrawler.viewModel.GameViewModel;
 import com.example.basementdungeoncrawler.viewModel.PlayerViewModel;
 
@@ -17,6 +18,10 @@ import android.widget.TextView;
 import android.widget.ImageView;
 import android.view.View;
 
+import android.util.Log;
+
+import java.util.List;
+
 public class GameScreen extends AppCompatActivity {
     private PlayerViewModel playerViewModel;
     private GameViewModel gameViewModel;
@@ -27,9 +32,16 @@ public class GameScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //sets the view to the UI of the game screen
-//        TmxView tmxView = new TmxView(this);
-//        setContentView(tmxView);
-        setContentView(R.layout.game_screen);
+
+        //testing
+        TmxParser parser = new TmxParser(this);
+        List<List<Integer>> tileIds = parser.parseTmxFile(R.raw.new_map1);
+        Log.d("parser output", tileIds.toString());
+//        Map1View map1View = new Map1View(this, tileIds);
+//        setContentView(map1View);
+        //
+
+//        setContentView(R.layout.game_screen);
         //view models
         //private int hitPoints;
         PlayerViewModel playerViewModel = new ViewModelProvider(this).get(PlayerViewModel.class);
