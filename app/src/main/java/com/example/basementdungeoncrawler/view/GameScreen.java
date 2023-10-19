@@ -27,6 +27,8 @@ public class GameScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //sets the view to the UI of the game screen
+//        TmxView tmxView = new TmxView(this);
+//        setContentView(tmxView);
         setContentView(R.layout.game_screen);
         //view models
         //private int hitPoints;

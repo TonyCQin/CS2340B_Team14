@@ -5,15 +5,19 @@ import android.content.res.XmlResourceParser;
 import android.util.Xml;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
+
 import java.io.IOException;
+import java.io.StringReader;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TmxParser {
-    public static List<TmxLayer> parseTmxFile(Resources resources, int tmxResourceId) {
+    public static ArrayList<TmxLayer> parseTmxFile(Resources resources, int tmxResourceId) {
         XmlResourceParser parser = resources.getXml(tmxResourceId);
 
-        List<TmxLayer> layers = new ArrayList<>();
+        ArrayList<TmxLayer> layers = new ArrayList<>();
         TmxLayer currentLayer = null;
 
         try {

@@ -6,11 +6,14 @@ import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
 import com.example.basementdungeoncrawler.Model.Score;
+import com.example.basementdungeoncrawler.graphics.TmxLayer;
+import com.example.basementdungeoncrawler.graphics.TmxParser;
 import com.example.basementdungeoncrawler.view.ConfigScreen;
 import com.example.basementdungeoncrawler.viewModel.EndScreenViewModel;
 import com.example.basementdungeoncrawler.viewModel.GameViewModel;
 import com.example.basementdungeoncrawler.viewModel.LeaderBoardAdapter;
 import com.example.basementdungeoncrawler.viewModel.PlayerViewModel;
+
 import java.util.ArrayList;
 
 /**
@@ -142,4 +145,31 @@ public class UnitTest {
         assertEquals(-20, (int) scores.get(3).getScore());
         assertEquals(-100, (int) scores.get(4).getScore());
     }
+
+//    @Test
+//    public void testParsingXML() {
+//        String sampleXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+//                "<map version=\"1.10\" tiledversion=\"1.10.2\" orientation=\"orthogonal\" renderorder=\"right-down\" width=\"32\" height=\"68\" tilewidth=\"16\" tileheight=\"16\" infinite=\"0\" nextlayerid=\"2\" nextobjectid=\"1\">\n" +
+//                " <tileset firstgid=\"1\" source=\"Dungeon Prison.tsx\"/>\n" +
+//                " <tileset firstgid=\"626\" source=\"DungeonTiles2.tsx\"/>\n" +
+//                " <layer id=\"1\" name=\"Tile Layer 1\" width=\"32\" height=\"68\">\n" +
+//                "  <data encoding=\"csv\">\n" +
+//                "1138,1138,1138" +
+//                "</data>\n" +
+//                " </layer>\n" +
+//                "</map>\n";
+//        ArrayList<TmxLayer> layers = TmxParser.parseTmxFile(sampleXML);
+//        ArrayList<TmxLayer> compareTo = new ArrayList<>();
+//        TmxLayer layer1 = new TmxLayer("data");
+//        layer1.setTileData("1138");
+//        TmxLayer layer2 = new TmxLayer("data");
+//        layer2.setTileData("1138");
+//        TmxLayer layer3 = new TmxLayer("data");
+//        layer3.setTileData("1138");
+//
+//        compareTo.add(layer1);
+//        compareTo.add(layer2);
+//        compareTo.add(layer3);
+//        assertEquals(compareTo, layers);
+//    }
 }

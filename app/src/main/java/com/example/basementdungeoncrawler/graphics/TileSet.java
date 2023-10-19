@@ -26,9 +26,24 @@ public class TileSet {
     public Bitmap getTile(int tileId) {
         if (tileId > 626) {
             tileId -= 626;
+            int col = tileId % columns;
+            int row = tileId / columns;
+
+            int startX = col * tileWidth;
+            int startY = row * tileHeight;
+
+            return Bitmap.createBitmap(tilesetImage, startX, startY, tileWidth, tileHeight);
         } else if (tileId > 1){
             tileId -= 1;
+            int col = tileId % columns;
+            int row = tileId / columns;
+
+            int startX = col * tileWidth;
+            int startY = row * tileHeight;
+
+            return Bitmap.createBitmap(tilesetImage, startX, startY, tileWidth, tileHeight);
         }
+
         int col = tileId % columns;
         int row = tileId / columns;
 
