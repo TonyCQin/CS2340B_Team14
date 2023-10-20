@@ -40,7 +40,7 @@ public class TileMap {
                     TileSet propTileSet = new TileSet(context, R.drawable.props, 16);
                     int tileId = layout[row][col];
 //                    Log.d("tileID", String.valueOf(tileId));
-                    tileMap[row][col] = dungeonTileSet.getTile(tileId);
+                    tileMap[row][col] = dungeonTileSet.getTile(context, tileId);
                 }
             }
             this.layers.add(tileMap);

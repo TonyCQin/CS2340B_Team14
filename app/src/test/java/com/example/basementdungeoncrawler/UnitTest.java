@@ -11,6 +11,7 @@ import static org.mockito.Mockito.mock;
 import android.content.res.Resources;
 
 import com.example.basementdungeoncrawler.Model.Score;
+import com.example.basementdungeoncrawler.graphics.Tile;
 import com.example.basementdungeoncrawler.view.ConfigScreen;
 import com.example.basementdungeoncrawler.viewModel.EndScreenViewModel;
 import com.example.basementdungeoncrawler.viewModel.GameViewModel;
@@ -153,71 +154,19 @@ public class UnitTest {
         assertEquals(-100, (int) scores.get(4).getScore());
     }
 
-    @Before
-    public void setUp() {
-        Resources mockResources = mock(Resources.class);
+    @Test
+    public void testReturningTileCenterX() {
+        Tile tile = new Tile();
+        tile.setCenterX(15);
+        tile.setCenterY(123);
+        assertEquals((double)15, tile.getCenterX(), 0);
     }
 
-    public class MyResourceProvider {
-        private final Resources resources;
-
-        public MyResourceProvider(Resources resources) {
-            this.resources = resources;
-        }
-
-        public Resources getResources() {
-            return resources;
-        }
-
-        public int getDrawableId(String resourceName) {
-            return resources.getIdentifier(resourceName, "drawable", "com.example.app");
-        }
+    @Test
+    public void testReturningTileCenterY() {
+        Tile tile = new Tile();
+        tile.setCenterX(15);
+        tile.setCenterY(123);
+        assertEquals((double)123, tile.getCenterY(), 0);
     }
-
-
-//    @Test
-//    public void testParsingXML() throws XmlPullParserException, IOException {
-//        Context context = Mockito.mock(Context.class);
-//        Resources resources = Mockito.mock(Resources.class);
-//        AssetManager assetManager = Mockito.mock(AssetManager.class);
-//        XmlResourceParser xmlParser = Mockito.mock(XmlResourceParser.class);
-//
-//        // Mock the context.getResources() to return the resources
-//        Mockito.when(context.getResources()).thenReturn(resources);
-//
-//        // Mock the resources.getAssets() to return the assetManager
-//        Mockito.when(resources.getAssets()).thenReturn(assetManager);
-//
-//        // Mock the assetManager.open() to return an InputStream
-//        Mockito.when(assetManager.open(Mockito.anyString())).thenReturn(mock(InputStream.class));
-//
-//        // Mock the XmlPullParserFactory.newInstance()
-//        XmlPullParserFactory factory = Mockito.mock(XmlPullParserFactory.class);
-//        Mockito.when(XmlPullParserFactory.newInstance()).thenReturn(factory);
-//
-//        // Mock the factory.newPullParser() to return the xmlParser
-//        Mockito.when(factory.newPullParser()).thenReturn(xmlParser);
-//
-//        // Mock the xmlParser methods as needed for your test
-//        Mockito.when(xmlParser.getEventType())
-//                .thenReturn(XmlResourceParser.START_DOCUMENT, XmlResourceParser.END_DOCUMENT);
-//        Mockito.when(xmlParser.getName()).thenReturn("layer");
-//        Mockito.when(xmlParser.getAttributeValue(Mockito.anyString(), Mockito.eq("name")))
-//                .thenReturn("testLayer");
-//        Mockito.when(xmlParser.nextText()).thenReturn("1,2,3,4,5");
-//
-//        ArrayList<ArrayList<Integer>> layers = new ArrayList<>();
-//        ArrayList<Integer> layer = new ArrayList<>();
-//        layer.add(37);
-//        layer.add(506);
-//        layer.add(502);
-//        layer.add(508);
-//        layers.add(layer);
-//        TmxParser parser = new TmxParser(context);
-//        List<List<Integer>> parsedTileIds = parser.parseTmxFile(R.raw.test);
-//        assertEquals(parsedTileIds.get(0).get(0), layer.get(0));
-//        assertEquals(parsedTileIds.get(0).get(1), layer.get(1));
-//        assertEquals(parsedTileIds.get(0).get(2), layer.get(2));
-//        assertEquals(parsedTileIds.get(0).get(3), layer.get(3));
-//    }
 }
