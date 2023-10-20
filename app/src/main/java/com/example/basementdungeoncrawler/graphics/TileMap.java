@@ -11,23 +11,21 @@ import com.example.basementdungeoncrawler.R;
 import java.util.ArrayList;
 
 public class TileMap {
-    private final MapLayout mapLayout;
     private Tile[][] tileMap;
     private ArrayList<Tile[][]> layers;
 
     public TileMap(Context context, int resourceID) {
-        mapLayout = new MapLayout(context, resourceID);
+        MapLayout mapLayout = new MapLayout(context, resourceID);
         layers = new ArrayList<>();
-        initializeTileMap(context, mapLayout, layers);
+        initializeTileMap(context, mapLayout);
     }
 
     /**
-     * Takes the mapLayout 
-     * @param context
-     * @param mapLayout
-     * @param layers
+     * Takes the mapLayout and generates and List of Tile[][] layers for use in MapView.java
+     * @param context context to get resources from
+     * @param mapLayout mapLayout that stored the tileIds from the parsed map
      */
-    private void initializeTileMap(Context context, MapLayout mapLayout, ArrayList<Tile[][]> layers) {
+    private void initializeTileMap(Context context, MapLayout mapLayout) {
 //        Log.d("tile map initialized", "initialized");
         tileMap = new Tile[24][12];
         ArrayList<int[][]> tileMapLayers = mapLayout.getTileMapLayers();
@@ -45,11 +43,15 @@ public class TileMap {
                     tileMap[row][col] = dungeonTileSet.getTile(tileId);
                 }
             }
-            layers.add(tileMap);
+            this.layers.add(tileMap);
         }
 
     }
 
+    /**
+     * getter for layers
+     * @return layers
+     */
     public ArrayList<Tile[][]> getLayers() {
         return layers;
     }

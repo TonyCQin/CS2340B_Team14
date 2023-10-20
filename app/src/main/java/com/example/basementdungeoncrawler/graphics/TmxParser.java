@@ -19,10 +19,20 @@ import java.util.List;
 public class TmxParser {
     private Context context;
 
+    /**
+     * generates a parser
+     * @param context context to get resources
+     */
+
     public TmxParser(Context context) {
         this.context = context;
     }
 
+    /**
+     * parses a file
+     * @param tmxResourceId the xml map to be parsed
+     * @return a [][] of Integers representing tileIds
+     */
     public List<List<Integer>> parseTmxFile(int tmxResourceId) {
         List<List<Integer>> tileIdLists = new ArrayList<>();
 
@@ -69,6 +79,11 @@ public class TmxParser {
         return tileIdLists;
     }
 
+    /**
+     * takes the string that comes from parsing and splits them up into list of Integers
+     * @param tileIdsString the string of tileids for each layer
+     * @return a list of integers representing the parsed tileids
+     */
     private List<Integer> parseTileIds(String tileIdsString) {
         List<Integer> tileIds = new ArrayList<>();
         String[] tileIdStrings = tileIdsString.trim().split(",");
