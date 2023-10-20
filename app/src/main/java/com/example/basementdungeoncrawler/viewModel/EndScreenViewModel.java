@@ -50,4 +50,8 @@ public class EndScreenViewModel extends ViewModel {
         recent = scoreslist.getRecentScore();
         return recent.getTimeOfAttempt();
     }
+
+    public void clearUserNameAndScores() {
+        userNamesAndScore.clear();
+    }
 }

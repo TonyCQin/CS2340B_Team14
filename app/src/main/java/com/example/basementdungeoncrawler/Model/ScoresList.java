@@ -53,4 +53,9 @@ public class ScoresList {
             topFive.add(scores.get(i));
         }
     }
+
+    public void clearScores() {
+        scores.clear();
+        recentAttempt = new Score("placeholder", 0);
+    }
 }

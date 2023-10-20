@@ -32,6 +32,10 @@ public class GameViewModel extends ViewModel {
     public void addListScore(String username, int finalScore) {
         list.addScore(username, finalScore); }
 
+    public void clearListScores() {
+        list.clearScores();
+    }
+
     public int getScore() {
         return game.getScore(); }
 
