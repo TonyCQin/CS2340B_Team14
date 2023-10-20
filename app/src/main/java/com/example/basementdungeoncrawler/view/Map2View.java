@@ -21,7 +21,7 @@ import static com.example.basementdungeoncrawler.graphics.MapLayout.NUMBER_OF_RO
 
 import java.util.List;
 
-public class Map1View extends View{
+public class Map2View extends View{
     private Tile[][] tileMap;
     private TileSet dungeonTileSet;
     private TileSet propTileSet;
@@ -30,7 +30,7 @@ public class Map1View extends View{
     private int tileWidth = screenWidth / NUMBER_OF_COLUMN_TILES;
     private int tileHeight = screenHeight / NUMBER_OF_ROW_TILES;
 
-    public Map1View(Context context, Tile[][] tileMap) {
+    public Map2View(Context context, Tile[][] tileMap) {
         super(context);
         this.tileMap = tileMap;
         dungeonTileSet = new TileSet(context, R.drawable.tiles2, 16);
@@ -46,9 +46,24 @@ public class Map1View extends View{
 
     @Override
     protected void onDraw(Canvas canvas) {
+        renderLayer(canvas, tileMap);
+        super.onDraw(canvas);
+    }
+
+    private Rect drawDestRect(int row, int col) {
+        Log.d("row", String.valueOf(row));
+        Log.d("col", String.valueOf(col));
+        return new Rect(col * tileWidth,
+                row * tileHeight,
+                (col + 1) * tileWidth,
+                (row + 1) * tileHeight
+        );
+    }
+
+    private void renderLayer(Canvas canvas, Tile[][] layer) {
         for (int row = 0; row < NUMBER_OF_ROW_TILES; row++) {
             for (int col = 0; col < NUMBER_OF_COLUMN_TILES; col++) {
-                Tile tile = tileMap[row][col];
+                Tile tile = layer[row][col];
                 Rect srcRect = tile.getRect();
                 Rect destRect = drawDestRect(row, col);
                 Log.d("srcRect", String.valueOf(srcRect));
@@ -61,16 +76,5 @@ public class Map1View extends View{
                 }
             }
         }
-        super.onDraw(canvas);
-    }
-
-    private Rect drawDestRect(int row, int col) {
-        Log.d("row", String.valueOf(row));
-        Log.d("col", String.valueOf(col));
-        return new Rect(col * tileWidth,
-                row * tileHeight,
-                (col + 1) * tileWidth,
-                (row + 1) * tileHeight
-                );
     }
 }

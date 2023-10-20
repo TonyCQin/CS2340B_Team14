@@ -3,6 +3,7 @@ package com.example.basementdungeoncrawler.graphics;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.util.Log;
 
@@ -28,17 +29,37 @@ public class TileSet {
     }
 
     public Tile getTile(int tileId) {
-        tileId -= 1;
-        //getting row and column
-        int row = Math.floorDiv(tileId, tileRows);
-        int col = tileId % tileColumns;
+        if (tileId >= 626) {
+            tileId -= 626;
+            //getting row and column
+            int row = Math.floorDiv(tileId, tileRows);
+            int col = tileId % tileColumns;
 
-        //making the rectangle of the sprite
-        int left = col * tileSize;
-        int right = (col + 1) * tileSize;
-        int top = row * tileSize;
-        int bottom = (row + 1) * tileSize;
-        //returning the Tile with the bitmap?
-        return new Tile(tileId, new Rect(left, top, right, bottom));
+            //making the rectangle of the sprite
+            int left = col * tileSize;
+            int right = (col + 1) * tileSize;
+            int top = row * tileSize;
+            int bottom = (row + 1) * tileSize;
+            //returning the Tile with the bitmap?
+            return new Tile(tileId + 626, new Rect(left, top, right, bottom));
+        } else if (tileId >= 1) {
+            tileId -= 1;
+            //getting row and column
+            int row = Math.floorDiv(tileId, tileRows);
+            int col = tileId % tileColumns;
+
+            //making the rectangle of the sprite
+            int left = col * tileSize;
+            int right = (col + 1) * tileSize;
+            int top = row * tileSize;
+            int bottom = (row + 1) * tileSize;
+            //returning the Tile with the bitmap?
+            return new Tile(tileId + 1, new Rect(left, top, right, bottom));
+        } else {
+            tileId -= 1;
+            return new Tile(tileId + 1, new Rect(
+                    24 * tileSize, 24 * tileSize, 25 * tileSize, 25 * tileSize));
+        }
+
     }
 }
