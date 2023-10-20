@@ -21,6 +21,12 @@ public class TileMap {
         initializeTileMap(context, mapLayout, layers);
     }
 
+    /**
+     * Takes the mapLayout 
+     * @param context
+     * @param mapLayout
+     * @param layers
+     */
     private void initializeTileMap(Context context, MapLayout mapLayout, ArrayList<Tile[][]> layers) {
 //        Log.d("tile map initialized", "initialized");
         tileMap = new Tile[24][12];

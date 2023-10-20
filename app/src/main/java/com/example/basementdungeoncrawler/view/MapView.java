@@ -81,10 +81,12 @@ public class MapView extends View{
         Log.d("tileID", String.valueOf(tileId));
         if (tileId > 0) {
             canvas.drawBitmap(dungeonTileSet.getBitmap(), srcRect, destRect, null);
-//                    Log.d("srcRect", String.valueOf(srcRect));
-//                    Log.d("destRect", String.valueOf(destRect));
-//                    Log.d("tileID", String.valueOf(tileId));
-//                    Log.d("tileAdded", "dungeon tile");
+
+//            debugging tests for what is being drawn
+//            Log.d("srcRect", String.valueOf(srcRect));
+//            Log.d("destRect", String.valueOf(destRect));
+//            Log.d("tileID", String.valueOf(tileId));
+//            Log.d("tileAdded", "dungeon tile");
         }
         if (tileId >= 626) {
             canvas.drawBitmap(propTileSet.getBitmap(), srcRect, destRect, null);
