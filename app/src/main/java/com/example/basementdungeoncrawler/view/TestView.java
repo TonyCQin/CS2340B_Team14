@@ -13,12 +13,14 @@ import com.example.basementdungeoncrawler.graphics.TileSet;
 public class TestView extends View {
     private Rect srcRect;
     private TileSet dungeonTileSet;
+    private TileSet propTileSet;
     private Rect destRect;
     public TestView(Context context, Rect rect) {
         super(context);
         this.srcRect = rect;
         dungeonTileSet = new TileSet(context, R.drawable.tiles2, 16);
-        this.destRect = new Rect(100, 100, 300, 300);
+        propTileSet = new TileSet(context, R.drawable.props, 16);
+        this.destRect = new Rect(0, 0, 1000, 1000);
     }
 
     @Override
@@ -27,5 +29,6 @@ public class TestView extends View {
         Log.d("srcRect", String.valueOf(srcRect));
         Log.d("destRect", String.valueOf(destRect));
         canvas.drawBitmap(dungeonTileSet.getBitmap(), srcRect, destRect, null);
+        canvas.drawBitmap(propTileSet.getBitmap(), srcRect, destRect, null);
     }
 }

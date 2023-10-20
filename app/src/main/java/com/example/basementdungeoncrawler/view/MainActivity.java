@@ -42,6 +42,12 @@ public class MainActivity extends AppCompatActivity {
                 mainActivity(v);
             }
         });
+
+//        TileMap map1TileMap = new TileMap(this, R.raw.new_map1);
+//        Log.d("tileMap", String.valueOf(map1TileMap.getLayers()));
+//        Rect testRect = new Rect(0, 0, 16, 16);
+//        TestView testView = new TestView(this, testRect);
+//        setContentView(testView);
     }
     //takes you to the next screen; parameters: current screen to screen you want to go to
     public void mainActivity(View view) {
