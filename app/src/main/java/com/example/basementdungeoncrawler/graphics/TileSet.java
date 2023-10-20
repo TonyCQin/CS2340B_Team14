@@ -1,6 +1,10 @@
 package com.example.basementdungeoncrawler.graphics;
 
+import static com.example.basementdungeoncrawler.graphics.MapLayout.NUMBER_OF_COLUMN_TILES;
+import static com.example.basementdungeoncrawler.graphics.MapLayout.NUMBER_OF_ROW_TILES;
+
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -28,7 +32,12 @@ public class TileSet {
         return bitmap;
     }
 
-    public Tile getTile(int tileId) {
+    public Tile getTile(Context context, int tileId) {
+        Resources resources = context.getResources();
+        int screenHeight = resources.getDisplayMetrics().heightPixels;
+        int screenWidth = resources.getDisplayMetrics().widthPixels;
+        int tileWidth = screenWidth / NUMBER_OF_COLUMN_TILES;
+        int tileHeight = screenHeight / NUMBER_OF_ROW_TILES;
         if (tileId >= 626) {
             tileId -= 626;
             //getting row and column
@@ -41,8 +50,11 @@ public class TileSet {
             int top = row * tileSize;
             int bottom = (row + 1) * tileSize;
             //returning the Tile with the bitmap?
-            return new Tile(tileId + 626, new Rect(left, top, right, bottom));
-        } else if (tileId >= 1) {
+            Tile tile = new Tile(tileId + 626, new Rect(left, top, right, bottom));
+            tile.setCenterX(tileWidth * (col + 0.5));
+            tile.setCenterY(tileHeight * (row + 0.5));
+            return tile;
+        } else {
             tileId -= 1;
             //getting row and column
             int row = Math.floorDiv(tileId, tileRows);
@@ -54,12 +66,10 @@ public class TileSet {
             int top = row * tileSize;
             int bottom = (row + 1) * tileSize;
             //returning the Tile with the bitmap?
-            return new Tile(tileId + 1, new Rect(left, top, right, bottom));
-        } else {
-            tileId -= 1;
-            return new Tile(tileId + 1, new Rect(
-                    24 * tileSize, 24 * tileSize, 25 * tileSize, 25 * tileSize));
+            Tile tile = new Tile(tileId + 1, new Rect(left, top, right, bottom));
+            tile.setCenterX(tileWidth * (col + 0.5));
+            tile.setCenterY(tileHeight * (row + 0.5));
+            return tile;
         }
-
     }
 }
