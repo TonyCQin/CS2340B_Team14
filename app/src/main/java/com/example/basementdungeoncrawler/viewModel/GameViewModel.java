@@ -38,4 +38,8 @@ public class GameViewModel extends ViewModel {
     //top five scores for leaderboard display
     public ArrayList<Score> getScoresList() {
         return list.getScores(); }
+
+    public void clearScores() {
+        list.clearScores();
+    }
 }

@@ -72,6 +72,7 @@ public class UnitTest {
     @Test
     public void correctScoresList() {
         GameViewModel gameViewModel = new GameViewModel();
+        gameViewModel.clearScores();
 
         gameViewModel.addListScore("player1", 100);
         gameViewModel.addListScore("player2", 25);
@@ -119,13 +120,15 @@ public class UnitTest {
     @Test
     public void testRecentUsername() {
         EndScreenViewModel viewModel = new EndScreenViewModel();
+        GameViewModel gameViewModel = new GameViewModel();
+        gameViewModel.clearScores();
         assertEquals("placeholder: 0", viewModel.getRecentUserNameAndScore());
     }
 
     @Test
     public void testNegativeScore() {
         GameViewModel gameViewModel = new GameViewModel();
-
+        gameViewModel.clearScores();
         gameViewModel.addListScore("player1", -5);
         ArrayList<Score> scores = gameViewModel.getScoresList();
         assertEquals(-5, (int) scores.get(0).getScore());
@@ -134,6 +137,7 @@ public class UnitTest {
     @Test
     public void testManyPosAndNeg() {
         GameViewModel gameViewModel = new GameViewModel();
+        gameViewModel.clearScores();
 
         gameViewModel.addListScore("player1", -20);
         gameViewModel.addListScore("player2", -10);
