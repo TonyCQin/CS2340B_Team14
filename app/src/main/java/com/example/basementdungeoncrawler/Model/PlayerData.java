@@ -2,40 +2,42 @@ package com.example.basementdungeoncrawler.Model;
 
 import com.example.basementdungeoncrawler.R;
 
-public class Player {
+public class PlayerData {
 
     private String username;
     private int spriteSelected;
     private int HP;
+    private double positionX;
+    private double positionY;
 
-    private static volatile Player player;
+    private static volatile PlayerData playerData;
 
     /*
-     * @param username username of player
+     * @param username username of playerData
      * @param spriteSelected int representing which sprite was selected by user
      */
-    private Player(String username, int spriteSelected) {
+    private PlayerData(String username, int spriteSelected) {
         this.username = username;
         this.spriteSelected = spriteSelected;
     }
 
-    private Player() {
+    private PlayerData() {
         this("", 0);
     }
 
     /*
      * Name: getPlayer()
-     * @return the instance of the player
+     * @return the instance of the playerData
      */
-    public static Player getPlayer() {
-        if (player == null) {
-            synchronized (Player.class) {
-                if (player == null) {
-                    player = new Player();
+    public static PlayerData getPlayer() {
+        if (playerData == null) {
+            synchronized (PlayerData.class) {
+                if (playerData == null) {
+                    playerData = new PlayerData();
                 }
             }
         }
-        return player;
+        return playerData;
     }
 
     /*

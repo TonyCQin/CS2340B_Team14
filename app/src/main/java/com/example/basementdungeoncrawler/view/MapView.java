@@ -19,6 +19,8 @@ import android.widget.LinearLayout;
 import com.example.basementdungeoncrawler.R;
 import com.example.basementdungeoncrawler.graphics.Tile;
 import com.example.basementdungeoncrawler.graphics.TileSet;
+import com.example.basementdungeoncrawler.logic.Player;
+
 import static com.example.basementdungeoncrawler.graphics.MapLayout.NUMBER_OF_COLUMN_TILES;
 import static com.example.basementdungeoncrawler.graphics.MapLayout.NUMBER_OF_ROW_TILES;
 
@@ -32,6 +34,7 @@ public class MapView extends View{
     private int screenHeight;
     private int tileWidth = screenWidth / NUMBER_OF_COLUMN_TILES;
     private int tileHeight = screenHeight / NUMBER_OF_ROW_TILES;
+    private final Player player;
 
     /**
      * constructor that generates base values for the screen
@@ -49,6 +52,8 @@ public class MapView extends View{
         screenWidth = resources.getDisplayMetrics().widthPixels;
         tileWidth = screenWidth / NUMBER_OF_COLUMN_TILES;
         tileHeight = screenHeight / NUMBER_OF_ROW_TILES;
+
+        player = new Player(getContext(), 100, 100, 30);
     }
 
     /**
@@ -61,6 +66,7 @@ public class MapView extends View{
             renderLayer(canvas, layer);
         }
         super.onDraw(canvas);
+        player.draw(canvas);
     }
 
     /**
