@@ -63,7 +63,7 @@ public class MapView extends View{
 
 
         collision = new Collision(tileMap);
-        player = new PlayerData(getContext(), 400, 800, 30);
+        player = new PlayerData(getContext(), 400, 1600, 30);
         player.subscribe(collision);
 
 
@@ -122,9 +122,9 @@ public class MapView extends View{
         Rect srcRect = tile.getRect();
         Rect destRect = drawDestRect(row, col);
         int tileId = tile.getTileId();
-        Log.d("srcRect", String.valueOf(srcRect));
-        Log.d("destRect", String.valueOf(destRect));
-        Log.d("tileID", String.valueOf(tileId));
+//        Log.d("srcRect", String.valueOf(srcRect));
+//        Log.d("destRect", String.valueOf(destRect));
+//        Log.d("tileID", String.valueOf(tileId));
 //        different tile sets have different ids. Since our first tile set is 25x25,
 //        it contains id's from 1 - 626. This logic divides the tiles base on what tileSet they
 //        belong to and draws them based on that.

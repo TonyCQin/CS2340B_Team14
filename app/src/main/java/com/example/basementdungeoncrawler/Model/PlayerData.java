@@ -52,45 +52,84 @@ public class PlayerData {
     public void move(char direction, Collision collision) {
         switch (direction) {
         case 'w':
-            if (!collision.getUp()) {
-                positionY = positionY - 16;
+            try {
+                if (!collision.getUp()) {
+                    positionY = positionY - 16;
+                }
+                break;
+            } catch (Exception error) {
+                break;
             }
-            break;
+
         case 'a':
-            if (!collision.getLeft()) {
-                positionX = positionX - 16;
+            try {
+                if (!collision.getLeft()) {
+                    positionX = positionX - 16;
+                }
+                break;
+            } catch (Exception error) {
+                break;
             }
-            break;
+
         case 's':
-            if (!collision.getBottom()) {
-                positionY = positionY + 16;
+            try {
+                if (!collision.getBottom()) {
+                    positionY = positionY + 16;
+                }
+                break;
+            } catch (Exception error) {
+                break;
             }
-            break;
+
         case 'd':
-            if (!collision.getRight()) {
-                positionX = positionX + 16;
+            try {
+                if (!collision.getRight()) {
+                    positionX = positionX + 16;
+                }
+                break;
+            } catch (Exception error) {
+                break;
             }
-            break;
+
         case 'W':
-            if (!collision.getUp()) {
-                positionY = positionY - 48;
+            try {
+                if (!collision.getUp()) {
+                    positionY = positionY - 48;
+                }
+                break;
+            } catch (Exception error) {
+                break;
             }
-            break;
         case 'A':
-            if (!collision.getLeft()) {
-                positionX = positionX - 48;
+            try {
+                if (!collision.getLeft()) {
+                    positionX = positionX - 48;
+                }
+                break;
+            } catch (Exception error) {
+                break;
             }
-            break;
+
         case 'S':
-            if (!collision.getBottom()) {
-                positionY = positionY + 48;
+            try {
+                if (!collision.getBottom()) {
+                    positionY = positionY + 48;
+                }
+                break;
+            } catch (Exception error) {
+                break;
             }
-            break;
+
         case 'D':
-            if (!collision.getRight()) {
-                positionX = positionX + 48;
+            try {
+                if (!collision.getRight()) {
+                    positionX = positionX + 48;
+                }
+                break;
+            } catch (Exception error) {
+                break;
             }
-            break;
+
         default:
             break;
         }
