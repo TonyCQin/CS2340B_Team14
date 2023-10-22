@@ -1,0 +1,25 @@
+Index: app/src/main/res/layout/end_screen.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:orientation=\"vertical\" >\r\n\r\n    <LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:orientation=\"horizontal\" >\r\n        <Button\r\n            android:id=\"@+id/toStartScreen\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_weight=\"1\"\r\n            android:backgroundTint=\"#D65F5F\"\r\n            android:text=\"@string/restart\" />\r\n\r\n        <TextView\r\n            android:id=\"@+id/leaderboardandRecentAttemptTitle\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_weight=\"1\"\r\n            android:gravity=\"center\"\r\n            android:text=\"Leaderboard&#160;&amp;&#160;Recent&#160;Attempt\" />\r\n    </LinearLayout>\r\n\r\n\r\n    <TextView\r\n        android:id=\"@+id/recentAttempTextView\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"190dp\"\r\n        android:layout_weight=\"1\"\r\n        android:text=\"Most&#160;Recent&#160;Attempt\"\r\n        android:textSize=\"20sp\"\r\n        android:paddingTop=\"10dp\"/>\r\n    <View\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"1dp\"\r\n        android:background=\"@drawable/divider\" />\r\n\r\n    <LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:orientation=\"vertical\"\r\n        android:paddingBottom=\"8dp\"\r\n        android:paddingLeft=\"8dp\">\r\n\r\n        <TextView\r\n            android:id=\"@+id/line1TextViewRecent\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:textSize=\"16sp\"\r\n            android:textColor=\"@android:color/black\"\r\n            android:text=\"Item0\"\r\n            android:layout_marginBottom=\"2dp\"/>\r\n\r\n        <TextView\r\n            android:id=\"@+id/line2TextViewRecent\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:textSize=\"12sp\"\r\n            android:text=\"Subitem0\"\r\n            android:textColor=\"@android:color/darker_gray\"/>\r\n\r\n    </LinearLayout>\r\n    <View\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"7dp\"\r\n        android:background=\"@drawable/divider\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/leaderboardTextView\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"180dp\"\r\n        android:layout_weight=\"1\"\r\n        android:text=\"Leaderboard\"\r\n        android:textSize=\"20sp\"\r\n        android:paddingTop=\"10dp\" />\r\n\r\n    <View\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"1dp\"\r\n        android:background=\"@drawable/divider\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/leaderboardTitleTextView\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"100dp\"\r\n        android:layout_weight=\"1\"\r\n        android:text=\"Leader&#160;Board\" />\r\n\r\n    <ListView\r\n        android:id=\"@+id/leaderBoard\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\"\r\n        android:layout_weight=\"1\" />\r\n\r\n\r\n</LinearLayout>\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/end_screen.xml b/app/src/main/res/layout/end_screen.xml
+--- a/app/src/main/res/layout/end_screen.xml	(revision 46e24584e401565f2ee40b1c36778e971fccd6cc)
++++ b/app/src/main/res/layout/end_screen.xml	(date 1697984181805)
+@@ -17,12 +17,12 @@
+             android:text="@string/restart" />
+ 
+         <TextView
+-            android:id="@+id/leaderboardandRecentAttemptTitle"
++            android:id="@+id/WinnerText"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_weight="1"
+             android:gravity="center"
+-            android:text="Leaderboard&#160;&amp;&#160;Recent&#160;Attempt" />
++            android:text="Congratulations!! You escaped!!" />
+     </LinearLayout>
+ 
+ 

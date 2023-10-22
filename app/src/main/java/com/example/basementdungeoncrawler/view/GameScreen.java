@@ -30,11 +30,13 @@ import org.w3c.dom.Text;
 
 import java.util.List;
 
-public class GameScreen extends AppCompatActivity {
+public class GameScreen extends AppCompatActivity implements Subscriber {
     private PlayerViewModel playerViewModel;
     private GameViewModel gameViewModel;
     //private ImageView mapImageView;
     //private MapOneLayout tilemapOne;
+    private boolean goalReached;
+    private int screenCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,8 +66,10 @@ public class GameScreen extends AppCompatActivity {
         score.setText("60");
 //
 
-
-        addNext2Button(startTimer(60000, score));
+        if (goalReached == true) {
+            goToScreenTwo(startTimer(60000, score));
+            update();
+        }
 //        Button nextScreen2;
 //        Button nextScreen3;
 //        final ConstraintLayout constraintLayout = findViewById(R.id.layout);
@@ -132,14 +136,18 @@ public class GameScreen extends AppCompatActivity {
         addContentView(toEndScreen, params);
     }
 
-    private void addNext2Button(CountDownTimer timer) {
+    private void goToScreenTwo(CountDownTimer timer) {
         Button next = new Button(this);
-        next.setOnClickListener(v -> {
+        //next.setOnClickListener(v -> {
+            goalReached = false;
             TileMap map2TileMap = new TileMap(this, R.raw.new_map2);
             Log.d("tileMap", String.valueOf(map2TileMap.getLayers()));
             MapView mapView = new MapView(this, map2TileMap.getLayers());
 
             setContentView(mapView);
+            //setGoalXCoord();
+            //setGoalYCoord();
+
             addEndScreenButton();
 
             addSpriteImageView();
@@ -149,28 +157,37 @@ public class GameScreen extends AppCompatActivity {
             timer.cancel();
             TextView score = findViewById(R.id.score);
             score.setText(String.valueOf(gameViewModel.getScore()));
-            addNext3Button(startTimer(gameViewModel.getScore() * 1000, score));
-        });
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT
-        );
-        params.leftMargin = 0; // X coordinate
-        params.topMargin = 150;  // Y coordinate
-        next.setLayoutParams(params);
-        next.setText("NEXT");
-        next.setTextColor(Color.BLACK);
-        next.setBackgroundColor(Color.WHITE);
-        addContentView(next, params);
+            while (goalReached != true) {
+                update();
+                if (goalReached = true) {
+                    goToScreenThree(startTimer(gameViewModel.getScore() * 1000, score));
+                }
+            }
+        //});
+        //LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+        //        LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT
+        //);
+        //params.leftMargin = 0; // X coordinate
+        //params.topMargin = 150;  // Y coordinate
+        //next.setLayoutParams(params);
+        //next.setText("NEXT");
+        //next.setTextColor(Color.BLACK);
+        //next.setBackgroundColor(Color.WHITE);
+        //addContentView(next, params);
     }
 
-    private void addNext3Button(CountDownTimer timer) {
-        Button next = new Button(this);
-        next.setOnClickListener(v -> {
+    private void goToScreenThree(CountDownTimer timer) {
+        //Button next = new Button(this);
+        //next.setOnClickListener(v -> {
+        goalReached = false;
             TileMap map3TileMap = new TileMap(this, R.raw.new_map3);
             Log.d("tileMap", String.valueOf(map3TileMap.getLayers()));
             MapView mapView = new MapView(this, map3TileMap.getLayers());
 
             setContentView(mapView);
+            //setGoalXCoord()
+            //setGoalYCoord()
+
             addEndScreenButton();
             addSpriteImageView();
             addUsernameTextView();
@@ -180,17 +197,17 @@ public class GameScreen extends AppCompatActivity {
             TextView score = findViewById(R.id.score);
             score.setText(String.valueOf(gameViewModel.getScore()));
             startTimer(gameViewModel.getScore() * 1000, score);
-        });
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT
-        );
-        params.leftMargin = 0; // X coordinate
-        params.topMargin = 150;  // Y coordinate
-        next.setLayoutParams(params);
-        next.setText("NEXT");
-        next.setTextColor(Color.BLACK);
-        next.setBackgroundColor(Color.WHITE);
-        addContentView(next, params);
+        //});
+        //LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+         //       LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT
+        //);
+        //params.leftMargin = 0; // X coordinate
+        //params.topMargin = 150;  // Y coordinate
+        //next.setLayoutParams(params);
+        //next.setText("NEXT");
+        //next.setTextColor(Color.BLACK);
+        //next.setBackgroundColor(Color.WHITE);
+        //addContentView(next, params);
     }
 
     private void addSpriteImageView() {
@@ -242,5 +259,9 @@ public class GameScreen extends AppCompatActivity {
         HP.setTextColor(Color.WHITE);
         HP.setText(String.valueOf(playerViewModel.getHP()));
         addContentView(HP, params);
+    }
+
+    public void update() {
+        goalReached = true;
     }
 }

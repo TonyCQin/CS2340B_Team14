@@ -13,11 +13,13 @@ public class Player {
     private double positionY;
     private double radius;
     private Paint paint;
+    private boolean reachGoal;
 
     public Player(Context context, double positionX, double positionY, double radius) {
         this.positionX = positionX;
         this.positionY = positionY;
         this.radius = radius;
+        reachGoal = false;
 
         paint = new Paint();
         int color = ContextCompat.getColor(context, R.color.player);
@@ -44,6 +46,15 @@ public class Player {
                 break;
         }
     }
+    public void setReachGoal(boolean x) {
+        reachGoal = x;
+    }
+    public double getPositionX(){
+        return positionX;
+    }
 
+    public double getPositionY(){
+        return positionY;
+    }
 
 }
