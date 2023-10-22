@@ -8,6 +8,8 @@ import androidx.core.content.ContextCompat;
 
 import com.example.basementdungeoncrawler.R;
 
+import java.util.ArrayList;
+
 public class PlayerData {
 
     private String username;
@@ -20,6 +22,8 @@ public class PlayerData {
     private boolean goalReached;
 
     private static volatile PlayerData playerData;
+//    private Collision collision;
+    private ArrayList<PlayerSubscriber> subscribers;
 
     /*
      * @param username username of playerData
@@ -37,6 +41,7 @@ public class PlayerData {
         paint = new Paint();
         int color = ContextCompat.getColor(context, R.color.player);
         paint.setColor(color);
+
 
     }
 
@@ -71,6 +76,7 @@ public class PlayerData {
                 positionX = positionX + 48;
                 break;
         }
+        notifySubscribers();
     }
 
     public double getPositionX(){
@@ -78,6 +84,10 @@ public class PlayerData {
     }
     public double getPositionY(){
         return positionY;
+    }
+
+    public double getRadius() {
+        return radius;
     }
 
     private PlayerData() {
@@ -139,5 +149,20 @@ public class PlayerData {
     public boolean isGoalReached()
     {
         return goalReached;
+    }
+
+    public void subscribe(PlayerSubscriber sub) {
+        if (subscribers == null) subscribers = new ArrayList<>();
+        subscribers.add(sub);
+    }
+
+    public void removeObserver(PlayerSubscriber sub) {
+        subscribers.remove(sub);
+    }
+
+    protected void notifySubscribers() {
+        for (PlayerSubscriber sub : subscribers) {
+            sub.update(positionX, positionY, radius);
+        }
     }
 }
