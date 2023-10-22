@@ -21,13 +21,29 @@ public class Player {
 
         paint = new Paint();
         int color = ContextCompat.getColor(context, R.color.player);
+        paint.setColor(color);
     }
 
     public void draw(Canvas canvas) {
-        canvas.drawCircle((float) positionX,(float) positionY, (float) radius, paint);
+        canvas.drawCircle((float) positionX, (float) positionY, (float) radius, paint);
     }
 
-    public void update() {
-
+    public void move(char direction) {
+        switch(direction) {
+            case 'w':
+                positionY = positionY - 16;
+                break;
+            case 'a':
+                positionX = positionX - 16;
+                break;
+            case 's':
+                positionY = positionY + 16;
+                break;
+            case 'd':
+                positionX = positionX + 16;
+                break;
+        }
     }
+
+
 }
