@@ -1,5 +1,11 @@
 package com.example.basementdungeoncrawler.Model;
 
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+
+import androidx.core.content.ContextCompat;
+
 import com.example.basementdungeoncrawler.R;
 
 public class PlayerData {
@@ -9,6 +15,9 @@ public class PlayerData {
     private int HP;
     private double positionX;
     private double positionY;
+    private double radius;
+    private Paint paint;
+    private boolean goalReached;
 
     private static volatile PlayerData playerData;
 
@@ -19,6 +28,56 @@ public class PlayerData {
     private PlayerData(String username, int spriteSelected) {
         this.username = username;
         this.spriteSelected = spriteSelected;
+    }
+    public PlayerData(Context context, double positionX, double positionY, double radius) {
+        this.positionX = positionX;
+        this.positionY = positionY;
+        this.radius = radius;
+
+        paint = new Paint();
+        int color = ContextCompat.getColor(context, R.color.player);
+        paint.setColor(color);
+
+    }
+
+    public void draw(Canvas canvas) {
+        canvas.drawCircle((float) positionX, (float) positionY, (float) radius, paint);
+    }
+
+    public void move(char direction) {
+        switch(direction) {
+            case 'w':
+                positionY = positionY - 16;
+                if (positionX >= 1000 && positionY >= 1800) {
+                    goalReached = true;
+                }
+                break;
+            case 'a':
+                positionX = positionX - 16;
+                if (positionX >= 1000 && positionY >= 1800) {
+                    goalReached = true;
+                }
+                break;
+            case 's':
+                positionY = positionY + 16;
+                if (positionX >= 1000 && positionY >= 1800) {
+                    goalReached = true;
+                }
+                break;
+            case 'd':
+                positionX = positionX + 16;
+                if (positionX >= 1000 && positionY >= 1800) {
+                    goalReached = true;
+                }
+                break;
+        }
+    }
+
+    public double getPositionX(){
+        return positionX;
+    }
+    public double getPositionY(){
+        return positionY;
     }
 
     private PlayerData() {
@@ -76,5 +135,9 @@ public class PlayerData {
 
     public int getHP() {
         return HP;
+    }
+    public boolean isGoalReached()
+    {
+        return goalReached;
     }
 }
