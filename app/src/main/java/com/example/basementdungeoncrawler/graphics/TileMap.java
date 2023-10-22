@@ -48,7 +48,6 @@ public class TileMap {
             }
             this.layers.add(tileMap);
         }
-
     }
 
     /**

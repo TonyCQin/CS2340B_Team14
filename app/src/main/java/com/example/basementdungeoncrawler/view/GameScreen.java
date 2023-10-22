@@ -1,6 +1,8 @@
 package com.example.basementdungeoncrawler.view;
 
 import com.example.basementdungeoncrawler.Model.Collision;
+import com.example.basementdungeoncrawler.Model.PlayerData;
+import com.example.basementdungeoncrawler.Model.Subscriber;
 import com.example.basementdungeoncrawler.R;
 import com.example.basementdungeoncrawler.graphics.TileMap;
 import com.example.basementdungeoncrawler.graphics.TmxParser;
@@ -14,10 +16,12 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.media.Image;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.KeyEvent;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -34,56 +38,34 @@ import java.util.List;
 public class GameScreen extends AppCompatActivity {
     private PlayerViewModel playerViewModel;
     private GameViewModel gameViewModel;
-    //private ImageView mapImageView;
-    //private MapOneLayout tilemapOne;
+    private MapView mapView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //sets the view to the UI of the game screen
 
-        //testing
+        //instantiate initial map
+        PlayerData player = PlayerData.getPlayer();
         TileMap map1TileMap = new TileMap(this, R.raw.new_map1);
+        gameViewModel.setScreenCounter(1);
         Log.d("tileMap", String.valueOf(map1TileMap.getLayers()));
         MapView mapView = new MapView(this, map1TileMap.getLayers(), map1TileMap);
         setContentView(mapView);
         //
 
-//        setContentView(R.layout.game_screen);
-//        view models
+//      view models
         playerViewModel = new ViewModelProvider(this).get(PlayerViewModel.class);
         gameViewModel = new ViewModelProvider(this).get(GameViewModel.class);
         //connecting the buttons, name, character health,
         addEndScreenButton();
-
         addSpriteImageView();
         addUsernameTextView();
         addScoreTextView();
         addHPTextView();
-//
         TextView score = findViewById(R.id.score);
         score.setText("60");
-//
-
-
-        addNext2Button(startTimer(60000, score));
-//        Button nextScreen2;
-//        Button nextScreen3;
-//        final ConstraintLayout constraintLayout = findViewById(R.id.layout);
-//        nextScreen2 = findViewById(R.id.nextScreen);
-//        nextScreen3 = findViewById(R.id.nextScreen2);
-//        nextScreen3.setVisibility(View.GONE);
-//        nextScreen2.setOnClickListener(view -> {
-//            constraintLayout.setBackgroundResource(R.drawable.map2);
-//            nextScreen2.setVisibility(View.GONE);
-//            nextScreen3.setVisibility(View.VISIBLE);
-//        });
-//
-//        nextScreen3.setOnClickListener(view -> {
-//            constraintLayout.setBackgroundResource(R.drawable.map3);
-//            nextScreen3.setVisibility(View.GONE);
-//        });
-
     }
 
     private CountDownTimer startTimer(long milliseconds, TextView score) {
@@ -107,10 +89,6 @@ public class GameScreen extends AppCompatActivity {
         return timer;
     }
 
-    private void stopTimer(CountDownTimer timer) {
-        timer.cancel();
-    }
-
     private void addScore(String username, int finalScore) {
         gameViewModel.addListScore(username, finalScore);
     }
@@ -132,67 +110,6 @@ public class GameScreen extends AppCompatActivity {
         toEndScreen.setTextColor(Color.WHITE);
         toEndScreen.setBackgroundColor(Color.BLACK);
         addContentView(toEndScreen, params);
-    }
-
-    private void addNext2Button(CountDownTimer timer) {
-        Button next = new Button(this);
-        next.setOnClickListener(v -> {
-            TileMap map2TileMap = new TileMap(this, R.raw.new_map2);
-            Log.d("tileMap", String.valueOf(map2TileMap.getLayers()));
-            MapView mapView = new MapView(this, map2TileMap.getLayers(), map2TileMap);
-
-            setContentView(mapView);
-            addEndScreenButton();
-
-            addSpriteImageView();
-            addUsernameTextView();
-            addScoreTextView();
-            addHPTextView();
-            timer.cancel();
-            TextView score = findViewById(R.id.score);
-            score.setText(String.valueOf(gameViewModel.getScore()));
-            addNext3Button(startTimer(gameViewModel.getScore() * 1000, score));
-        });
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT
-        );
-        params.leftMargin = 0; // X coordinate
-        params.topMargin = 150;  // Y coordinate
-        next.setLayoutParams(params);
-        next.setText("NEXT");
-        next.setTextColor(Color.BLACK);
-        next.setBackgroundColor(Color.WHITE);
-        addContentView(next, params);
-    }
-
-    private void addNext3Button(CountDownTimer timer) {
-        Button next = new Button(this);
-        next.setOnClickListener(v -> {
-            TileMap map3TileMap = new TileMap(this, R.raw.new_map3);
-            Log.d("tileMap", String.valueOf(map3TileMap.getLayers()));
-            MapView mapView = new MapView(this, map3TileMap.getLayers(), map3TileMap);
-
-            setContentView(mapView);
-            addEndScreenButton();
-            addSpriteImageView();
-            addUsernameTextView();
-            addScoreTextView();
-            addHPTextView();
-            timer.cancel();
-            TextView score = findViewById(R.id.score);
-            score.setText(String.valueOf(gameViewModel.getScore()));
-            startTimer(gameViewModel.getScore() * 1000, score);
-        });
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT
-        );
-        params.leftMargin = 0; // X coordinate
-        params.topMargin = 150;  // Y coordinate
-        next.setLayoutParams(params);
-        next.setText("NEXT");
-        next.setTextColor(Color.BLACK);
-        next.setBackgroundColor(Color.WHITE);
-        addContentView(next, params);
     }
 
     private void addSpriteImageView() {
@@ -244,5 +161,43 @@ public class GameScreen extends AppCompatActivity {
         HP.setTextColor(Color.WHITE);
         HP.setText(String.valueOf(playerViewModel.getHP()));
         addContentView(HP, params);
+    }
+
+    public void update(double x, double y) {
+        int screenCounter = gameViewModel.getScreenCounter();
+        if (screenCounter == 1 && outOfScreen(x, y)) {
+            TileMap map2TileMap = new TileMap(this, R.raw.new_map2);
+            Log.d("tileMap", String.valueOf(map2TileMap.getLayers()));
+            mapView = new MapView(this, map2TileMap.getLayers());
+            setContentView(mapView);
+            addEndScreenButton();
+            addSpriteImageView();
+            addUsernameTextView();
+            addScoreTextView();
+            addHPTextView();
+            TextView score = findViewById(R.id.score);
+            score.setText(String.valueOf(gameViewModel.getScore()));
+        }
+        if (screenCounter == 2 && outOfScreen(x, y)) {
+            //set map
+            TileMap map3TileMap = new TileMap(this, R.raw.new_map3);
+            Log.d("tileMap", String.valueOf(map3TileMap.getLayers()));
+            MapView mapView = new MapView(this, map3TileMap.getLayers());
+            //add buttons
+            setContentView(mapView);
+            addEndScreenButton();
+            addSpriteImageView();
+            addUsernameTextView();
+            addScoreTextView();
+            addHPTextView();
+            TextView score = findViewById(R.id.score);
+            score.setText(String.valueOf(gameViewModel.getScore()));
+        }
+    }
+
+    public boolean outOfScreen(double x, double y) {
+        int screenHeight = this.getResources().getDisplayMetrics().heightPixels;
+        int screenWidth = this.getResources().getDisplayMetrics().heightPixels;
+        return x >= screenHeight && y >= screenWidth;
     }
 }

@@ -1,23 +1,15 @@
 package com.example.basementdungeoncrawler.view;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
-
-
 
 import com.example.basementdungeoncrawler.Model.Collision;
 import com.example.basementdungeoncrawler.Model.PlayerData;
@@ -25,7 +17,6 @@ import com.example.basementdungeoncrawler.R;
 import com.example.basementdungeoncrawler.graphics.Tile;
 import com.example.basementdungeoncrawler.graphics.TileMap;
 import com.example.basementdungeoncrawler.graphics.TileSet;
-
 
 import static com.example.basementdungeoncrawler.graphics.MapLayout.NUMBER_OF_COLUMN_TILES;
 import static com.example.basementdungeoncrawler.graphics.MapLayout.NUMBER_OF_ROW_TILES;
@@ -43,6 +34,8 @@ public class MapView extends View{
     private final PlayerData player;
     private TileMap tileMap;
     private Collision collision;
+    private double goalXCoord;
+    private double goalYCoord;
 
     /**
      * constructor that generates base values for the screen
@@ -61,11 +54,10 @@ public class MapView extends View{
         tileWidth = screenWidth / NUMBER_OF_COLUMN_TILES;
         tileHeight = screenHeight / NUMBER_OF_ROW_TILES;
 
-
         collision = new Collision(tileMap);
         player = new PlayerData(getContext(), 400, 1600, 30);
         player.subscribe(collision);
-
+        player = new PlayerData(getContext(), 400, 850, 30);
 
         setFocusable(true);
     }
