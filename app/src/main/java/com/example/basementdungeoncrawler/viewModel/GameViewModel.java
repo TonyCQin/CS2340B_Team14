@@ -35,6 +35,14 @@ public class GameViewModel extends ViewModel {
     public int getScore() {
         return game.getScore(); }
 
+    public void setScreenCounter(int newScreenCounter) {
+        game.setScreenCounter(newScreenCounter);
+    }
+
+    public int getScreenCounter() {
+        return game.getScreenCounter();
+    }
+
     //top five scores for leaderboard display
     public ArrayList<Score> getScoresList() {
         return list.getScores(); }
