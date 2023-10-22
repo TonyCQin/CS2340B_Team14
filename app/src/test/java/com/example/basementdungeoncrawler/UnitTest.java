@@ -176,13 +176,13 @@ public class UnitTest {
         double x = 4000;
         double y = 4000;
         assertEquals(true, test.outOfScreen(x, y));
-        x = 200;
-        y = 30;
-        assertEquals(false, test.outOfScreen(x, y));
     }
 
     @Test
-    public void jUnit2() {
-        
+    public void testNotOutOfBounds() {
+        GameScreen test = new GameScreen();
+        double x = 200;
+        double y = 30;
+        assertEquals(false, test.outOfScreen(x, y));
     }
 }
