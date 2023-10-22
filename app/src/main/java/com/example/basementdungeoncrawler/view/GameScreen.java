@@ -1,5 +1,6 @@
 package com.example.basementdungeoncrawler.view;
 
+import com.example.basementdungeoncrawler.Model.Collision;
 import com.example.basementdungeoncrawler.R;
 import com.example.basementdungeoncrawler.graphics.TileMap;
 import com.example.basementdungeoncrawler.graphics.TmxParser;
@@ -44,7 +45,7 @@ public class GameScreen extends AppCompatActivity {
         //testing
         TileMap map1TileMap = new TileMap(this, R.raw.new_map1);
         Log.d("tileMap", String.valueOf(map1TileMap.getLayers()));
-        MapView mapView = new MapView(this, map1TileMap.getLayers());
+        MapView mapView = new MapView(this, map1TileMap.getLayers(), map1TileMap);
         setContentView(mapView);
         //
 
@@ -82,6 +83,7 @@ public class GameScreen extends AppCompatActivity {
 //            constraintLayout.setBackgroundResource(R.drawable.map3);
 //            nextScreen3.setVisibility(View.GONE);
 //        });
+
     }
 
     private CountDownTimer startTimer(long milliseconds, TextView score) {
@@ -137,7 +139,7 @@ public class GameScreen extends AppCompatActivity {
         next.setOnClickListener(v -> {
             TileMap map2TileMap = new TileMap(this, R.raw.new_map2);
             Log.d("tileMap", String.valueOf(map2TileMap.getLayers()));
-            MapView mapView = new MapView(this, map2TileMap.getLayers());
+            MapView mapView = new MapView(this, map2TileMap.getLayers(), map2TileMap);
 
             setContentView(mapView);
             addEndScreenButton();
@@ -168,7 +170,7 @@ public class GameScreen extends AppCompatActivity {
         next.setOnClickListener(v -> {
             TileMap map3TileMap = new TileMap(this, R.raw.new_map3);
             Log.d("tileMap", String.valueOf(map3TileMap.getLayers()));
-            MapView mapView = new MapView(this, map3TileMap.getLayers());
+            MapView mapView = new MapView(this, map3TileMap.getLayers(), map3TileMap);
 
             setContentView(mapView);
             addEndScreenButton();

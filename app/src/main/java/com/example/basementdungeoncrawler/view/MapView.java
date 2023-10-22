@@ -18,10 +18,13 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 
+import com.example.basementdungeoncrawler.Model.Collision;
+import com.example.basementdungeoncrawler.Model.PlayerData;
 import com.example.basementdungeoncrawler.R;
 import com.example.basementdungeoncrawler.graphics.Tile;
+import com.example.basementdungeoncrawler.graphics.TileMap;
 import com.example.basementdungeoncrawler.graphics.TileSet;
-import com.example.basementdungeoncrawler.logic.Player;
+//import com.example.basementdungeoncrawler.logic.Player;
 
 import static com.example.basementdungeoncrawler.graphics.MapLayout.NUMBER_OF_COLUMN_TILES;
 import static com.example.basementdungeoncrawler.graphics.MapLayout.NUMBER_OF_ROW_TILES;
@@ -36,14 +39,16 @@ public class MapView extends View{
     private int screenHeight;
     private int tileWidth = screenWidth / NUMBER_OF_COLUMN_TILES;
     private int tileHeight = screenHeight / NUMBER_OF_ROW_TILES;
-    private final Player player;
+    private final PlayerData player;
+    private TileMap tileMap;
+    private Collision collision;
 
     /**
      * constructor that generates base values for the screen
      * @param context context for generating resources
      * @param layers list of Tile[][] layers to draw
      */
-    public MapView(Context context, ArrayList<Tile[][]> layers) {
+    public MapView(Context context, ArrayList<Tile[][]> layers, TileMap tileMap) {
         super(context);
         this.layers = layers;
         dungeonTileSet = new TileSet(context, R.drawable.tiles2, 16);
@@ -55,7 +60,9 @@ public class MapView extends View{
         tileWidth = screenWidth / NUMBER_OF_COLUMN_TILES;
         tileHeight = screenHeight / NUMBER_OF_ROW_TILES;
 
-        player = new Player(getContext(), 400, 800, 30);
+        collision = new Collision(tileMap);
+        player = new PlayerData(getContext(), 400, 800, 30);
+        player.subscribe(collision);
 
         setFocusable(true);
     }

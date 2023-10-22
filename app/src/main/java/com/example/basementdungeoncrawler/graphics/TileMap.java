@@ -56,5 +56,9 @@ public class TileMap {
         return layers;
     }
 
-
+    public Tile getTile(double poistionX, double positionY) {
+        int row = ((int) poistionX) / 12;
+        int col = ((int)positionY) / 24;
+        return tileMap[row][col];
+    }
 }
