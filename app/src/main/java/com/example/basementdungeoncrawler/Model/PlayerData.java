@@ -53,27 +53,27 @@ public class PlayerData {
         switch(direction) {
             case 'w':
                 positionY = positionY - 16;
-                if (positionX >= 1000 && positionY >= 1800) {
-                    goalReached = true;
-                }
                 break;
             case 'a':
                 positionX = positionX - 16;
-                if (positionX >= 1000 && positionY >= 1800) {
-                    goalReached = true;
-                }
                 break;
             case 's':
                 positionY = positionY + 16;
-                if (positionX >= 1000 && positionY >= 1800) {
-                    goalReached = true;
-                }
                 break;
             case 'd':
                 positionX = positionX + 16;
-                if (positionX >= 1000 && positionY >= 1800) {
-                    goalReached = true;
-                }
+                break;
+            case 'W':
+                positionY = positionY - 48;
+                break;
+            case 'A':
+                positionX = positionX - 48;
+                break;
+            case 'S':
+                positionY = positionY + 48;
+                break;
+            case 'D':
+                positionX = positionX + 48;
                 break;
         }
         notifySubscribers();
