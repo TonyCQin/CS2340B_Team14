@@ -10,6 +10,8 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -53,7 +55,7 @@ public class MapView extends View{
         tileWidth = screenWidth / NUMBER_OF_COLUMN_TILES;
         tileHeight = screenHeight / NUMBER_OF_ROW_TILES;
 
-        player = new Player(getContext(), 100, 100, 30);
+        player = new Player(getContext(), 400, 800, 30);
     }
 
     /**
@@ -65,8 +67,8 @@ public class MapView extends View{
         for (Tile[][] layer : layers) {
             renderLayer(canvas, layer);
         }
-        super.onDraw(canvas);
         player.draw(canvas);
+        super.onDraw(canvas);
     }
 
     /**
@@ -151,4 +153,35 @@ public class MapView extends View{
 //            Log.d("column", String.valueOf(col));
         }
     }
+
+    @Override
+    public boolean onKeyDown(int key, KeyEvent e) {
+        char direction = ' ';
+        if (e.getAction() == KeyEvent.ACTION_DOWN) {
+            switch (key) {
+                case KeyEvent.KEYCODE_W:
+                    direction = 'w';
+                    Log.d("UP","moved up");
+                    break;
+                case KeyEvent.KEYCODE_A:
+                    direction = 'a';
+                    Log.d("LEFT","moved left");
+                    break;
+                case KeyEvent.KEYCODE_S:
+                    direction = 's';
+                    break;
+                case KeyEvent.KEYCODE_D:
+                    direction = 'd';
+                    break;
+            }
+
+            if (direction != ' ') {
+                player.move(direction);
+                invalidate();
+                return true;
+            }
+        }
+        return super.onKeyDown(key, e);
+    }
+
 }
