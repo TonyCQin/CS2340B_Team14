@@ -1,5 +1,7 @@
 package com.example.basementdungeoncrawler.view;
 
+import com.example.basementdungeoncrawler.Model.PlayerData;
+import com.example.basementdungeoncrawler.Model.Subscriber;
 import com.example.basementdungeoncrawler.R;
 import com.example.basementdungeoncrawler.graphics.TileMap;
 import com.example.basementdungeoncrawler.graphics.TmxParser;
@@ -13,10 +15,12 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.media.Image;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.KeyEvent;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -35,6 +39,9 @@ public class GameScreen extends AppCompatActivity {
     private GameViewModel gameViewModel;
     //private ImageView mapImageView;
     //private MapOneLayout tilemapOne;
+    private MapView mapView;
+    private PlayerData player;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +51,7 @@ public class GameScreen extends AppCompatActivity {
         //testing
         TileMap map1TileMap = new TileMap(this, R.raw.new_map1);
         Log.d("tileMap", String.valueOf(map1TileMap.getLayers()));
-        MapView mapView = new MapView(this, map1TileMap.getLayers());
+        mapView = new MapView(this, map1TileMap.getLayers());
         setContentView(mapView);
         //
 
@@ -63,8 +70,6 @@ public class GameScreen extends AppCompatActivity {
         TextView score = findViewById(R.id.score);
         score.setText("60");
 //
-
-
         addNext2Button(startTimer(60000, score));
 //        Button nextScreen2;
 //        Button nextScreen3;
@@ -133,34 +138,26 @@ public class GameScreen extends AppCompatActivity {
     }
 
     private void addNext2Button(CountDownTimer timer) {
-        Button next = new Button(this);
-        next.setOnClickListener(v -> {
+        Log.d("x", String.valueOf(player.getPositionX()));
+        Log.d("heightpixels", String.valueOf(this.getResources().getDisplayMetrics().heightPixels));
+        if (player.getPositionX() >= this.getResources().getDisplayMetrics().heightPixels
+                && player.getPositionY() >= this.getResources().getDisplayMetrics().heightPixels) {
             TileMap map2TileMap = new TileMap(this, R.raw.new_map2);
             Log.d("tileMap", String.valueOf(map2TileMap.getLayers()));
-            MapView mapView = new MapView(this, map2TileMap.getLayers());
-
+            mapView = new MapView(this, map2TileMap.getLayers());
             setContentView(mapView);
-            addEndScreenButton();
-
-            addSpriteImageView();
-            addUsernameTextView();
-            addScoreTextView();
-            addHPTextView();
-            timer.cancel();
-            TextView score = findViewById(R.id.score);
-            score.setText(String.valueOf(gameViewModel.getScore()));
-            addNext3Button(startTimer(gameViewModel.getScore() * 1000, score));
-        });
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT
-        );
-        params.leftMargin = 0; // X coordinate
-        params.topMargin = 150;  // Y coordinate
-        next.setLayoutParams(params);
-        next.setText("NEXT");
-        next.setTextColor(Color.BLACK);
-        next.setBackgroundColor(Color.WHITE);
-        addContentView(next, params);
+//                addEndScreenButton();
+//
+//                addSpriteImageView();
+//                addUsernameTextView();
+//                addScoreTextView();
+//                addHPTextView();
+//                timer.cancel();
+//                TextView score = findViewById(R.id.score);
+//                score.setText(String.valueOf(gameViewModel.getScore()));
+//                addNext3Button(startTimer(gameViewModel.getScore() * 1000, score));
+            //});
+        }
     }
 
     private void addNext3Button(CountDownTimer timer) {
@@ -243,4 +240,5 @@ public class GameScreen extends AppCompatActivity {
         HP.setText(String.valueOf(playerViewModel.getHP()));
         addContentView(HP, params);
     }
+
 }
