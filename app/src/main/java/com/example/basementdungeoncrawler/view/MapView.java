@@ -56,6 +56,8 @@ public class MapView extends View{
         tileHeight = screenHeight / NUMBER_OF_ROW_TILES;
 
         player = new Player(getContext(), 400, 800, 30);
+
+        setFocusable(true);
     }
 
     /**
@@ -169,9 +171,11 @@ public class MapView extends View{
                     break;
                 case KeyEvent.KEYCODE_S:
                     direction = 's';
+                    Log.d("DOWN","moved down");;
                     break;
                 case KeyEvent.KEYCODE_D:
                     direction = 'd';
+                    Log.d("RIGHT","moved right");
                     break;
             }
 

@@ -22,6 +22,7 @@ public class Player {
         paint = new Paint();
         int color = ContextCompat.getColor(context, R.color.player);
         paint.setColor(color);
+
     }
 
     public void draw(Canvas canvas) {
