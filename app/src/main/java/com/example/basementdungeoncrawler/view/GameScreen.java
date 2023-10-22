@@ -49,6 +49,7 @@ public class GameScreen extends AppCompatActivity {
         //sets the view to the UI of the game screen
 
         //testing
+        PlayerData player = PlayerData.getPlayer();
         TileMap map1TileMap = new TileMap(this, R.raw.new_map1);
         Log.d("tileMap", String.valueOf(map1TileMap.getLayers()));
         mapView = new MapView(this, map1TileMap.getLayers());
@@ -69,24 +70,11 @@ public class GameScreen extends AppCompatActivity {
 //
         TextView score = findViewById(R.id.score);
         score.setText("60");
-//
-        addNext2Button(startTimer(60000, score));
-//        Button nextScreen2;
-//        Button nextScreen3;
-//        final ConstraintLayout constraintLayout = findViewById(R.id.layout);
-//        nextScreen2 = findViewById(R.id.nextScreen);
-//        nextScreen3 = findViewById(R.id.nextScreen2);
-//        nextScreen3.setVisibility(View.GONE);
-//        nextScreen2.setOnClickListener(view -> {
-//            constraintLayout.setBackgroundResource(R.drawable.map2);
-//            nextScreen2.setVisibility(View.GONE);
-//            nextScreen3.setVisibility(View.VISIBLE);
-//        });
-//
-//        nextScreen3.setOnClickListener(view -> {
-//            constraintLayout.setBackgroundResource(R.drawable.map3);
-//            nextScreen3.setVisibility(View.GONE);
-//        });
+
+        Log.d("here","");
+        CountDownTimer timer = startTimer(60000, score);
+        Log.d("inbetween","");
+        addNext2Button(timer, player.getPositionX(), player.getPositionY());
     }
 
     private CountDownTimer startTimer(long milliseconds, TextView score) {
@@ -137,26 +125,25 @@ public class GameScreen extends AppCompatActivity {
         addContentView(toEndScreen, params);
     }
 
-    private void addNext2Button(CountDownTimer timer) {
-        Log.d("x", String.valueOf(player.getPositionX()));
+    private void addNext2Button(CountDownTimer timer, double x, double y) {
+        Log.d("x", String.valueOf(x));
         Log.d("heightpixels", String.valueOf(this.getResources().getDisplayMetrics().heightPixels));
-        if (player.getPositionX() >= this.getResources().getDisplayMetrics().heightPixels
-                && player.getPositionY() >= this.getResources().getDisplayMetrics().heightPixels) {
+        int screenHeight = this.getResources().getDisplayMetrics().heightPixels;
+        int screenWidth = this.getResources().getDisplayMetrics().heightPixels;
+        if (x >= screenHeight && y >= screenWidth) {
             TileMap map2TileMap = new TileMap(this, R.raw.new_map2);
             Log.d("tileMap", String.valueOf(map2TileMap.getLayers()));
             mapView = new MapView(this, map2TileMap.getLayers());
             setContentView(mapView);
-//                addEndScreenButton();
-//
-//                addSpriteImageView();
-//                addUsernameTextView();
-//                addScoreTextView();
-//                addHPTextView();
-//                timer.cancel();
-//                TextView score = findViewById(R.id.score);
-//                score.setText(String.valueOf(gameViewModel.getScore()));
-//                addNext3Button(startTimer(gameViewModel.getScore() * 1000, score));
-            //});
+            addEndScreenButton();
+            addSpriteImageView();
+            addUsernameTextView();
+            addScoreTextView();
+            addHPTextView();
+            timer.cancel();
+            TextView score = findViewById(R.id.score);
+            score.setText(String.valueOf(gameViewModel.getScore()));
+            addNext3Button(startTimer(gameViewModel.getScore() * 1000, score));
         }
     }
 
