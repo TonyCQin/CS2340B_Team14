@@ -1,5 +1,6 @@
 package com.example.basementdungeoncrawler.view;
 
+import com.example.basementdungeoncrawler.Model.Collision;
 import com.example.basementdungeoncrawler.Model.PlayerData;
 import com.example.basementdungeoncrawler.Model.Subscriber;
 import com.example.basementdungeoncrawler.R;
@@ -50,7 +51,7 @@ public class GameScreen extends AppCompatActivity {
         TileMap map1TileMap = new TileMap(this, R.raw.new_map1);
         gameViewModel.setScreenCounter(1);
         Log.d("tileMap", String.valueOf(map1TileMap.getLayers()));
-        mapView = new MapView(this, map1TileMap.getLayers());
+        MapView mapView = new MapView(this, map1TileMap.getLayers(), map1TileMap);
         setContentView(mapView);
         //
 
@@ -63,7 +64,6 @@ public class GameScreen extends AppCompatActivity {
         addUsernameTextView();
         addScoreTextView();
         addHPTextView();
-//
         TextView score = findViewById(R.id.score);
         score.setText("60");
     }

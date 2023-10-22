@@ -11,10 +11,11 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 
-
+import com.example.basementdungeoncrawler.Model.Collision;
 import com.example.basementdungeoncrawler.Model.PlayerData;
 import com.example.basementdungeoncrawler.R;
 import com.example.basementdungeoncrawler.graphics.Tile;
+import com.example.basementdungeoncrawler.graphics.TileMap;
 import com.example.basementdungeoncrawler.graphics.TileSet;
 
 import static com.example.basementdungeoncrawler.graphics.MapLayout.NUMBER_OF_COLUMN_TILES;
@@ -31,7 +32,8 @@ public class MapView extends View{
     private int tileWidth = screenWidth / NUMBER_OF_COLUMN_TILES;
     private int tileHeight = screenHeight / NUMBER_OF_ROW_TILES;
     private final PlayerData player;
-
+    private TileMap tileMap;
+    private Collision collision;
     private double goalXCoord;
     private double goalYCoord;
 
@@ -40,7 +42,7 @@ public class MapView extends View{
      * @param context context for generating resources
      * @param layers list of Tile[][] layers to draw
      */
-    public MapView(Context context, ArrayList<Tile[][]> layers) {
+    public MapView(Context context, ArrayList<Tile[][]> layers, TileMap tileMap) {
         super(context);
         this.layers = layers;
         dungeonTileSet = new TileSet(context, R.drawable.tiles2, 16);
@@ -52,6 +54,9 @@ public class MapView extends View{
         tileWidth = screenWidth / NUMBER_OF_COLUMN_TILES;
         tileHeight = screenHeight / NUMBER_OF_ROW_TILES;
 
+        collision = new Collision(tileMap);
+        player = new PlayerData(getContext(), 400, 1600, 30);
+        player.subscribe(collision);
         player = new PlayerData(getContext(), 400, 850, 30);
 
         setFocusable(true);
@@ -109,9 +114,9 @@ public class MapView extends View{
         Rect srcRect = tile.getRect();
         Rect destRect = drawDestRect(row, col);
         int tileId = tile.getTileId();
-        Log.d("srcRect", String.valueOf(srcRect));
-        Log.d("destRect", String.valueOf(destRect));
-        Log.d("tileID", String.valueOf(tileId));
+//        Log.d("srcRect", String.valueOf(srcRect));
+//        Log.d("destRect", String.valueOf(destRect));
+//        Log.d("tileID", String.valueOf(tileId));
 //        different tile sets have different ids. Since our first tile set is 25x25,
 //        it contains id's from 1 - 626. This logic divides the tiles base on what tileSet they
 //        belong to and draws them based on that.
@@ -157,32 +162,44 @@ public class MapView extends View{
     public boolean onKeyDown(int key, KeyEvent e) {
         char direction = ' ';
         if (e.getAction() == KeyEvent.ACTION_DOWN) {
+            if (e.isShiftPressed()) {
             switch (key) {
-                case KeyEvent.KEYCODE_W:
-                    direction = 'w';
-                    Log.d("UP","moved up");
-                    break;
-                case KeyEvent.KEYCODE_A:
-                    direction = 'a';
-                    Log.d("LEFT","moved left");
-                    break;
-                case KeyEvent.KEYCODE_S:
-                    direction = 's';
-                    Log.d("DOWN","moved down");;
-                    break;
-                case KeyEvent.KEYCODE_D:
-                    direction = 'd';
-                    Log.d("RIGHT","moved right");
-                    break;
+                    case KeyEvent.KEYCODE_W:
+                        direction = 'W';
+                        break;
+                    case KeyEvent.KEYCODE_A:
+                        direction = 'A';
+                        break;
+                    case KeyEvent.KEYCODE_S:
+                        direction = 'S';
+                        break;
+                    case KeyEvent.KEYCODE_D:
+                        direction = 'D';
+                        break;
+                }
             }
-
+            else {
+                switch (key) {
+                    case KeyEvent.KEYCODE_W:
+                        direction = 'W';
+                        break;
+                    case KeyEvent.KEYCODE_A:
+                        direction = 'a';
+                        break;
+                    case KeyEvent.KEYCODE_S:
+                        direction = 's';
+                        break;
+                    case KeyEvent.KEYCODE_D:
+                        direction = 'd';
+                        break;
+                }
+            }
             if (direction != ' ') {
-                player.move(direction);
+                player.move(direction, collision);
                 invalidate();
                 return true;
             }
         }
         return super.onKeyDown(key, e);
     }
-
 }

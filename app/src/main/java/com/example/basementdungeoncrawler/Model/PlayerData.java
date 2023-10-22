@@ -8,6 +8,8 @@ import androidx.core.content.ContextCompat;
 
 import com.example.basementdungeoncrawler.R;
 
+import java.util.ArrayList;
+
 public class PlayerData {
 
     private String username;
@@ -20,6 +22,8 @@ public class PlayerData {
     private boolean goalReached;
 
     private static volatile PlayerData playerData;
+//    private Collision collision;
+    private ArrayList<PlayerSubscriber> subscribers;
 
     /*
      * @param username username of playerData
@@ -38,47 +42,110 @@ public class PlayerData {
         int color = ContextCompat.getColor(context, R.color.player);
         paint.setColor(color);
 
+
     }
 
     public void draw(Canvas canvas) {
         canvas.drawCircle((float) positionX, (float) positionY, (float) radius, paint);
     }
 
-    public void move(char direction) {
-        switch(direction) {
-            case 'w':
-                positionY = positionY - 16;
-                if (positionX >= 1000 && positionY >= 1800) {
-                    goalReached = true;
+    public void move(char direction, Collision collision) {
+        switch (direction) {
+        case 'w':
+            try {
+                if (!collision.getUp()) {
+                    positionY = positionY - 16;
                 }
                 break;
-            case 'a':
-                positionX = positionX - 16;
-                if (positionX >= 1000 && positionY >= 1800) {
-                    goalReached = true;
+            } catch (Exception error) {
+                break;
+            }
+
+        case 'a':
+            try {
+                if (!collision.getLeft()) {
+                    positionX = positionX - 16;
                 }
                 break;
-            case 's':
-                positionY = positionY + 16;
-                if (positionX >= 1000 && positionY >= 1800) {
-                    goalReached = true;
+            } catch (Exception error) {
+                break;
+            }
+
+        case 's':
+            try {
+                if (!collision.getBottom()) {
+                    positionY = positionY + 16;
                 }
                 break;
-            case 'd':
-                positionX = positionX + 16;
-                if (positionX >= 1000 && positionY >= 1800) {
-                    goalReached = true;
+            } catch (Exception error) {
+                break;
+            }
+
+        case 'd':
+            try {
+                if (!collision.getRight()) {
+                    positionX = positionX + 16;
                 }
                 break;
+            } catch (Exception error) {
+                break;
+            }
+
+        case 'W':
+            try {
+                if (!collision.getUp()) {
+                    positionY = positionY - 48;
+                }
+                break;
+            } catch (Exception error) {
+                break;
+            }
+        case 'A':
+            try {
+                if (!collision.getLeft()) {
+                    positionX = positionX - 48;
+                }
+                break;
+            } catch (Exception error) {
+                break;
+            }
+
+        case 'S':
+            try {
+                if (!collision.getBottom()) {
+                    positionY = positionY + 48;
+                }
+                break;
+            } catch (Exception error) {
+                break;
+            }
+
+        case 'D':
+            try {
+                if (!collision.getRight()) {
+                    positionX = positionX + 48;
+                }
+                break;
+            } catch (Exception error) {
+                break;
+            }
+
+        default:
+            break;
         }
+        notifySubscribers();
     }
 
-    public double getPositionX(){
-        return positionX;
-    }
-    public double getPositionY(){
-        return positionY;
-    }
+//    public double getPositionX(){
+//        return positionX;
+//    }
+//    public double getPositionY(){
+//        return positionY;
+//    }
+//
+//    public double getRadius() {
+//        return radius;
+//    }
 
     private PlayerData() {
         this("", 0);
@@ -136,8 +203,22 @@ public class PlayerData {
     public int getHP() {
         return HP;
     }
-    public boolean isGoalReached()
-    {
+    public boolean isGoalReached() {
         return goalReached;
+    }
+
+    public void subscribe(PlayerSubscriber sub) {
+        if (subscribers == null) subscribers = new ArrayList<>();
+        subscribers.add(sub);
+    }
+
+    public void removeObserver(PlayerSubscriber sub) {
+        subscribers.remove(sub);
+    }
+
+    protected void notifySubscribers() {
+        for (PlayerSubscriber sub : subscribers) {
+            sub.update(positionX, positionY, radius);
+        }
     }
 }
