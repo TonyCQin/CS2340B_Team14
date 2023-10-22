@@ -49,46 +49,64 @@ public class PlayerData {
         canvas.drawCircle((float) positionX, (float) positionY, (float) radius, paint);
     }
 
-    public void move(char direction) {
-        switch(direction) {
-            case 'w':
+    public void move(char direction, Collision collision) {
+        switch (direction) {
+        case 'w':
+            if (!collision.getUp()) {
                 positionY = positionY - 16;
-                break;
-            case 'a':
+            }
+            break;
+        case 'a':
+            if (!collision.getLeft()) {
                 positionX = positionX - 16;
-                break;
-            case 's':
+            }
+            break;
+        case 's':
+            if (!collision.getBottom()) {
                 positionY = positionY + 16;
-                break;
-            case 'd':
+            }
+            break;
+        case 'd':
+            if (!collision.getRight()) {
                 positionX = positionX + 16;
-                break;
-            case 'W':
+            }
+            break;
+        case 'W':
+            if (!collision.getUp()) {
                 positionY = positionY - 48;
-                break;
-            case 'A':
+            }
+            break;
+        case 'A':
+            if (!collision.getLeft()) {
                 positionX = positionX - 48;
-                break;
-            case 'S':
+            }
+            break;
+        case 'S':
+            if (!collision.getBottom()) {
                 positionY = positionY + 48;
-                break;
-            case 'D':
+            }
+            break;
+        case 'D':
+            if (!collision.getRight()) {
                 positionX = positionX + 48;
-                break;
+            }
+            break;
+        default:
+            break;
         }
         notifySubscribers();
     }
 
-    public double getPositionX(){
-        return positionX;
-    }
-    public double getPositionY(){
-        return positionY;
-    }
-
-    public double getRadius() {
-        return radius;
-    }
+//    public double getPositionX(){
+//        return positionX;
+//    }
+//    public double getPositionY(){
+//        return positionY;
+//    }
+//
+//    public double getRadius() {
+//        return radius;
+//    }
 
     private PlayerData() {
         this("", 0);
@@ -146,8 +164,7 @@ public class PlayerData {
     public int getHP() {
         return HP;
     }
-    public boolean isGoalReached()
-    {
+    public boolean isGoalReached() {
         return goalReached;
     }
 

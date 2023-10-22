@@ -203,7 +203,7 @@ public class MapView extends View{
                 }
             }
             if (direction != ' ') {
-                player.move(direction);
+                player.move(direction, collision);
                 invalidate();
                 return true;
             }
