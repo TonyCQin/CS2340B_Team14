@@ -17,12 +17,12 @@
             android:text="@string/restart" />
 
         <TextView
-            android:id="@+id/leaderboardandRecentAttemptTitle"
+            android:id="@+id/WinnerTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Leaderboard&#160;&amp;&#160;Recent&#160;Attempt" />
+            android:text="Congratulations!! You Escaped!!" />
     </LinearLayout>
 
 
