@@ -3,6 +3,7 @@ package com.example.basementdungeoncrawler.Model;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.util.Log;
 
 import androidx.core.content.ContextCompat;
 
@@ -19,7 +20,7 @@ public class PlayerData {
     private double positionY;
     private double radius;
     private Paint paint;
-    private boolean goalReached;
+    private EdgeReached edgeReached;
 
     private static volatile PlayerData playerData;
 //    private Collision collision;
@@ -47,6 +48,62 @@ public class PlayerData {
         canvas.drawCircle((float) positionX, (float) positionY, (float) radius, paint);
     }
 
+    public void move(char direction, Collision collision) {
+        switch (direction) {
+        case 'w':
+            if (!collision.getUp()) {
+                positionY = positionY - 16;
+            }
+            break;
+
+        case 'a':
+            if (!collision.getLeft()) {
+                positionX = positionX - 16;
+            }
+            break;
+
+        case 's':
+            if (!collision.getBottom()) {
+                positionY = positionY + 16;
+            }
+            break;
+
+        case 'd':
+            if (!collision.getRight()) {
+                positionX = positionX + 16;
+            }
+            break;
+
+        case 'W':
+            if (!collision.getUp()) {
+                positionY = positionY - 48;
+            }
+            break;
+        case 'A':
+            if (!collision.getLeft()) {
+                positionX = positionX - 48;
+            }
+            break;
+
+
+        case 'S':
+            if (!collision.getBottom()) {
+                positionY = positionY + 48;
+            }
+            break;
+
+        case 'D':
+            if (!collision.getRight()) {
+                positionX = positionX + 48;
+            }
+            break;
+
+        default:
+            break;
+        }
+        notifySubscribers();
+    }
+  
     private PlayerData() {
         this("", 0);
     }
@@ -102,10 +159,6 @@ public class PlayerData {
 
     public int getHP() {
         return HP;
-    }
-    public boolean isGoalReached()
-    {
-        return goalReached;
     }
 
     public void subscribe(PlayerSubscriber sub) {

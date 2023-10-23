@@ -3,6 +3,7 @@ public class Game {
     private int difficulty;
     private static volatile Game game;
     private int score;
+    private int screenCounter;
 
 
     public Game(int difficulty, int score) {
@@ -40,6 +41,14 @@ public class Game {
 
     public int getScore() {
         return score;
+    }
+
+    public void setScreenCounter(int newScreenCounter) {
+        screenCounter = newScreenCounter;
+    }
+
+    public int getScreenCounter() {
+        return screenCounter;
     }
 
     private void setPlayerHP(int difficulty) {

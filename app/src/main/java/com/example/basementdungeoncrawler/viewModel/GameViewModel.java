@@ -3,9 +3,11 @@ package com.example.basementdungeoncrawler.viewModel;
 import androidx.lifecycle.ViewModel;
 
 import com.example.basementdungeoncrawler.Model.Game;
+import com.example.basementdungeoncrawler.Model.PlayerSubscriber;
 import com.example.basementdungeoncrawler.Model.ScoresList;
 import java.util.ArrayList;
 import com.example.basementdungeoncrawler.Model.Score;
+import com.example.basementdungeoncrawler.view.GameScreen;
 
 public class GameViewModel extends ViewModel {
     private Game game;
@@ -35,6 +37,14 @@ public class GameViewModel extends ViewModel {
     public int getScore() {
         return game.getScore(); }
 
+    public void setScreenCounter(int newScreenCounter) {
+        game.setScreenCounter(newScreenCounter);
+    }
+
+    public int getScreenCounter() {
+        return game.getScreenCounter();
+    }
+
     //top five scores for leaderboard display
     public ArrayList<Score> getScoresList() {
         return list.getScores(); }
@@ -42,4 +52,5 @@ public class GameViewModel extends ViewModel {
     public void clearScores() {
         list.clearScores();
     }
+
 }

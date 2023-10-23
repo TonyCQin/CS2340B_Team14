@@ -18,6 +18,7 @@ import com.example.basementdungeoncrawler.Model.Score;
 import com.example.basementdungeoncrawler.graphics.Tile;
 import com.example.basementdungeoncrawler.graphics.TileMap;
 import com.example.basementdungeoncrawler.view.ConfigScreen;
+import com.example.basementdungeoncrawler.view.GameScreen;
 import com.example.basementdungeoncrawler.viewModel.EndScreenViewModel;
 import com.example.basementdungeoncrawler.viewModel.GameViewModel;
 import com.example.basementdungeoncrawler.viewModel.LeaderBoardAdapter;
@@ -175,6 +176,20 @@ public class UnitTest {
         tile.setCenterY(123);
         assertEquals((double)123, tile.getCenterY(), 0);
     }
+    @Test
+    public void testOutOfBounds() {
+        GameScreen test = new GameScreen();
+        double x = 4000;
+        double y = 4000;
+        assertEquals(true, test.outOfScreen(x, y));
+    }
+
+    @Test
+    public void testNotOutOfBounds() {
+        GameScreen test = new GameScreen();
+        double x = 200;
+        double y = 30;
+        assertEquals(false, test.outOfScreen(x, y));
 
     @Test
     public void correctDirection() {
