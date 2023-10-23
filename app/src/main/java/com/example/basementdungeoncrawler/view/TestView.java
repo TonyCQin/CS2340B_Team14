@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 
 import com.example.basementdungeoncrawler.R;
-import com.example.basementdungeoncrawler.graphics.Tile;
 import com.example.basementdungeoncrawler.graphics.TileSet;
 
 public class TestView extends View {

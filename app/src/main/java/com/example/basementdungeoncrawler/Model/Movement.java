@@ -8,38 +8,42 @@ public class Movement implements Action {
     }
     @Override
     public void walk(char direction) {
-        switch(direction) {
-            case 'w':
-                player.setPositionY(player.getPositionY() - 16);
-                break;
-            case 'a':
-                player.setPositionX(player.getPositionX() - 16);
-                break;
-            case 's':
-                player.setPositionY(player.getPositionY() + 16);
-                break;
-            case 'd':
-                player.setPositionX(player.getPositionX() + 16);
-                break;
+        switch (direction) {
+        case 'w':
+            player.setPositionY(player.getPositionY() - 16);
+            break;
+        case 'a':
+            player.setPositionX(player.getPositionX() - 16);
+            break;
+        case 's':
+            player.setPositionY(player.getPositionY() + 16);
+            break;
+        case 'd':
+            player.setPositionX(player.getPositionX() + 16);
+            break;
+        default:
+            break;
         }
         player.notifySubscribers();
     }
 
     @Override
     public void run(char direction) {
-        switch(direction) {
-            case 'W':
-                player.setPositionY(player.getPositionY() - 48);
-                break;
-            case 'A':
-                player.setPositionX(player.getPositionX() - 48);
-                break;
-            case 'S':
-                player.setPositionY(player.getPositionY() + 48);
-                break;
-            case 'D':
-                player.setPositionX(player.getPositionX() + 48);
-                break;
+        switch (direction) {
+        case 'W':
+            player.setPositionY(player.getPositionY() - 48);
+            break;
+        case 'A':
+            player.setPositionX(player.getPositionX() - 48);
+            break;
+        case 'S':
+            player.setPositionY(player.getPositionY() + 48);
+            break;
+        case 'D':
+            player.setPositionX(player.getPositionX() + 48);
+            break;
+        default:
+            break;
         }
         player.notifySubscribers();
     }

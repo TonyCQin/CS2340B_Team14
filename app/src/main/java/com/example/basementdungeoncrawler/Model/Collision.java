@@ -6,7 +6,6 @@ import com.example.basementdungeoncrawler.graphics.TileMap;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class Collision implements PlayerSubscriber {
     private boolean right;
@@ -19,7 +18,8 @@ public class Collision implements PlayerSubscriber {
         377, 378, 379, 380, 381, 382, 383, 384, 400, 401, 402, 403, 404, 405, 406, 407, 408, 451,
         454, 457, 486, 185, 186, 210, 211));
 
-    private final ArrayList<Integer> FinishIds = new ArrayList<>(Arrays.asList(17, 18, 19, 42, 43, 44, 67, 68, 69));
+    private final ArrayList<Integer> finishIds = new ArrayList<>(Arrays.asList(17, 18, 19, 42, 43,
+        44, 67, 68, 69));
 
     private TileMap tileMap;
     private double positionX;
@@ -56,16 +56,11 @@ public class Collision implements PlayerSubscriber {
         left = tileWallIds.contains(getTileId(tileMap, posX - r, posY));
         bottom = tileWallIds.contains(getTileId(tileMap, posX, posY + r));
         up = tileWallIds.contains(getTileId(tileMap, posX, posY - r));
-//        Log.d("right tile", String.valueOf(getTileId(tileMap, posX + r, posY)));
-//        Log.d("left tile", String.valueOf(getTileId(tileMap, posX - r, posY)));
-//        Log.d("bottom tile", String.valueOf(getTileId(tileMap, posX, posY + r)));
-//        Log.d("up tile", String.valueOf(getTileId(tileMap, posX, posY - r)));
         positionX = posX;
         positionY = posY;
     }
 
     private int getTileId(TileMap tilemap, double positionX, double positionY) {
-//        Log.d("tileid", String.valueOf(tilemap.getTile(positionX, positionY).getTileId()));
         return tilemap.getTile(positionX, positionY).getTileId();
     }
 
@@ -79,7 +74,7 @@ public class Collision implements PlayerSubscriber {
         Log.d("x", String.valueOf(x));
         Log.d("y", String.valueOf(y));
         GoalReached goalReached = GoalReached.getGoalReached();
-        goalReached.setIsGoalReached(FinishIds.contains(getTileId(tileMap, x, y)));
+        goalReached.setIsGoalReached(finishIds.contains(getTileId(tileMap, x, y)));
         Log.d("IsGoalReached", String.valueOf(goalReached.getIsGoalReached()));
     }
 }

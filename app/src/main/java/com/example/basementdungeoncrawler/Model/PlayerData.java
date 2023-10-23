@@ -3,7 +3,6 @@ package com.example.basementdungeoncrawler.Model;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.util.Log;
 
 import androidx.core.content.ContextCompat;
 
@@ -15,7 +14,7 @@ public class PlayerData {
 
     private String username;
     private int spriteSelected;
-    private int HP;
+    private int hp;
     private double positionX;
     private double positionY;
     private double radius;
@@ -23,7 +22,6 @@ public class PlayerData {
     private EdgeReached edgeReached;
 
     private static volatile PlayerData playerData;
-//    private Collision collision;
     private ArrayList<PlayerSubscriber> subscribers;
 
     /*
@@ -153,16 +151,18 @@ public class PlayerData {
         }
     }
 
-    public void setHP(int HP) {
-        this.HP = HP;
+    public void setHp(int hp) {
+        this.hp = hp;
     }
 
-    public int getHP() {
-        return HP;
+    public int getHp() {
+        return hp;
     }
 
     public void subscribe(PlayerSubscriber sub) {
-        if (subscribers == null) subscribers = new ArrayList<>();
+        if (subscribers == null) {
+            subscribers = new ArrayList<>();
+        }
         subscribers.add(sub);
     }
 
@@ -176,14 +176,20 @@ public class PlayerData {
         }
     }
 
-    public double getPositionX(){
+    public double getPositionX() {
         return positionX;
     }
-    public double getPositionY(){
+    public double getPositionY() {
         return positionY;
     }
-    public double getRadius() {return radius; }
+    public double getRadius() {
+        return radius;
+    }
 
-    public void setPositionX(double positionX) {this.positionX = positionX;}
-    public void setPositionY(double positionY) {this.positionY = positionY;}
+    public void setPositionX(double positionX) {
+        this.positionX = positionX;
+    }
+    public void setPositionY(double positionY) {
+        this.positionY = positionY;
+    }
 }

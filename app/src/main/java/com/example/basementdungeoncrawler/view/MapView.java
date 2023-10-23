@@ -7,7 +7,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.text.method.MovementMethod;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -27,7 +26,7 @@ import static com.example.basementdungeoncrawler.graphics.MapLayout.NUMBER_OF_RO
 
 import java.util.ArrayList;
 
-public class MapView extends View{
+public class MapView extends View {
     private ArrayList<Tile[][]> layers;
     private TileSet dungeonTileSet;
     private TileSet propTileSet;
@@ -43,12 +42,8 @@ public class MapView extends View{
     private Context context;
     private Movement movement;
 
-    /**
-     * constructor that generates base values for the screen
-     * @param context context for generating resources
-     * @param layers list of Tile[][] layers to draw
-     */
-    public MapView(Context context, ArrayList<Tile[][]> layers, TileMap tileMap, GameScreen gameScreen, int x, int y, int radius) {
+    public MapView(Context context, ArrayList<Tile[][]> layers, TileMap tileMap,
+                   GameScreen gameScreen, int x, int y, int radius) {
         super(context);
         this.layers = layers;
         this.gameScreen = gameScreen;
@@ -126,32 +121,14 @@ public class MapView extends View{
         Rect srcRect = tile.getRect();
         Rect destRect = drawDestRect(row, col);
         int tileId = tile.getTileId();
-//        Log.d("srcRect", String.valueOf(srcRect));
-//        Log.d("destRect", String.valueOf(destRect));
-//        Log.d("tileID", String.valueOf(tileId));
-//        different tile sets have different ids. Since our first tile set is 25x25,
-//        it contains id's from 1 - 626. This logic divides the tiles base on what tileSet they
-//        belong to and draws them based on that.
         if (tileId > 0) {
             canvas.drawBitmap(dungeonTileSet.getBitmap(), srcRect, destRect, null);
-
-//            debugging tests for what is being drawn
-//            Log.d("srcRect", String.valueOf(srcRect));
-//            Log.d("destRect", String.valueOf(destRect));
-//            Log.d("tileID", String.valueOf(tileId));
-//            Log.d("tileAdded", "dungeon tile");
         }
         if (tileId > 626) {
             canvas.drawBitmap(propTileSet.getBitmap(), srcRect, destRect, null);
-//                    Log.d("srcRect", String.valueOf(srcRect));
-//                    Log.d("destRect", String.valueOf(destRect));
-//                    Log.d("tileID", String.valueOf(tileId));
-//                    Log.d("tileAdded", "prop tile");
         }
 
-//        this in theory would be the transparent tile, but layering on android studio does not work.
         if (tileId <= 0) {
-//                        Log.d("tileID", String.valueOf(tileId));
             int width = 16; // Width of the Bitmap
             int height = 16; // Height of the Bitmap
 
@@ -163,10 +140,8 @@ public class MapView extends View{
             paint.setAlpha(0);
 
             testCanvas.drawRect(0, 0, width, height, paint);
-            Rect placeholderRect = new Rect(0,0,16,16);
+            Rect placeholderRect = new Rect(0, 0, 16, 16);
             canvas.drawBitmap(redBitmap, placeholderRect, destRect, null);
-//            Log.d("row", String.valueOf(row));
-//            Log.d("column", String.valueOf(col));
         }
     }
 
@@ -175,38 +150,41 @@ public class MapView extends View{
         char direction = ' ';
         if (e.getAction() == KeyEvent.ACTION_DOWN) {
             if (e.isShiftPressed()) {
-            switch (key) {
-                    case KeyEvent.KEYCODE_W:
-                        direction = 'W';
-                        break;
-                    case KeyEvent.KEYCODE_A:
-                        direction = 'A';
-                        break;
-                    case KeyEvent.KEYCODE_S:
-                        direction = 'S';
-                        break;
-                    case KeyEvent.KEYCODE_D:
-                        direction = 'D';
-                        break;
+                switch (key) {
+                case KeyEvent.KEYCODE_W:
+                    direction = 'W';
+                    break;
+                case KeyEvent.KEYCODE_A:
+                    direction = 'A';
+                    break;
+                case KeyEvent.KEYCODE_S:
+                    direction = 'S';
+                    break;
+                case KeyEvent.KEYCODE_D:
+                    direction = 'D';
+                    break;
+                default:
+                    break;
                 }
                 if (direction != ' ') {
                     movement.run(direction);
                 }
-            }
-            else {
+            } else {
                 switch (key) {
-                    case KeyEvent.KEYCODE_W:
-                        direction = 'w';
-                        break;
-                    case KeyEvent.KEYCODE_A:
-                        direction = 'a';
-                        break;
-                    case KeyEvent.KEYCODE_S:
-                        direction = 's';
-                        break;
-                    case KeyEvent.KEYCODE_D:
-                        direction = 'd';
-                        break;
+                case KeyEvent.KEYCODE_W:
+                    direction = 'w';
+                    break;
+                case KeyEvent.KEYCODE_A:
+                    direction = 'a';
+                    break;
+                case KeyEvent.KEYCODE_S:
+                    direction = 's';
+                    break;
+                case KeyEvent.KEYCODE_D:
+                    direction = 'd';
+                    break;
+                default:
+                    break;
                 }
                 if (direction != ' ') {
                     movement.walk(direction);
@@ -220,7 +198,8 @@ public class MapView extends View{
                     gameScreen.update();
                 }
                 //goal checking logic
-                Log.d("Is goal reached (mapview)", String.valueOf(GoalReached.getGoalReached().getIsGoalReached()));
+                Log.d("Is goal reached (mapview)", String.valueOf(
+                    GoalReached.getGoalReached().getIsGoalReached()));
                 if (GoalReached.getGoalReached().getIsGoalReached()) {
                     Log.d("calling update", "");
                     gameScreen.update();

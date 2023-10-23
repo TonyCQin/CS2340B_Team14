@@ -1,7 +1,6 @@
 package com.example.basementdungeoncrawler.Model;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.util.Log;
 
 import com.example.basementdungeoncrawler.view.GameScreen;
@@ -10,14 +9,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class EdgeReached implements PlayerSubscriber {
-    PlayerData player;
-    GameScreen gameScreen;
-    Context context;
-    Boolean isEdgeReached = false;
+    private PlayerData player;
+    private GameScreen gameScreen;
+    private Context context;
+    private Boolean isEdgeReached = false;
     private int height;
     private int width;
     private static volatile EdgeReached edgeReached;
-    private final ArrayList<Integer> FinishIds = new ArrayList<>(Arrays.asList(17, 18, 19, 42, 43, 44, 67, 68, 69));
+    private final ArrayList<Integer> finishIds = new ArrayList<>(Arrays.asList(17, 18, 19, 42,
+        43, 44, 67, 68, 69));
 
 
     public EdgeReached(int height, int width) {
@@ -31,15 +31,12 @@ public class EdgeReached implements PlayerSubscriber {
     }
 
     public void checkEdgeReached(double x, double y) {
-//        Log.d("x", String.valueOf(x));
-//        Log.d("y", String.valueOf(y));
         Log.d("width", String.valueOf(width));
         if (x > width || y > height) {
             isEdgeReached = true;
         } else {
             isEdgeReached = false;
         }
-//        Log.d("edgeReached", String.valueOf(EdgeReached.getEdgeReached().isEdgeReached));
     }
 
     public Boolean getIsEdgeReached() {
