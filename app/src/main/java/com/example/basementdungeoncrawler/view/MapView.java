@@ -9,16 +9,26 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
+import android.text.method.MovementMethod;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
 
+
+import com.example.basementdungeoncrawler.Model.Collision;
+import com.example.basementdungeoncrawler.Model.Movement;
+import com.example.basementdungeoncrawler.Model.PlayerData;
 import com.example.basementdungeoncrawler.R;
 import com.example.basementdungeoncrawler.graphics.Tile;
+import com.example.basementdungeoncrawler.graphics.TileMap;
 import com.example.basementdungeoncrawler.graphics.TileSet;
+
+
 import static com.example.basementdungeoncrawler.graphics.MapLayout.NUMBER_OF_COLUMN_TILES;
 import static com.example.basementdungeoncrawler.graphics.MapLayout.NUMBER_OF_ROW_TILES;
 
@@ -32,13 +42,17 @@ public class MapView extends View{
     private int screenHeight;
     private int tileWidth = screenWidth / NUMBER_OF_COLUMN_TILES;
     private int tileHeight = screenHeight / NUMBER_OF_ROW_TILES;
+    private final PlayerData player;
+    private TileMap tileMap;
+    private Collision collision;
+    private Movement movement;
 
     /**
      * constructor that generates base values for the screen
      * @param context context for generating resources
      * @param layers list of Tile[][] layers to draw
      */
-    public MapView(Context context, ArrayList<Tile[][]> layers) {
+    public MapView(Context context, ArrayList<Tile[][]> layers, TileMap tileMap) {
         super(context);
         this.layers = layers;
         dungeonTileSet = new TileSet(context, R.drawable.tiles2, 16);
@@ -49,6 +63,13 @@ public class MapView extends View{
         screenWidth = resources.getDisplayMetrics().widthPixels;
         tileWidth = screenWidth / NUMBER_OF_COLUMN_TILES;
         tileHeight = screenHeight / NUMBER_OF_ROW_TILES;
+
+        collision = new Collision(tileMap);
+        player = new PlayerData(getContext(), 550, 800, 30);
+        player.subscribe(collision);
+        this.movement = new Movement(player);
+
+        setFocusable(true);
     }
 
     /**
@@ -60,6 +81,7 @@ public class MapView extends View{
         for (Tile[][] layer : layers) {
             renderLayer(canvas, layer);
         }
+        player.draw(canvas);
         super.onDraw(canvas);
     }
 
@@ -144,5 +166,53 @@ public class MapView extends View{
 //            Log.d("row", String.valueOf(row));
 //            Log.d("column", String.valueOf(col));
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int key, KeyEvent e) {
+        char direction = ' ';
+        if (e.getAction() == KeyEvent.ACTION_DOWN) {
+            if (e.isShiftPressed()) {
+            switch (key) {
+                    case KeyEvent.KEYCODE_W:
+                        direction = 'W';
+                        break;
+                    case KeyEvent.KEYCODE_A:
+                        direction = 'A';
+                        break;
+                    case KeyEvent.KEYCODE_S:
+                        direction = 'S';
+                        break;
+                    case KeyEvent.KEYCODE_D:
+                        direction = 'D';
+                        break;
+                }
+                if (direction != ' ') {
+                    movement.run(direction);
+                }
+            }
+            else {
+                switch (key) {
+                    case KeyEvent.KEYCODE_W:
+                        direction = 'w';
+                        break;
+                    case KeyEvent.KEYCODE_A:
+                        direction = 'a';
+                        break;
+                    case KeyEvent.KEYCODE_S:
+                        direction = 's';
+                        break;
+                    case KeyEvent.KEYCODE_D:
+                        direction = 'd';
+                        break;
+                }
+                if (direction != ' ') {
+                    movement.walk(direction);
+                }
+            }
+            invalidate();
+            return true;
+        }
+        return super.onKeyDown(key, e);
     }
 }
