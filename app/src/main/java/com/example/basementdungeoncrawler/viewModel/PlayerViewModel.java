@@ -37,4 +37,8 @@ public class PlayerViewModel extends ViewModel {
     public int getHP() {
         return playerData.getHP();
     }
+
+    public double getX() { return playerData.getPositionX(); }
+
+    public double getY() { return playerData.getPositionY(); }
 }
