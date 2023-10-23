@@ -103,18 +103,7 @@ public class PlayerData {
         }
         notifySubscribers();
     }
-
-//    public double getPositionX(){
-//        return positionX;
-//    }
-//    public double getPositionY(){
-//        return positionY;
-//    }
-//
-//    public double getRadius() {
-//        return radius;
-//    }
-
+  
     private PlayerData() {
         this("", 0);
     }
@@ -186,4 +175,15 @@ public class PlayerData {
             sub.update(positionX, positionY, radius);
         }
     }
+
+    public double getPositionX(){
+        return positionX;
+    }
+    public double getPositionY(){
+        return positionY;
+    }
+    public double getRadius() {return radius; }
+
+    public void setPositionX(double positionX) {this.positionX = positionX;}
+    public void setPositionY(double positionY) {this.positionY = positionY;}
 }

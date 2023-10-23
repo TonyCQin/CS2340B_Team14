@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.text.method.MovementMethod;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.view.View;
 import com.example.basementdungeoncrawler.Model.Collision;
 import com.example.basementdungeoncrawler.Model.EdgeReached;
 import com.example.basementdungeoncrawler.Model.GoalReached;
+import com.example.basementdungeoncrawler.Model.Movement;
 import com.example.basementdungeoncrawler.Model.PlayerData;
 import com.example.basementdungeoncrawler.R;
 import com.example.basementdungeoncrawler.graphics.Tile;
@@ -39,6 +41,7 @@ public class MapView extends View{
     private EdgeReached edgeReached;
     private GameScreen gameScreen;
     private Context context;
+    private Movement movement;
 
     /**
      * constructor that generates base values for the screen
@@ -66,6 +69,7 @@ public class MapView extends View{
         player = new PlayerData(getContext(), x, y, radius);
         player.subscribe(collision);
         player.subscribe(edgeReached);
+        this.movement = new Movement(player);
 
         setFocusable(true);
     }
@@ -185,6 +189,9 @@ public class MapView extends View{
                         direction = 'D';
                         break;
                 }
+                if (direction != ' ') {
+                    movement.run(direction);
+                }
             }
             else {
                 switch (key) {
@@ -200,6 +207,9 @@ public class MapView extends View{
                     case KeyEvent.KEYCODE_D:
                         direction = 'd';
                         break;
+                }
+                if (direction != ' ') {
+                    movement.walk(direction);
                 }
             }
             if (direction != ' ') {

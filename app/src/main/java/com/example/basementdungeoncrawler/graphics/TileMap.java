@@ -76,5 +76,6 @@ public class TileMap {
             edgeReached.setIsEdgeReached(true);
             return new Tile(1, new Rect(0,0,16,16));
         }
+
     }
 }

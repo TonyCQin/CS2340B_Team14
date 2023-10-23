@@ -8,10 +8,15 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 
+import android.content.Context;
 import android.content.res.Resources;
 
+import com.example.basementdungeoncrawler.Model.Collision;
+import com.example.basementdungeoncrawler.Model.Movement;
+import com.example.basementdungeoncrawler.Model.PlayerData;
 import com.example.basementdungeoncrawler.Model.Score;
 import com.example.basementdungeoncrawler.graphics.Tile;
+import com.example.basementdungeoncrawler.graphics.TileMap;
 import com.example.basementdungeoncrawler.view.ConfigScreen;
 import com.example.basementdungeoncrawler.view.GameScreen;
 import com.example.basementdungeoncrawler.viewModel.EndScreenViewModel;
@@ -27,6 +32,7 @@ import java.util.ArrayList;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class UnitTest {
+
     @Test
     public void correctDifficulty() {
         PlayerViewModel playerViewModel = new PlayerViewModel();
@@ -184,5 +190,91 @@ public class UnitTest {
         double x = 200;
         double y = 30;
         assertEquals(false, test.outOfScreen(x, y));
+
+    @Test
+    public void correctDirection() {
+        PlayerViewModel player = new PlayerViewModel();
+        Movement movement = new Movement(PlayerData.getPlayer());
+        double ogX = player.getX();
+        double ogY = player.getY();
+        movement.walk('a');
+        assertTrue(ogX > player.getX());
+        movement.walk('w');
+        assertTrue(ogY > player.getY());
+
+        ogX = player.getX();
+        ogY = player.getY();
+        movement.walk('d');
+        assertTrue(ogX < player.getX());
+        movement.walk('s');
+        assertTrue(ogY < player.getY());
+    }
+
+    @Test
+    public void testCollisionWalls() {
+        Collision collision = new Collision(null);
+        assertTrue(collision.getTileWallIds().contains(0));
+        assertFalse(collision.getTileWallIds().contains(10));
+        assertTrue(collision.getTileWallIds().size() == 68);
+    }
+
+    @Test
+    public void testCollisionInstantiation() {
+        Collision collision = new Collision(null);
+        assertFalse(collision.getRight());
+        assertFalse(collision.getLeft());
+        assertFalse(collision.getBottom());
+        assertFalse(collision.getUp());
+        assertFalse(collision.getTileWallIds() == null);
+    }
+
+
+    @Test
+    public void correctDistance() {
+        PlayerViewModel player = new PlayerViewModel();
+        Movement movement = new Movement(PlayerData.getPlayer());
+        double ogX = player.getX();
+        double ogY = player.getY();
+        //Walking
+        movement.walk('a');
+        assertTrue(ogX == player.getX() + 16);
+        movement.walk('w');
+        assertTrue(ogY == player.getY() + 16);
+        ogX = player.getX();
+        ogY = player.getY();
+        movement.walk('d');
+        assertTrue(ogX == player.getX() - 16);
+        movement.walk('s');
+        assertTrue(ogY == player.getY() - 16);
+
+        //Running
+        ogX = player.getX();
+        ogY = player.getY();
+        movement.run('A');
+        assertTrue(ogX == player.getX() + 48);
+        movement.run('W');
+        assertTrue(ogY == player.getY() + 48);
+        ogX = player.getX();
+        ogY = player.getY();
+        movement.run('D');
+        assertTrue(ogX == player.getX() - 48);
+        movement.run('S');
+        assertTrue(ogY == player.getY() - 48);
+    }
+
+    @Test
+    public void testPositionXGetterSetter() {
+        PlayerViewModel player = new PlayerViewModel();
+        double expectedPositionX = 10.0;
+        player.setX(expectedPositionX);
+        assertEquals(expectedPositionX, player.getX(), 1.0);
+    }
+
+    @Test
+    public void testPositionYGetterSetter() {
+        PlayerViewModel player = new PlayerViewModel();
+        double expectedPositionY = 10.0;
+        player.setY(expectedPositionY);
+        assertEquals(expectedPositionY, player.getY(), 1.0);
     }
 }

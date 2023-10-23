@@ -47,6 +47,10 @@ public class Collision implements PlayerSubscriber {
         return up;
     }
 
+    public ArrayList<Integer> getTileWallIds() {
+        return tileWallIds;
+    }
+
     public void checkCollision(double posX, double posY, double r) {
         right = tileWallIds.contains(getTileId(tileMap, posX + r, posY));
         left = tileWallIds.contains(getTileId(tileMap, posX - r, posY));
