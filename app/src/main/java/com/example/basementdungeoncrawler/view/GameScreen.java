@@ -1,39 +1,28 @@
 package com.example.basementdungeoncrawler.view;
 
-import com.example.basementdungeoncrawler.Model.Collision;
+import com.example.basementdungeoncrawler.Model.EdgeReached;
+import com.example.basementdungeoncrawler.Model.Game;
+import com.example.basementdungeoncrawler.Model.GoalReached;
 import com.example.basementdungeoncrawler.Model.PlayerData;
-import com.example.basementdungeoncrawler.Model.Subscriber;
 import com.example.basementdungeoncrawler.R;
 import com.example.basementdungeoncrawler.graphics.TileMap;
-import com.example.basementdungeoncrawler.graphics.TmxParser;
 import com.example.basementdungeoncrawler.viewModel.GameViewModel;
 import com.example.basementdungeoncrawler.viewModel.PlayerViewModel;
 
 
-import androidx.annotation.ColorRes;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Color;
-import android.media.Image;
 import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.view.KeyEvent;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ImageView;
-import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 
 import android.util.Log;
-
-import org.w3c.dom.Text;
-
-import java.util.List;
 
 public class GameScreen extends AppCompatActivity {
     private PlayerViewModel playerViewModel;
@@ -44,6 +33,11 @@ public class GameScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //view models
+        playerViewModel = new ViewModelProvider(this).get(PlayerViewModel.class);
+        gameViewModel = new ViewModelProvider(this).get(GameViewModel.class);
+
         //sets the view to the UI of the game screen
 
         //instantiate initial map
@@ -51,13 +45,11 @@ public class GameScreen extends AppCompatActivity {
         TileMap map1TileMap = new TileMap(this, R.raw.new_map1);
         gameViewModel.setScreenCounter(1);
         Log.d("tileMap", String.valueOf(map1TileMap.getLayers()));
-        MapView mapView = new MapView(this, map1TileMap.getLayers(), map1TileMap);
+        MapView mapView = new MapView(this, map1TileMap.getLayers(), map1TileMap, this, 400, 1600, 30);
         setContentView(mapView);
         //
 
-//      view models
-        playerViewModel = new ViewModelProvider(this).get(PlayerViewModel.class);
-        gameViewModel = new ViewModelProvider(this).get(GameViewModel.class);
+
         //connecting the buttons, name, character health,
         addEndScreenButton();
         addSpriteImageView();
@@ -66,27 +58,6 @@ public class GameScreen extends AppCompatActivity {
         addHPTextView();
         TextView score = findViewById(R.id.score);
         score.setText("60");
-    }
-
-    private CountDownTimer startTimer(long milliseconds, TextView score) {
-        CountDownTimer timer = new CountDownTimer(milliseconds, 1000) {
-            @Override
-            //ticks every seconds based on interval specified in CountDownTimer
-            //checks the score stored in Game, decrements it for the next call
-            public void onTick(long millisecondsLeft) {
-                int newScore = gameViewModel.getScore();
-                score.setText(String.valueOf(newScore));
-                gameViewModel.setScore(newScore - 1);
-            }
-
-            //self explanatory method
-            public void onFinish() {
-                score.setText(0);
-            }
-        };
-
-        timer.start();
-        return timer;
     }
 
     private void addScore(String username, int finalScore) {
@@ -163,41 +134,46 @@ public class GameScreen extends AppCompatActivity {
         addContentView(HP, params);
     }
 
-    public void update(double x, double y) {
+    public void update() {
         int screenCounter = gameViewModel.getScreenCounter();
-        if (screenCounter == 1 && outOfScreen(x, y)) {
-            TileMap map2TileMap = new TileMap(this, R.raw.new_map2);
-            Log.d("tileMap", String.valueOf(map2TileMap.getLayers()));
-            mapView = new MapView(this, map2TileMap.getLayers());
-            setContentView(mapView);
-            addEndScreenButton();
-            addSpriteImageView();
-            addUsernameTextView();
-            addScoreTextView();
-            addHPTextView();
-            TextView score = findViewById(R.id.score);
-            score.setText(String.valueOf(gameViewModel.getScore()));
-        }
-        if (screenCounter == 2 && outOfScreen(x, y)) {
-            //set map
-            TileMap map3TileMap = new TileMap(this, R.raw.new_map3);
-            Log.d("tileMap", String.valueOf(map3TileMap.getLayers()));
-            MapView mapView = new MapView(this, map3TileMap.getLayers());
-            //add buttons
-            setContentView(mapView);
-            addEndScreenButton();
-            addSpriteImageView();
-            addUsernameTextView();
-            addScoreTextView();
-            addHPTextView();
-            TextView score = findViewById(R.id.score);
-            score.setText(String.valueOf(gameViewModel.getScore()));
-        }
-    }
 
-    public boolean outOfScreen(double x, double y) {
-        int screenHeight = this.getResources().getDisplayMetrics().heightPixels;
-        int screenWidth = this.getResources().getDisplayMetrics().heightPixels;
-        return x >= screenHeight && y >= screenWidth;
+//        if (screenCounter == 1) {
+//            TileMap map2TileMap = new TileMap(this, R.raw.new_map2);
+//            Log.d("tileMap", String.valueOf(map2TileMap.getLayers()));
+//            MapView map2View = new MapView(this, map2TileMap.getLayers(), map2TileMap, this, 200, 2000, 30);
+//            EdgeReached.getEdgeReached().setIsEdgeReached(false);
+//            setContentView(map2View);
+//            //add buttons
+//            addEndScreenButton();
+//            addSpriteImageView();
+//            addUsernameTextView();
+//            addScoreTextView();
+//            addHPTextView();
+//            TextView score = findViewById(R.id.score);
+//            score.setText(String.valueOf(gameViewModel.getScore()));
+//            gameViewModel.setScreenCounter(2);
+//        }
+        if (screenCounter == 1) {
+            //set map
+            TileMap map3TileMap = new TileMap(this, R.raw.new_map_3);
+            Log.d("tileMap", String.valueOf(map3TileMap.getLayers()));
+            MapView map3View = new MapView(this, map3TileMap.getLayers(), map3TileMap, this, 200, 250, 30);
+            EdgeReached.getEdgeReached().setIsEdgeReached(false);
+            setContentView(map3View);
+            //add buttons
+            addEndScreenButton();
+            addSpriteImageView();
+            addUsernameTextView();
+            addScoreTextView();
+            addHPTextView();
+            TextView score = findViewById(R.id.score);
+            score.setText(String.valueOf(gameViewModel.getScore()));
+        }
+        Log.d("is it tho", String.valueOf(GoalReached.getGoalReached(this).getIsGoalReached()));
+        if (GoalReached.getGoalReached(this).getIsGoalReached()) {
+
+            Intent intent = new Intent(GameScreen.this, EndScreen.class);
+            startActivity(intent);
+        }
     }
 }

@@ -3,6 +3,7 @@ package com.example.basementdungeoncrawler.Model;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.util.Log;
 
 import androidx.core.content.ContextCompat;
 
@@ -19,7 +20,7 @@ public class PlayerData {
     private double positionY;
     private double radius;
     private Paint paint;
-    private boolean goalReached;
+    private EdgeReached edgeReached;
 
     private static volatile PlayerData playerData;
 //    private Collision collision;
@@ -41,8 +42,6 @@ public class PlayerData {
         paint = new Paint();
         int color = ContextCompat.getColor(context, R.color.player);
         paint.setColor(color);
-
-
     }
 
     public void draw(Canvas canvas) {
@@ -52,83 +51,52 @@ public class PlayerData {
     public void move(char direction, Collision collision) {
         switch (direction) {
         case 'w':
-            try {
-                if (!collision.getUp()) {
-                    positionY = positionY - 16;
-                }
-                break;
-            } catch (Exception error) {
-                break;
+            if (!collision.getUp()) {
+                positionY = positionY - 16;
             }
+            break;
 
         case 'a':
-            try {
-                if (!collision.getLeft()) {
-                    positionX = positionX - 16;
-                }
-                break;
-            } catch (Exception error) {
-                break;
+            if (!collision.getLeft()) {
+                positionX = positionX - 16;
             }
+            break;
 
         case 's':
-            try {
-                if (!collision.getBottom()) {
-                    positionY = positionY + 16;
-                }
-                break;
-            } catch (Exception error) {
-                break;
+            if (!collision.getBottom()) {
+                positionY = positionY + 16;
             }
+            break;
 
         case 'd':
-            try {
-                if (!collision.getRight()) {
-                    positionX = positionX + 16;
-                }
-                break;
-            } catch (Exception error) {
-                break;
+            if (!collision.getRight()) {
+                positionX = positionX + 16;
             }
+            break;
 
         case 'W':
-            try {
-                if (!collision.getUp()) {
-                    positionY = positionY - 48;
-                }
-                break;
-            } catch (Exception error) {
-                break;
+            if (!collision.getUp()) {
+                positionY = positionY - 48;
             }
+            break;
         case 'A':
-            try {
-                if (!collision.getLeft()) {
-                    positionX = positionX - 48;
-                }
-                break;
-            } catch (Exception error) {
-                break;
+            if (!collision.getLeft()) {
+                positionX = positionX - 48;
             }
+            break;
+
 
         case 'S':
-            try {
-                if (!collision.getBottom()) {
-                    positionY = positionY + 48;
-                }
-                break;
-            } catch (Exception error) {
-                break;
+            if (!collision.getBottom()) {
+                positionY = positionY + 48;
             }
+            break;
 
         case 'D':
-            try {
-                if (!collision.getRight()) {
-                    positionX = positionX + 48;
-                }
-                break;
-            } catch (Exception error) {
-                break;
+            if (!collision.getRight()) {
+                positionX = positionX + 48;
             }
+            break;
 
         default:
             break;
@@ -202,9 +170,6 @@ public class PlayerData {
 
     public int getHP() {
         return HP;
-    }
-    public boolean isGoalReached() {
-        return goalReached;
     }
 
     public void subscribe(PlayerSubscriber sub) {

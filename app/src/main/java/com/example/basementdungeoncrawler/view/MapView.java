@@ -12,6 +12,8 @@ import android.view.KeyEvent;
 import android.view.View;
 
 import com.example.basementdungeoncrawler.Model.Collision;
+import com.example.basementdungeoncrawler.Model.EdgeReached;
+import com.example.basementdungeoncrawler.Model.GoalReached;
 import com.example.basementdungeoncrawler.Model.PlayerData;
 import com.example.basementdungeoncrawler.R;
 import com.example.basementdungeoncrawler.graphics.Tile;
@@ -32,21 +34,25 @@ public class MapView extends View{
     private int tileWidth = screenWidth / NUMBER_OF_COLUMN_TILES;
     private int tileHeight = screenHeight / NUMBER_OF_ROW_TILES;
     private final PlayerData player;
-    private TileMap tileMap;
     private Collision collision;
-    private double goalXCoord;
-    private double goalYCoord;
+    private GoalReached goalReached;
+    private EdgeReached edgeReached;
+    private GameScreen gameScreen;
+    private Context context;
 
     /**
      * constructor that generates base values for the screen
      * @param context context for generating resources
      * @param layers list of Tile[][] layers to draw
      */
-    public MapView(Context context, ArrayList<Tile[][]> layers, TileMap tileMap) {
+    public MapView(Context context, ArrayList<Tile[][]> layers, TileMap tileMap, GameScreen gameScreen, int x, int y, int radius) {
         super(context);
         this.layers = layers;
+        this.gameScreen = gameScreen;
         dungeonTileSet = new TileSet(context, R.drawable.tiles2, 16);
         propTileSet = new TileSet(context, R.drawable.props, 16);
+
+        this.context = context;
 
         Resources resources = context.getResources();
         screenHeight = resources.getDisplayMetrics().heightPixels;
@@ -55,9 +61,12 @@ public class MapView extends View{
         tileHeight = screenHeight / NUMBER_OF_ROW_TILES;
 
         collision = new Collision(tileMap);
-        player = new PlayerData(getContext(), 400, 1600, 30);
+        edgeReached = new EdgeReached(screenHeight, screenWidth);
+        goalReached = new GoalReached(tileMap);
+        player = new PlayerData(getContext(), x, y, radius);
         player.subscribe(collision);
-        player = new PlayerData(getContext(), 400, 850, 30);
+        player.subscribe(edgeReached);
+        player.subscribe(goalReached);
 
         setFocusable(true);
     }
@@ -195,7 +204,17 @@ public class MapView extends View{
                 }
             }
             if (direction != ' ') {
+                Log.d("moved", "");
+                if (EdgeReached.getEdgeReached().getIsEdgeReached()) {
+                    Log.d("calling update", "");
+                    gameScreen.update();
+                }
                 player.move(direction, collision);
+                Log.d("Is goal reached", String.valueOf(GoalReached.getGoalReached(context).getIsGoalReached()));
+                if (GoalReached.getGoalReached(context).getIsGoalReached()) {
+                    Log.d("calling update", "");
+                    gameScreen.update();
+                }
                 invalidate();
                 return true;
             }

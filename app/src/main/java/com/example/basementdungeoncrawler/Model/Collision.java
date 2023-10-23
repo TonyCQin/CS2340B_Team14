@@ -47,13 +47,13 @@ public class Collision implements PlayerSubscriber {
 
     public void checkCollision(double posX, double posY, double r) {
         right = tileWallIds.contains(getTileId(tileMap, posX + r, posY));
-        Log.d("right tile", String.valueOf(getTileId(tileMap, posX + r, posY)));
         left = tileWallIds.contains(getTileId(tileMap, posX - r, posY));
-        Log.d("left tile", String.valueOf(getTileId(tileMap, posX - r, posY)));
         bottom = tileWallIds.contains(getTileId(tileMap, posX, posY + r));
-        Log.d("bottom tile", String.valueOf(getTileId(tileMap, posX, posY + r)));
         up = tileWallIds.contains(getTileId(tileMap, posX, posY - r));
-        Log.d("up tile", String.valueOf(getTileId(tileMap, posX, posY - r)));
+//        Log.d("right tile", String.valueOf(getTileId(tileMap, posX + r, posY)));
+//        Log.d("left tile", String.valueOf(getTileId(tileMap, posX - r, posY)));
+//        Log.d("bottom tile", String.valueOf(getTileId(tileMap, posX, posY + r)));
+//        Log.d("up tile", String.valueOf(getTileId(tileMap, posX, posY - r)));
         positionX = posX;
         positionY = posY;
     }

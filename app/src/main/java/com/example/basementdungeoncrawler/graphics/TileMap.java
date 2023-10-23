@@ -7,6 +7,8 @@ import android.util.Log;
 import static com.example.basementdungeoncrawler.graphics.MapLayout.NUMBER_OF_COLUMN_TILES;
 import static com.example.basementdungeoncrawler.graphics.MapLayout.NUMBER_OF_ROW_TILES;
 
+import com.example.basementdungeoncrawler.Model.EdgeReached;
+import com.example.basementdungeoncrawler.Model.GoalReached;
 import com.example.basementdungeoncrawler.R;
 
 import java.util.ArrayList;
@@ -65,13 +67,14 @@ public class TileMap {
         int tileHeight = screenHeight / 24;
         int col = ((int) positionX) / tileWidth;
         int row = ((int) positionY) / tileHeight;
-        Log.d("col", String.valueOf(col));
-        Log.d("row", String.valueOf(row));
+//        Log.d("col", String.valueOf(col));
+//        Log.d("row", String.valueOf(row));
         try {
             return tileMap[row][col];
         } catch (Exception error) {
+            EdgeReached edgeReached = EdgeReached.getEdgeReached();
+            edgeReached.setIsEdgeReached(true);
             return new Tile(1, new Rect(0,0,16,16));
         }
-
     }
 }
