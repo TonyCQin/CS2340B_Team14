@@ -1,7 +1,6 @@
 package com.example.basementdungeoncrawler.view;
 
 import com.example.basementdungeoncrawler.Model.EdgeReached;
-import com.example.basementdungeoncrawler.Model.Game;
 import com.example.basementdungeoncrawler.Model.GoalReached;
 import com.example.basementdungeoncrawler.Model.PlayerData;
 import com.example.basementdungeoncrawler.R;
@@ -45,7 +44,8 @@ public class GameScreen extends AppCompatActivity {
         TileMap map1TileMap = new TileMap(this, R.raw.new_map1);
         gameViewModel.setScreenCounter(1);
         Log.d("tileMap", String.valueOf(map1TileMap.getLayers()));
-        MapView mapView = new MapView(this, map1TileMap.getLayers(), map1TileMap, this, 400, 1600, 30);
+        MapView mapView = new MapView(this, map1TileMap.getLayers(), map1TileMap,
+            this, 400, 1600, 30);
         setContentView(mapView);
         //
 
@@ -122,42 +122,27 @@ public class GameScreen extends AppCompatActivity {
     }
 
     private void addHPTextView() {
-        TextView HP = new TextView(this);
+        TextView hp = new TextView(this);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT
         );
         params.leftMargin = 600; // X coordinate
         params.topMargin = 0;  // Y coordinate
-        HP.setLayoutParams(params);
-        HP.setTextColor(Color.WHITE);
-        HP.setText(String.valueOf(playerViewModel.getHP()));
-        addContentView(HP, params);
+        hp.setLayoutParams(params);
+        hp.setTextColor(Color.WHITE);
+        hp.setText(String.valueOf(playerViewModel.getHP()));
+        addContentView(hp, params);
     }
 
     public void update() {
         int screenCounter = gameViewModel.getScreenCounter();
 
-//        if (screenCounter == 1) {
-//            TileMap map2TileMap = new TileMap(this, R.raw.new_map2);
-//            Log.d("tileMap", String.valueOf(map2TileMap.getLayers()));
-//            MapView map2View = new MapView(this, map2TileMap.getLayers(), map2TileMap, this, 200, 2000, 30);
-//            EdgeReached.getEdgeReached().setIsEdgeReached(false);
-//            setContentView(map2View);
-//            //add buttons
-//            addEndScreenButton();
-//            addSpriteImageView();
-//            addUsernameTextView();
-//            addScoreTextView();
-//            addHPTextView();
-//            TextView score = findViewById(R.id.score);
-//            score.setText(String.valueOf(gameViewModel.getScore()));
-//            gameViewModel.setScreenCounter(2);
-//        }
         if (screenCounter == 1) {
             //set map
             TileMap map3TileMap = new TileMap(this, R.raw.new_map_3);
             Log.d("tileMap", String.valueOf(map3TileMap.getLayers()));
-            MapView map3View = new MapView(this, map3TileMap.getLayers(), map3TileMap, this, 200, 250, 30);
+            MapView map3View = new MapView(this, map3TileMap.getLayers(), map3TileMap,
+                this, 200, 250, 30);
             EdgeReached.getEdgeReached().setIsEdgeReached(false);
             setContentView(map3View);
             //add buttons

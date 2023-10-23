@@ -7,11 +7,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.Rect;
-import android.util.Log;
-
-import com.example.basementdungeoncrawler.R;
 
 public class TileSet {
     private Bitmap bitmap;

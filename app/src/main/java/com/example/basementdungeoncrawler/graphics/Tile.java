@@ -1,5 +1,4 @@
 package com.example.basementdungeoncrawler.graphics;
-import android.graphics.Bitmap;
 import android.graphics.Rect;
 
 public class Tile {

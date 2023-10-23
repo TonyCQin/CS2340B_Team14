@@ -1,24 +1,12 @@
 package com.example.basementdungeoncrawler.view;
 
 import com.example.basementdungeoncrawler.R;
-import com.example.basementdungeoncrawler.graphics.MapLayout;
-import com.example.basementdungeoncrawler.graphics.TileMap;
-import com.example.basementdungeoncrawler.graphics.TileSet;
-import com.example.basementdungeoncrawler.graphics.TmxParser;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Rect;
-import android.media.Image;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     @Override
@@ -43,11 +31,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        TileMap map1TileMap = new TileMap(this, R.raw.new_map1);
-//        Log.d("tileMap", String.valueOf(map1TileMap.getLayers()));
-//        Rect testRect = new Rect(0, 0, 16, 16);
-//        TestView testView = new TestView(this, testRect);
-//        setContentView(testView);
     }
     //takes you to the next screen; parameters: current screen to screen you want to go to
     public void mainActivity(View view) {

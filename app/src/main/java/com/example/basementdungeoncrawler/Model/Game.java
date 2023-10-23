@@ -53,11 +53,11 @@ public class Game {
 
     private void setPlayerHP(int difficulty) {
         if (difficulty == 3) {
-            PlayerData.getPlayer().setHP(100);
+            PlayerData.getPlayer().setHp(100);
         } else if (difficulty == 2) {
-            PlayerData.getPlayer().setHP(150);
+            PlayerData.getPlayer().setHp(150);
         } else if (difficulty == 1) {
-            PlayerData.getPlayer().setHP(200);
+            PlayerData.getPlayer().setHp(200);
         }
     }
 }

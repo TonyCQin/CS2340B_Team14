@@ -99,13 +99,13 @@ public class ConfigScreen extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
                 RadioButton selectedRadioButton = findViewById(checkedId);
-                TextView DifficultyText = findViewById(R.id.difficultyText);
+                TextView difficultyText = findViewById(R.id.difficultyText);
 
                 if (selectedRadioButton == null) {
-                    difficultyText = "No Difficulty Selected";
+                    ConfigScreen.this.difficultyText = "No Difficulty Selected";
                     difficultyIsSelected = false;
                     difficultySelected[0] = 0;
-                    DifficultyText.setText("0");
+                    difficultyText.setText("0");
                 } else {
                     // Get the text from the selected radio button
                     String selectedDifficultyText = selectedRadioButton.getText().toString();
@@ -114,23 +114,23 @@ public class ConfigScreen extends AppCompatActivity {
                     if (selectedDifficultyText.equals("Easy")) {
                         difficultyIsSelected = true;
                         difficultySelected[0] = 1;
-                        DifficultyText.setText("1");
+                        difficultyText.setText("1");
                     } else if (selectedDifficultyText.equals("Medium")) {
                         difficultyIsSelected = true;
                         difficultySelected[0] = 2;
-                        DifficultyText.setText("2");
+                        difficultyText.setText("2");
                     } else if (selectedDifficultyText.equals("Hard")) {
                         difficultyIsSelected = true;
                         difficultySelected[0] = 3;
-                        DifficultyText.setText("3");
+                        difficultyText.setText("3");
                     } else {
-                        difficultyText = "No Difficulty Selected";
+                        ConfigScreen.this.difficultyText = "No Difficulty Selected";
                         difficultyIsSelected = false;
                         difficultySelected[0] = 0;
-                        DifficultyText.setText("0");
+                        difficultyText.setText("0");
                     }
                 }
-                difficultyLevelText.setText(difficultyText);
+                difficultyLevelText.setText(ConfigScreen.this.difficultyText);
             }
         });
 
@@ -157,7 +157,8 @@ public class ConfigScreen extends AppCompatActivity {
             // Create the AlertDialog and show it
             AlertDialog dialog = builder.create();
 
-            if (!difficultyIsSelected || username[0].equals("") || username == null || isOnlyWhitespace(username[0]) || !charSelected[0]) {
+            if (!difficultyIsSelected || username[0].equals("") || username == null
+                || isOnlyWhitespace(username[0]) || !charSelected[0]) {
                 dialog.show();
             } else {
                 playerViewModel.setUsername(username[0]);
