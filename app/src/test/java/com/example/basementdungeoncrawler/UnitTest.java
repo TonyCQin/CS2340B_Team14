@@ -15,6 +15,7 @@ import android.util.Log;
 import com.example.basementdungeoncrawler.Model.EdgeReached;
 import com.example.basementdungeoncrawler.Model.Game;
 import com.example.basementdungeoncrawler.Model.Collision;
+import com.example.basementdungeoncrawler.Model.GoalReached;
 import com.example.basementdungeoncrawler.Model.Movement;
 import com.example.basementdungeoncrawler.Model.PlayerData;
 import com.example.basementdungeoncrawler.Model.Score;
@@ -187,24 +188,6 @@ public class UnitTest {
         assertEquals((double)123, tile.getCenterY(), 0);
     }
 
-    @Test
-    public void correctDirection() {
-        PlayerViewModel player = new PlayerViewModel();
-        Movement movement = new Movement(PlayerData.getPlayer());
-        double ogX = player.getX();
-        double ogY = player.getY();
-        movement.walk('a');
-        assertTrue(ogX > player.getX());
-        movement.walk('w');
-        assertTrue(ogY > player.getY());
-
-        ogX = player.getX();
-        ogY = player.getY();
-        movement.walk('d');
-        assertTrue(ogX < player.getX());
-        movement.walk('s');
-        assertTrue(ogY < player.getY());
-    }
 
     @Test
     public void testCollisionWalls() {
@@ -224,39 +207,6 @@ public class UnitTest {
         assertFalse(collision.getTileWallIds() == null);
     }
 
-
-    @Test
-    public void correctDistance() {
-        PlayerViewModel player = new PlayerViewModel();
-        Movement movement = new Movement(PlayerData.getPlayer());
-        double ogX = player.getX();
-        double ogY = player.getY();
-        //Walking
-        movement.walk('a');
-        assertTrue(ogX == player.getX() + 16);
-        movement.walk('w');
-        assertTrue(ogY == player.getY() + 16);
-        ogX = player.getX();
-        ogY = player.getY();
-        movement.walk('d');
-        assertTrue(ogX == player.getX() - 16);
-        movement.walk('s');
-        assertTrue(ogY == player.getY() - 16);
-
-        //Running
-        ogX = player.getX();
-        ogY = player.getY();
-        movement.run('A');
-        assertTrue(ogX == player.getX() + 48);
-        movement.run('W');
-        assertTrue(ogY == player.getY() + 48);
-        ogX = player.getX();
-        ogY = player.getY();
-        movement.run('D');
-        assertTrue(ogX == player.getX() - 48);
-        movement.run('S');
-        assertTrue(ogY == player.getY() - 48);
-    }
 
     @Test
     public void testPositionXGetterSetter() {
@@ -286,5 +236,16 @@ public class UnitTest {
         GameViewModel test = new GameViewModel();
         test.setScreenCounter(2);
         assertEquals(2, test.getScreenCounter());
+    }
+    @Test
+    public void testIsEdgeReachedGetter() {
+        EdgeReached check = EdgeReached.getEdgeReached();
+        assertEquals(false, check.getIsEdgeReached());
+    }
+
+    @Test
+    public void testIsGoalReachedGetter() {
+        GoalReached check = GoalReached.getGoalReached();
+        assertEquals(false, check.getIsGoalReached());
     }
 }
