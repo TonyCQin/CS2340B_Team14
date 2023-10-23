@@ -8,6 +8,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 
+import android.content.Context;
 import android.content.res.Resources;
 
 import com.example.basementdungeoncrawler.Model.Movement;
@@ -28,6 +29,7 @@ import java.util.ArrayList;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class UnitTest {
+
     @Test
     public void correctDifficulty() {
         PlayerViewModel playerViewModel = new PlayerViewModel();
@@ -224,4 +226,19 @@ public class UnitTest {
         assertTrue(ogY == player.getY() - 48);
     }
 
+    @Test
+    public void testPositionXGetterSetter() {
+        PlayerViewModel player = new PlayerViewModel();
+        double expectedPositionX = 10.0;
+        player.setX(expectedPositionX);
+        assertEquals(expectedPositionX, player.getX(), 1.0);
+    }
+
+    @Test
+    public void testPositionYGetterSetter() {
+        PlayerViewModel player = new PlayerViewModel();
+        double expectedPositionY = 10.0;
+        player.setY(expectedPositionY);
+        assertEquals(expectedPositionY, player.getY(), 1.0);
+    }
 }
