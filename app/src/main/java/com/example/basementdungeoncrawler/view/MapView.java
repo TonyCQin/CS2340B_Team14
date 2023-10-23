@@ -62,11 +62,10 @@ public class MapView extends View{
 
         collision = new Collision(tileMap);
         edgeReached = new EdgeReached(screenHeight, screenWidth);
-        goalReached = new GoalReached(tileMap);
+        goalReached = new GoalReached();
         player = new PlayerData(getContext(), x, y, radius);
         player.subscribe(collision);
         player.subscribe(edgeReached);
-        player.subscribe(goalReached);
 
         setFocusable(true);
     }
@@ -190,7 +189,7 @@ public class MapView extends View{
             else {
                 switch (key) {
                     case KeyEvent.KEYCODE_W:
-                        direction = 'W';
+                        direction = 'w';
                         break;
                     case KeyEvent.KEYCODE_A:
                         direction = 'a';
@@ -204,17 +203,20 @@ public class MapView extends View{
                 }
             }
             if (direction != ' ') {
+                // edge checking logic
                 Log.d("moved", "");
                 if (EdgeReached.getEdgeReached().getIsEdgeReached()) {
                     Log.d("calling update", "");
                     gameScreen.update();
                 }
-                player.move(direction, collision);
-                Log.d("Is goal reached", String.valueOf(GoalReached.getGoalReached(context).getIsGoalReached()));
-                if (GoalReached.getGoalReached(context).getIsGoalReached()) {
+                //goal checking logic
+                Log.d("Is goal reached (mapview)", String.valueOf(GoalReached.getGoalReached().getIsGoalReached()));
+                if (GoalReached.getGoalReached().getIsGoalReached()) {
                     Log.d("calling update", "");
                     gameScreen.update();
                 }
+
+                player.move(direction, collision);
                 invalidate();
                 return true;
             }

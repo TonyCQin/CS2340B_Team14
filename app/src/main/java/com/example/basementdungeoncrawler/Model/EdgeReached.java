@@ -33,7 +33,7 @@ public class EdgeReached implements PlayerSubscriber {
     public void checkEdgeReached(double x, double y) {
 //        Log.d("x", String.valueOf(x));
 //        Log.d("y", String.valueOf(y));
-//        Log.d("width", String.valueOf(width));
+        Log.d("width", String.valueOf(width));
         if (x > width || y > height) {
             isEdgeReached = true;
         } else {

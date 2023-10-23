@@ -19,6 +19,8 @@ public class Collision implements PlayerSubscriber {
         377, 378, 379, 380, 381, 382, 383, 384, 400, 401, 402, 403, 404, 405, 406, 407, 408, 451,
         454, 457, 486, 185, 186, 210, 211));
 
+    private final ArrayList<Integer> FinishIds = new ArrayList<>(Arrays.asList(17, 18, 19, 42, 43, 44, 67, 68, 69));
+
     private TileMap tileMap;
     private double positionX;
     private double positionY;
@@ -66,6 +68,15 @@ public class Collision implements PlayerSubscriber {
     @Override
     public void update(double positionX, double positionY, double radius) {
         checkCollision(positionX, positionY, radius);
+        checkGoalReached(positionX, positionY);
+    }
+
+    public void checkGoalReached(double x, double y) {
+        Log.d("x", String.valueOf(x));
+        Log.d("y", String.valueOf(y));
+        GoalReached goalReached = GoalReached.getGoalReached();
+        goalReached.setIsGoalReached(FinishIds.contains(getTileId(tileMap, x, y)));
+        Log.d("IsGoalReached", String.valueOf(goalReached.getIsGoalReached()));
     }
 }
 

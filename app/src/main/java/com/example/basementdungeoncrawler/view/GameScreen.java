@@ -169,8 +169,8 @@ public class GameScreen extends AppCompatActivity {
             TextView score = findViewById(R.id.score);
             score.setText(String.valueOf(gameViewModel.getScore()));
         }
-        Log.d("is it tho", String.valueOf(GoalReached.getGoalReached(this).getIsGoalReached()));
-        if (GoalReached.getGoalReached(this).getIsGoalReached()) {
+        Log.d("is it tho", String.valueOf(GoalReached.getGoalReached().getIsGoalReached()));
+        if (GoalReached.getGoalReached().getIsGoalReached()) {
 
             Intent intent = new Intent(GameScreen.this, EndScreen.class);
             startActivity(intent);
