@@ -1,11 +1,14 @@
 package com.example.basementdungeoncrawler.graphics;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.util.Log;
 
 import static com.example.basementdungeoncrawler.graphics.MapLayout.NUMBER_OF_COLUMN_TILES;
 import static com.example.basementdungeoncrawler.graphics.MapLayout.NUMBER_OF_ROW_TILES;
 
+import com.example.basementdungeoncrawler.Model.EdgeReached;
+import com.example.basementdungeoncrawler.Model.GoalReached;
 import com.example.basementdungeoncrawler.R;
 
 import java.util.ArrayList;
@@ -13,8 +16,10 @@ import java.util.ArrayList;
 public class TileMap {
     private Tile[][] tileMap;
     private ArrayList<Tile[][]> layers;
+    private Context context;
 
     public TileMap(Context context, int resourceID) {
+        this.context = context;
         MapLayout mapLayout = new MapLayout(context, resourceID);
         layers = new ArrayList<>();
         initializeTileMap(context, mapLayout);
@@ -40,12 +45,11 @@ public class TileMap {
                     TileSet propTileSet = new TileSet(context, R.drawable.props, 16);
                     int tileId = layout[row][col];
 //                    Log.d("tileID", String.valueOf(tileId));
-                    tileMap[row][col] = dungeonTileSet.getTile(tileId);
+                    tileMap[row][col] = dungeonTileSet.getTile(context, tileId);
                 }
             }
             this.layers.add(tileMap);
         }
-
     }
 
     /**
@@ -56,5 +60,22 @@ public class TileMap {
         return layers;
     }
 
+    public Tile getTile(double positionX, double positionY) {
+        int screenHeight = context.getResources().getDisplayMetrics().heightPixels;
+        int screenWidth = context.getResources().getDisplayMetrics().widthPixels;
+        int tileWidth = screenWidth / 12;
+        int tileHeight = screenHeight / 24;
+        int col = ((int) positionX) / tileWidth;
+        int row = ((int) positionY) / tileHeight;
+//        Log.d("col", String.valueOf(col));
+//        Log.d("row", String.valueOf(row));
+        try {
+            return tileMap[row][col];
+        } catch (Exception error) {
+            EdgeReached edgeReached = EdgeReached.getEdgeReached();
+            edgeReached.setIsEdgeReached(true);
+            return new Tile(1, new Rect(0,0,16,16));
+        }
 
+    }
 }

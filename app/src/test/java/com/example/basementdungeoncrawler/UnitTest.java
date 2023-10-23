@@ -8,12 +8,21 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.util.Log;
 
+import com.example.basementdungeoncrawler.Model.EdgeReached;
 import com.example.basementdungeoncrawler.Model.Game;
+import com.example.basementdungeoncrawler.Model.Collision;
+import com.example.basementdungeoncrawler.Model.Movement;
+import com.example.basementdungeoncrawler.Model.PlayerData;
 import com.example.basementdungeoncrawler.Model.Score;
+import com.example.basementdungeoncrawler.graphics.Tile;
+import com.example.basementdungeoncrawler.graphics.TileMap;
 import com.example.basementdungeoncrawler.view.ConfigScreen;
+import com.example.basementdungeoncrawler.view.GameScreen;
+import com.example.basementdungeoncrawler.view.MapView;
 import com.example.basementdungeoncrawler.viewModel.EndScreenViewModel;
 import com.example.basementdungeoncrawler.viewModel.GameViewModel;
 import com.example.basementdungeoncrawler.viewModel.LeaderBoardAdapter;
@@ -27,6 +36,7 @@ import java.util.ArrayList;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class UnitTest {
+
     @Test
     public void correctDifficulty() {
         PlayerViewModel playerViewModel = new PlayerViewModel();
@@ -75,6 +85,7 @@ public class UnitTest {
     public void correctScoresList() {
         GameViewModel gameViewModel = new GameViewModel();
         gameViewModel.clearListScores();
+        gameViewModel.clearScores();
 
         gameViewModel.addListScore("player1", 100);
         gameViewModel.addListScore("player2", 25);
@@ -125,6 +136,7 @@ public class UnitTest {
         GameViewModel gameViewModel = new GameViewModel();
         gameViewModel.clearListScores();
 
+        gameViewModel.clearScores();
         assertEquals("placeholder: 0", viewModel.getRecentUserNameAndScore());
     }
 
@@ -132,8 +144,7 @@ public class UnitTest {
     public void testNegativeScore() {
         GameViewModel gameViewModel = new GameViewModel();
         gameViewModel.clearListScores();
-
-
+        gameViewModel.clearScores();
         gameViewModel.addListScore("player1", -5);
         ArrayList<Score> scores = gameViewModel.getScoresList();
         assertEquals(-5, (int) scores.get(0).getScore());
@@ -143,6 +154,7 @@ public class UnitTest {
     public void testManyPosAndNeg() {
         GameViewModel gameViewModel = new GameViewModel();
         gameViewModel.clearListScores();
+        gameViewModel.clearScores();
 
         gameViewModel.addListScore("player1", -20);
         gameViewModel.addListScore("player2", -10);
@@ -157,5 +169,122 @@ public class UnitTest {
         assertEquals(-10, (int) scores.get(2).getScore());
         assertEquals(-20, (int) scores.get(3).getScore());
         assertEquals(-100, (int) scores.get(4).getScore());
+    }
+
+    @Test
+    public void testReturningTileCenterX() {
+        Tile tile = new Tile();
+        tile.setCenterX(15);
+        tile.setCenterY(123);
+        assertEquals((double)15, tile.getCenterX(), 0);
+    }
+
+    @Test
+    public void testReturningTileCenterY() {
+        Tile tile = new Tile();
+        tile.setCenterX(15);
+        tile.setCenterY(123);
+        assertEquals((double)123, tile.getCenterY(), 0);
+    }
+
+    @Test
+    public void correctDirection() {
+        PlayerViewModel player = new PlayerViewModel();
+        Movement movement = new Movement(PlayerData.getPlayer());
+        double ogX = player.getX();
+        double ogY = player.getY();
+        movement.walk('a');
+        assertTrue(ogX > player.getX());
+        movement.walk('w');
+        assertTrue(ogY > player.getY());
+
+        ogX = player.getX();
+        ogY = player.getY();
+        movement.walk('d');
+        assertTrue(ogX < player.getX());
+        movement.walk('s');
+        assertTrue(ogY < player.getY());
+    }
+
+    @Test
+    public void testCollisionWalls() {
+        Collision collision = new Collision(null);
+        assertTrue(collision.getTileWallIds().contains(0));
+        assertFalse(collision.getTileWallIds().contains(10));
+        assertTrue(collision.getTileWallIds().size() == 68);
+    }
+
+    @Test
+    public void testCollisionInstantiation() {
+        Collision collision = new Collision(null);
+        assertFalse(collision.getRight());
+        assertFalse(collision.getLeft());
+        assertFalse(collision.getBottom());
+        assertFalse(collision.getUp());
+        assertFalse(collision.getTileWallIds() == null);
+    }
+
+
+    @Test
+    public void correctDistance() {
+        PlayerViewModel player = new PlayerViewModel();
+        Movement movement = new Movement(PlayerData.getPlayer());
+        double ogX = player.getX();
+        double ogY = player.getY();
+        //Walking
+        movement.walk('a');
+        assertTrue(ogX == player.getX() + 16);
+        movement.walk('w');
+        assertTrue(ogY == player.getY() + 16);
+        ogX = player.getX();
+        ogY = player.getY();
+        movement.walk('d');
+        assertTrue(ogX == player.getX() - 16);
+        movement.walk('s');
+        assertTrue(ogY == player.getY() - 16);
+
+        //Running
+        ogX = player.getX();
+        ogY = player.getY();
+        movement.run('A');
+        assertTrue(ogX == player.getX() + 48);
+        movement.run('W');
+        assertTrue(ogY == player.getY() + 48);
+        ogX = player.getX();
+        ogY = player.getY();
+        movement.run('D');
+        assertTrue(ogX == player.getX() - 48);
+        movement.run('S');
+        assertTrue(ogY == player.getY() - 48);
+    }
+
+    @Test
+    public void testPositionXGetterSetter() {
+        PlayerViewModel player = new PlayerViewModel();
+        double expectedPositionX = 10.0;
+        player.setX(expectedPositionX);
+        assertEquals(expectedPositionX, player.getX(), 1.0);
+    }
+
+    @Test
+    public void testPositionYGetterSetter() {
+        PlayerViewModel player = new PlayerViewModel();
+        double expectedPositionY = 10.0;
+        player.setY(expectedPositionY);
+        assertEquals(expectedPositionY, player.getY(), 1.0);
+    }
+
+    @Test
+    public void testSetGetHP() {
+        PlayerViewModel player = new PlayerViewModel();
+        player.setHP(45);
+        assertEquals(45, player.getHP());
+    }
+
+    @Test
+    public void testSetGetScreenCounter() {
+        GameViewModel test = new GameViewModel();
+        test.setScreenCounter(2);
+        assertEquals(2, test.getScreenCounter());
     }
 }

@@ -3,6 +3,7 @@ public class Game {
     private int difficulty;
     private static volatile Game game;
     private int score;
+    private int screenCounter;
 
 
     public Game(int difficulty, int score) {
@@ -16,7 +17,7 @@ public class Game {
 
     public static Game getGame() {
         if (game == null) {
-            synchronized (Player.class) {
+            synchronized (PlayerData.class) {
                 if (game == null) {
                     game = new Game();
                 }
@@ -42,13 +43,21 @@ public class Game {
         return score;
     }
 
+    public void setScreenCounter(int newScreenCounter) {
+        screenCounter = newScreenCounter;
+    }
+
+    public int getScreenCounter() {
+        return screenCounter;
+    }
+
     private void setPlayerHP(int difficulty) {
         if (difficulty == 3) {
-            Player.getPlayer().setHP(100);
+            PlayerData.getPlayer().setHP(100);
         } else if (difficulty == 2) {
-            Player.getPlayer().setHP(150);
+            PlayerData.getPlayer().setHP(150);
         } else if (difficulty == 1) {
-            Player.getPlayer().setHP(200);
+            PlayerData.getPlayer().setHP(200);
         }
     }
 }
