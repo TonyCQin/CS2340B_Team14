@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
+import android.text.method.MovementMethod;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -20,6 +21,7 @@ import android.widget.LinearLayout;
 
 
 import com.example.basementdungeoncrawler.Model.Collision;
+import com.example.basementdungeoncrawler.Model.Movement;
 import com.example.basementdungeoncrawler.Model.PlayerData;
 import com.example.basementdungeoncrawler.R;
 import com.example.basementdungeoncrawler.graphics.Tile;
@@ -43,6 +45,7 @@ public class MapView extends View{
     private final PlayerData player;
     private TileMap tileMap;
     private Collision collision;
+    private Movement movement;
 
     /**
      * constructor that generates base values for the screen
@@ -61,11 +64,10 @@ public class MapView extends View{
         tileWidth = screenWidth / NUMBER_OF_COLUMN_TILES;
         tileHeight = screenHeight / NUMBER_OF_ROW_TILES;
 
-
         collision = new Collision(tileMap);
-        player = new PlayerData(getContext(), 400, 800, 30);
+        player = new PlayerData(getContext(), 550, 800, 30);
         player.subscribe(collision);
-
+        this.movement = new Movement(player);
 
         setFocusable(true);
     }
@@ -185,11 +187,14 @@ public class MapView extends View{
                         direction = 'D';
                         break;
                 }
+                if (direction != ' ') {
+                    movement.run(direction);
+                }
             }
             else {
                 switch (key) {
                     case KeyEvent.KEYCODE_W:
-                        direction = 'W';
+                        direction = 'w';
                         break;
                     case KeyEvent.KEYCODE_A:
                         direction = 'a';
@@ -201,12 +206,12 @@ public class MapView extends View{
                         direction = 'd';
                         break;
                 }
+                if (direction != ' ') {
+                    movement.walk(direction);
+                }
             }
-            if (direction != ' ') {
-                player.move(direction);
-                invalidate();
-                return true;
-            }
+            invalidate();
+            return true;
         }
         return super.onKeyDown(key, e);
     }

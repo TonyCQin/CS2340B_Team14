@@ -41,53 +41,10 @@ public class PlayerData {
         paint = new Paint();
         int color = ContextCompat.getColor(context, R.color.player);
         paint.setColor(color);
-
-
     }
 
     public void draw(Canvas canvas) {
         canvas.drawCircle((float) positionX, (float) positionY, (float) radius, paint);
-    }
-
-    public void move(char direction) {
-        switch(direction) {
-            case 'w':
-                positionY = positionY - 16;
-                break;
-            case 'a':
-                positionX = positionX - 16;
-                break;
-            case 's':
-                positionY = positionY + 16;
-                break;
-            case 'd':
-                positionX = positionX + 16;
-                break;
-            case 'W':
-                positionY = positionY - 48;
-                break;
-            case 'A':
-                positionX = positionX - 48;
-                break;
-            case 'S':
-                positionY = positionY + 48;
-                break;
-            case 'D':
-                positionX = positionX + 48;
-                break;
-        }
-        notifySubscribers();
-    }
-
-    public double getPositionX(){
-        return positionX;
-    }
-    public double getPositionY(){
-        return positionY;
-    }
-
-    public double getRadius() {
-        return radius;
     }
 
     private PlayerData() {
@@ -165,4 +122,15 @@ public class PlayerData {
             sub.update(positionX, positionY, radius);
         }
     }
+
+    public double getPositionX(){
+        return positionX;
+    }
+    public double getPositionY(){
+        return positionY;
+    }
+    public double getRadius() {return radius; }
+
+    public void setPositionX(double positionX) {this.positionX = positionX;}
+    public void setPositionY(double positionY) {this.positionY = positionY;}
 }

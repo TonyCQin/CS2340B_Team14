@@ -1,6 +1,7 @@
 package com.example.basementdungeoncrawler.graphics;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.util.Log;
 
 import static com.example.basementdungeoncrawler.graphics.MapLayout.NUMBER_OF_COLUMN_TILES;
@@ -56,9 +57,14 @@ public class TileMap {
         return layers;
     }
 
-    public Tile getTile(double poistionX, double positionY) {
-        int row = ((int) poistionX) / 12;
-        int col = ((int)positionY) / 24;
-        return tileMap[row][col];
+    public Tile getTile(double positionX, double positionY) {
+        try {
+            int row = ((int) positionX) / 12;
+            int col = ((int) positionY) / 24;
+            return tileMap[row][col];
+        } catch (Exception error){
+            return new Tile(1, new Rect(0,0,16,16));
+        }
+
     }
 }
