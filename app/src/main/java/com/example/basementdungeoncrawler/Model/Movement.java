@@ -1,7 +1,8 @@
 package com.example.basementdungeoncrawler.Model;
-
+import com.example.basementdungeoncrawler.Model.Collision;
 public class Movement implements Action {
     private PlayerData player;
+    private Collision collision;
 
     public Movement(PlayerData player) {
         this.player = player;
@@ -10,16 +11,24 @@ public class Movement implements Action {
     public void walk(char direction) {
         switch (direction) {
         case 'w':
-            player.setPositionY(player.getPositionY() - 16);
+            if (!collision.getUp()) {
+                player.setPositionY(player.getPositionY() - 16);
+            }
             break;
         case 'a':
-            player.setPositionX(player.getPositionX() - 16);
+            if (!collision.getLeft()) {
+                player.setPositionX(player.getPositionX() - 16);
+            }
             break;
         case 's':
-            player.setPositionY(player.getPositionY() + 16);
+            if (!collision.getBottom()) {
+                player.setPositionY(player.getPositionY() + 16);
+            }
             break;
         case 'd':
-            player.setPositionX(player.getPositionX() + 16);
+            if (!collision.getRight()) {
+                player.setPositionX(player.getPositionX() + 16);
+            }
             break;
         default:
             break;
@@ -31,16 +40,24 @@ public class Movement implements Action {
     public void run(char direction) {
         switch (direction) {
         case 'W':
-            player.setPositionY(player.getPositionY() - 48);
+            if (!collision.getUp()) {
+                player.setPositionY(player.getPositionY() - 48);
+            }
             break;
         case 'A':
-            player.setPositionX(player.getPositionX() - 48);
+            if (!collision.getLeft()) {
+                player.setPositionX(player.getPositionX() - 48);
+            }
             break;
         case 'S':
-            player.setPositionY(player.getPositionY() + 48);
+            if (!collision.getBottom()) {
+                player.setPositionY(player.getPositionY() + 48);
+            }
             break;
         case 'D':
-            player.setPositionX(player.getPositionX() + 48);
+            if (!collision.getRight()) {
+                player.setPositionX(player.getPositionX() + 48);
+            }
             break;
         default:
             break;
