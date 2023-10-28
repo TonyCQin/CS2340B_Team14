@@ -64,7 +64,7 @@ public class MapView extends View {
         player = new PlayerData(getContext(), x, y, radius);
         player.subscribe(collision);
         player.subscribe(edgeReached);
-        this.movement = new Movement(player);
+        this.movement = new Movement(player, collision);
 
         setFocusable(true);
     }
