@@ -1,6 +1,6 @@
 package com.example.basementdungeoncrawler.Model;
 
-public class Movement implements Action {
+public class Movement implements MovementInter {
     private PlayerData player;
     private Collision collision;
 
