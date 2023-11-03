@@ -83,7 +83,6 @@ public class PlayerData {
             }
             break;
 
-
         case 'S':
             if (!collision.getBottom()) {
                 positionY = positionY + 48;
