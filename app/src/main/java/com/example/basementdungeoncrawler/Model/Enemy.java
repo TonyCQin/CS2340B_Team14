@@ -3,9 +3,7 @@ package com.example.basementdungeoncrawler.Model;
 import android.content.Context;
 import android.graphics.Paint;
 
-public abstract class Enemy {
-    private double positionX;
-    private double positionY;
+public abstract class Enemy extends Entity{
     private int HP;
     private int damage;
     private int radius;
@@ -14,8 +12,7 @@ public abstract class Enemy {
 
     public Enemy(Context context, double positionX, double positionY, int HP, int damage,
                  int radius, int speed, Paint paint) {
-        this.positionX = positionX;
-        this.positionY = positionY;
+        super(positionX, positionY);
         this.HP = HP;
         this.damage = damage;
         this.radius = radius;
@@ -40,5 +37,15 @@ public abstract class Enemy {
         return direction;
     }
 
+    public int getSpeed() {
+        return speed;
+    }
 
+    public int getHP() {
+        return HP;
+    }
+
+    public int getDamage() {
+        return damage;
+    }
 }
