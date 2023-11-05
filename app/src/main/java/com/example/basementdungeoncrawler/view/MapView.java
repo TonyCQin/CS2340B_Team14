@@ -64,8 +64,8 @@ public class MapView extends View {
         edgeReached = new EdgeReached(screenHeight, screenWidth);
         goalReached = new GoalReached();
         player = new PlayerData(getContext(), x, y, radius);
-        //shadow = new Shadow(getContext(), x + 20, y + 20,20, 10,
-        //        30, 48);
+        shadow = new Shadow(getContext(), x + 20, y + 20,20, 10,
+                30, 48);
         player.subscribe(collision);
         player.subscribe(edgeReached);
         this.movement = new Movement(player, collision);
@@ -83,7 +83,7 @@ public class MapView extends View {
             renderLayer(canvas, layer);
         }
         player.draw(canvas);
-        //shadow.draw(canvas);
+        shadow.draw(canvas);
         super.onDraw(canvas);
     }
 

@@ -27,7 +27,6 @@ public class Shadow extends Enemy {
         this.positionX = positionX;
         this.positionY = positionY;
         this.radius = radius;
-        this.paint = paint;
     }
 
     public void draw(Canvas canvas) {
