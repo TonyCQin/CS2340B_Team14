@@ -16,6 +16,7 @@ import com.example.basementdungeoncrawler.Model.EdgeReached;
 import com.example.basementdungeoncrawler.Model.GoalReached;
 import com.example.basementdungeoncrawler.Model.Movement;
 import com.example.basementdungeoncrawler.Model.PlayerData;
+import com.example.basementdungeoncrawler.Model.SerialKiller;
 import com.example.basementdungeoncrawler.Model.Shadow;
 import com.example.basementdungeoncrawler.R;
 import com.example.basementdungeoncrawler.graphics.Tile;
@@ -37,6 +38,8 @@ public class MapView extends View {
     private int tileHeight = screenHeight / NUMBER_OF_ROW_TILES;
     private final PlayerData player;
     private Shadow shadow;
+
+    private SerialKiller barry;
     private Collision collision;
     private GoalReached goalReached;
     private EdgeReached edgeReached;
@@ -66,6 +69,8 @@ public class MapView extends View {
         player = new PlayerData(getContext(), x, y, radius);
         shadow = new Shadow(getContext(), x + 20, y + 20,20, 10,
                 30, 48);
+        barry = new SerialKiller(getContext(), x - 50, y - 50,100, 50,
+                30, 50);
         player.subscribe(collision);
         player.subscribe(edgeReached);
         this.movement = new Movement(player, collision);
@@ -84,6 +89,7 @@ public class MapView extends View {
         }
         player.draw(canvas);
         shadow.draw(canvas);
+        barry.draw(canvas);
         super.onDraw(canvas);
     }
 
