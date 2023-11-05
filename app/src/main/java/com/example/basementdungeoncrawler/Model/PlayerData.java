@@ -10,7 +10,7 @@ import com.example.basementdungeoncrawler.R;
 
 import java.util.ArrayList;
 
-public class PlayerData extends Entity{
+public class PlayerData {
 
     private String username;
     private int spriteSelected;
@@ -29,12 +29,12 @@ public class PlayerData extends Entity{
      * @param spriteSelected int representing which sprite was selected by user
      */
     private PlayerData(String username, int spriteSelected) {
-        super(1 ,1);
         this.username = username;
         this.spriteSelected = spriteSelected;
     }
     public PlayerData(Context context, double positionX, double positionY, double radius) {
-        super(positionX, positionY);
+        this.positionX = positionX;
+        this.positionY = positionY;
         this.radius = radius;
 
         paint = new Paint();
