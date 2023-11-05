@@ -13,10 +13,12 @@ import android.view.View;
 
 import com.example.basementdungeoncrawler.Model.Collision;
 import com.example.basementdungeoncrawler.Model.EdgeReached;
+import com.example.basementdungeoncrawler.Model.Ghost;
 import com.example.basementdungeoncrawler.Model.GoalReached;
 import com.example.basementdungeoncrawler.Model.Movement;
 import com.example.basementdungeoncrawler.Model.PlayerData;
 import com.example.basementdungeoncrawler.Model.Shadow;
+import com.example.basementdungeoncrawler.Model.Skeleton;
 import com.example.basementdungeoncrawler.R;
 import com.example.basementdungeoncrawler.graphics.Tile;
 import com.example.basementdungeoncrawler.graphics.TileMap;
@@ -37,6 +39,8 @@ public class MapView extends View {
     private int tileHeight = screenHeight / NUMBER_OF_ROW_TILES;
     private final PlayerData player;
     private Shadow shadow;
+    private Skeleton skeleton;
+    private Ghost ghost;
     private Collision collision;
     private GoalReached goalReached;
     private EdgeReached edgeReached;
@@ -66,6 +70,8 @@ public class MapView extends View {
         player = new PlayerData(getContext(), x, y, radius);
         shadow = new Shadow(getContext(), x + 20, y + 20,20, 10,
                 30, 48);
+        skeleton = new Skeleton(getContext(), x - 50, y - 100, 20, 15, 50, 10);
+        ghost = new Ghost(getContext(), x - 100, y + 200, 30, 5, 60, 60);
         player.subscribe(collision);
         player.subscribe(edgeReached);
         this.movement = new Movement(player, collision);
@@ -84,6 +90,8 @@ public class MapView extends View {
         }
         player.draw(canvas);
         shadow.draw(canvas);
+        skeleton.draw(canvas);
+        ghost.draw(canvas)
         super.onDraw(canvas);
     }
 
