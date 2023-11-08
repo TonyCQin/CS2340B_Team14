@@ -10,9 +10,15 @@ public abstract class Enemy extends Entity{
     private int speed;
     private Paint paint;
 
+    private double xPosition;
+
+    private double yPosition;
+
     public Enemy(Context context, double positionX, double positionY, int HP, int damage,
                  int radius, int speed, Paint paint) {
         super(positionX, positionY);
+        this.xPosition = positionX;
+        this.yPosition = positionY;
         this.HP = HP;
         this.damage = damage;
         this.radius = radius;
@@ -48,4 +54,12 @@ public abstract class Enemy extends Entity{
     public int getDamage() {
         return damage;
     }
+
+    public void setPositionX(double x) { xPosition = x; }
+
+    public void setPositionY(double y) { yPosition = y; }
+
+    public double getPositionX() { return xPosition; }
+
+    public double getPositionY() { return yPosition; }
 }
