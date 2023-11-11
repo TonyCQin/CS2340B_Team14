@@ -83,6 +83,7 @@ public class MapView extends View {
         //player.subscribe(skeleton);
         //player.subscribe(shadow);
         this.movement = new Movement(player, collision);
+        player.setMovement(this.movement);
 
         setFocusable(true);
     }
