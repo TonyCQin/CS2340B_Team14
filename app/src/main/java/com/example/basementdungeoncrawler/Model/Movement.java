@@ -6,7 +6,7 @@ public class Movement implements MovementInter {
     private Enemy enemy;
     private int speed;
     private char direction = ' ';
-
+    private int pace = 0;
     public Movement(PlayerData player, Collision collision) {
         this.player = player;
         this.collision = collision;
@@ -70,42 +70,27 @@ public class Movement implements MovementInter {
     }
 
     public void enemyMove(int speed) {
-//        int pace = 0;
-//        while (enemy.getHP() > 0) {
-//            if (pace % 5 != 0) {
-//                direction = enemy.getRandomDirection();
-//            }
-//            int enemySpeed = enemy.getSpeed();
-//            if (enemySpeed < 30) {
-//                walk(direction);
-//            } else {
-//                run(direction);
-//            }
-//            pace++;
-//        }
-        int pace = 0;
-        while (enemy.getHP() > 0) {
+        if (enemy.getHP() > 0) {
             if (pace % 3 != 0) {
                direction = enemy.getRandomDirection();
             }
-
             switch (direction) {
-                case 'W':
+                case 'w':
                     if (!collision.getUp()) {
                         enemy.setPositionY(enemy.getPositionY() - speed);
                     }
                     break;
-                case 'A':
+                case 'a':
                     if (!collision.getLeft()) {
                         enemy.setPositionX(enemy.getPositionX() - speed);
                     }
                     break;
-                case 'S':
+                case 's':
                     if (!collision.getBottom()) {
                         enemy.setPositionY(enemy.getPositionY() + speed);
                     }
                     break;
-                case 'D':
+                case 'd':
                     if (!collision.getRight()) {
                         enemy.setPositionX(enemy.getPositionX() + speed);
                     }

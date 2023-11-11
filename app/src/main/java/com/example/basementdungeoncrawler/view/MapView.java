@@ -175,6 +175,7 @@ public class MapView extends View {
                 switch (key) {
                 case KeyEvent.KEYCODE_W:
                     direction = 'W';
+                    ghost.move();
                     break;
                 case KeyEvent.KEYCODE_A:
                     direction = 'A';
