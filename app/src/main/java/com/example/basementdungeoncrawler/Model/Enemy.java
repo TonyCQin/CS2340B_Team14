@@ -3,12 +3,13 @@ package com.example.basementdungeoncrawler.Model;
 import android.content.Context;
 import android.graphics.Paint;
 
-public abstract class Enemy extends Entity{
+public abstract class Enemy extends Entity implements PlayerSubscriber{
     private int HP;
     private int damage;
     private int radius;
     private int speed;
     private Paint paint;
+    private Movement movement;
 
     private double xPosition;
 
@@ -62,4 +63,8 @@ public abstract class Enemy extends Entity{
     public double getPositionX() { return xPosition; }
 
     public double getPositionY() { return yPosition; }
+    @Override
+    public void update(double positionX, double positionY, double radius) {
+        movement.enemyMove(speed);
+    }
 }

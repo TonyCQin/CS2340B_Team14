@@ -78,6 +78,10 @@ public class MapView extends View {
         ghost = new Ghost(getContext(), x - 100, y + 200, 30, 5, 60, 60);
         player.subscribe(collision);
         player.subscribe(edgeReached);
+        player.subscribe(barry);
+        player.subscribe(ghost);
+        player.subscribe(skeleton);
+        player.subscribe(shadow);
         this.movement = new Movement(player, collision);
 
         setFocusable(true);
