@@ -175,6 +175,7 @@ public class MapView extends View {
             if (e.isShiftPressed()) {
                 switch (key) {
                 case KeyEvent.KEYCODE_W:
+                    ghost.move(ghost.getSpeed());
                     direction = 'W';
                     break;
                 case KeyEvent.KEYCODE_A:
@@ -187,7 +188,6 @@ public class MapView extends View {
                     direction = 'D';
                     break;
                 default:
-                    movement.incrementPace();
                     break;
                 }
                 if (direction != ' ') {
@@ -208,7 +208,6 @@ public class MapView extends View {
                     direction = 'd';
                     break;
                 default:
-                    movement.incrementPace();
                     break;
                 }
                 if (direction != ' ') {

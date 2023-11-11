@@ -16,6 +16,10 @@ public class Ghost extends Enemy{
     private double positionY;
     private double radius;
     private Paint paint;
+    private Movement movement;
+    private Enemy enemy;
+    private char direction;
+    private Collision collision;
     public Ghost(Context context, double positionX, double positionY, int HP, int damage,
                     int radius, int speed) {
         super(context, positionX, positionY, HP, damage, 100, speed, new Paint());
@@ -31,5 +35,38 @@ public class Ghost extends Enemy{
 
     public void draw(Canvas canvas) {
         canvas.drawCircle((float) positionX, (float) positionY, (float) radius, paint);
+    }
+
+    public void move(int speed) {
+        enemy.incrementPace();
+        if (HP > 0) {
+            if (enemy.getPace() % 3 == 0) {
+                direction = enemy.getRandomDirection();
+            }
+            switch (direction) {
+                case 'w':
+                    //if (!collision.getUp()) {
+                        this.setPositionY(this.getPositionY() - speed);
+                    //}
+                    break;
+                case 'a':
+                    //if (!collision.getLeft()) {
+                        this.setPositionX(this.getPositionX() - speed);
+                    //}
+                    break;
+                case 's':
+                    //if (!collision.getBottom()) {
+                        this.setPositionY(this.getPositionY() + speed);
+                    //}
+                    break;
+                case 'd':
+                    //if (!collision.getRight()) {
+                        this.setPositionX(this.getPositionX() + speed);
+                    //}
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

@@ -15,6 +15,7 @@ public abstract class Enemy{
     private double xPosition;
 
     private double yPosition;
+    private static int pace;
 
     public Enemy(Context context, double positionX, double positionY, int HP, int damage,
                  int radius, int speed, Paint paint) {
@@ -27,25 +28,25 @@ public abstract class Enemy{
     }
 
     public char getRandomDirection() {
-        int random = (int) (Math.random() * 4);
+        int random = (int) (Math.random() * 4) + 1;
         char direction = ' ';
         switch (random) {
         case 0:
             direction = 'w';
+            break;
         case 1:
             direction = 'a';
+            break;
         case 2:
             direction = 's';
+            break;
         case 3:
             direction = 'd';
+            break;
         default:
             break;
         }
         return direction;
-    }
-
-    public void move() {
-        movement.enemyMove(this.speed);
     }
 
     public int getSpeed() {
@@ -68,6 +69,13 @@ public abstract class Enemy{
 
     public double getPositionY() { return yPosition; }
 
+    public int getPace() {
+        return pace;
+    }
+
+    public void incrementPace() {
+        pace++;
+    }
     /*
     @Override
     public void update(double positionX, double positionY, double radius) {
