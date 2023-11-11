@@ -3,7 +3,8 @@ package com.example.basementdungeoncrawler.Model;
 import android.content.Context;
 import android.graphics.Paint;
 
-public abstract class Enemy implements PlayerSubscriber{
+public abstract class Enemy{
+    //implements PlayerSubscriber
     private int HP;
     private int damage;
     private int radius;
@@ -66,8 +67,12 @@ public abstract class Enemy implements PlayerSubscriber{
     public double getPositionX() { return xPosition; }
 
     public double getPositionY() { return yPosition; }
+
+    /*
     @Override
     public void update(double positionX, double positionY, double radius) {
         movement.enemyMove(speed);
     }
+
+     */
 }

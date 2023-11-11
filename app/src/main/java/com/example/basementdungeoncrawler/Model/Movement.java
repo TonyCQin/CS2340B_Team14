@@ -101,4 +101,12 @@ public class Movement implements MovementInter {
             pace++;
         }
     }
+
+    public int getPace() {
+        return pace;
+    }
+
+    public void incrementPace() {
+        pace += pace;
+    }
 }
