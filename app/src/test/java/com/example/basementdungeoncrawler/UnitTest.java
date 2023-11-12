@@ -248,4 +248,16 @@ public class UnitTest {
         GoalReached check = GoalReached.getGoalReached();
         assertEquals(false, check.getIsGoalReached());
     }
+    @Test
+    public void testGetDifficulty(){
+        GameViewModel a = new GameViewModel();
+        a.setDifficulty(1);
+        assertEquals(a.getDifficulty(), 1);
+    }
+    @Test
+    public void testSetScore(){
+        GameViewModel a = new GameViewModel();
+        a.setScore(5);
+        assertEquals(a.getScore(), 5);
+    }
 }
