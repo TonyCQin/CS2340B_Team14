@@ -27,6 +27,7 @@ public class GameScreen extends AppCompatActivity {
     private PlayerViewModel playerViewModel;
     private GameViewModel gameViewModel;
     private MapView mapView;
+    private TextView hp;
 
 
     @Override
@@ -47,8 +48,6 @@ public class GameScreen extends AppCompatActivity {
         MapView mapView = new MapView(this, map1TileMap.getLayers(), map1TileMap,
             this, 400, 1600, 30);
         setContentView(mapView);
-        //
-
 
         //connecting the buttons, name, character health,
         addEndScreenButton();
@@ -67,6 +66,7 @@ public class GameScreen extends AppCompatActivity {
     private void addEndScreenButton() {
         Button toEndScreen = new Button(this);
         toEndScreen.setOnClickListener(v -> {
+            playerViewModel.setHP(0);
             addScore(playerViewModel.getUsername(), gameViewModel.getScore());
             Intent die = new Intent(GameScreen.this, EndScreen.class);
             startActivity(die);
@@ -131,6 +131,7 @@ public class GameScreen extends AppCompatActivity {
         hp.setLayoutParams(params);
         hp.setTextColor(Color.WHITE);
         hp.setText(String.valueOf(playerViewModel.getHP()));
+        hp.setId(R.id.HP);
         addContentView(hp, params);
     }
 
@@ -154,9 +155,13 @@ public class GameScreen extends AppCompatActivity {
             TextView score = findViewById(R.id.score);
             score.setText(String.valueOf(gameViewModel.getScore()));
         }
-        Log.d("is it tho", String.valueOf(GoalReached.getGoalReached().getIsGoalReached()));
-        if (GoalReached.getGoalReached().getIsGoalReached()) {
 
+        if (GoalReached.getGoalReached().getIsGoalReached()) {
+            Intent intent = new Intent(GameScreen.this, EndScreen.class);
+            startActivity(intent);
+        }
+
+        if (playerViewModel.getHP() == 0) {
             Intent intent = new Intent(GameScreen.this, EndScreen.class);
             startActivity(intent);
         }
