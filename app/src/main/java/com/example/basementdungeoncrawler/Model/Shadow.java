@@ -32,7 +32,7 @@ public class Shadow extends Enemy {
         this.radius = radius;
     }
 
-    public void move(int speed) {
+    public void move() {
         this.incrementPace();
         if (HP > 0) {
             if (this.getPace() % 3 == 0) {

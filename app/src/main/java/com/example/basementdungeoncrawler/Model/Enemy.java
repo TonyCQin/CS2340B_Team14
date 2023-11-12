@@ -81,37 +81,4 @@ public abstract class Enemy{
     public void draw(Canvas canvas) {
         canvas.drawCircle((float) xPosition, (float) yPosition, (float) radius, paint);
     }
-
-    public void move(int speed) {
-        this.incrementPace();
-        if (HP > 0) {
-            if (this.getPace() % 3 == 0) {
-                direction = this.getRandomDirection();
-            }
-            switch (direction) {
-                case 'w':
-                    //if (!collision.getUp()) {
-                    this.setPositionY(this.getPositionY() - this.speed);
-                    //}
-                    break;
-                case 'a':
-                    //if (!collision.getLeft()) {
-                    this.setPositionX(this.getPositionX() - this.speed);
-                    //}
-                    break;
-                case 's':
-                    //if (!collision.getBottom()) {
-                    this.setPositionY(this.getPositionY() + this.speed);
-                    //}
-                    break;
-                case 'd':
-                    //if (!collision.getRight()) {
-                    this.setPositionX(this.getPositionX() + this.speed);
-                    //}
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
 }

@@ -228,10 +228,10 @@ public class MapView extends View {
                     gameScreen.update();
                 }
                 player.move(direction, collision);
-                ghost.move(ghost.getSpeed());
-                skeleton.move(skeleton.getSpeed());
-                shadow.move(shadow.getSpeed());
-                barry.move(barry.getSpeed());
+                ghost.move();
+                skeleton.move();
+                shadow.move();
+                barry.move();
                 invalidate();
                 return true;
             }

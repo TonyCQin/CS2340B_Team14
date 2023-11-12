@@ -16,7 +16,9 @@ public class Skeleton extends Enemy {
     private double positionY;
     private double radius;
     private Paint paint;
+    private Movement movement;
     private char direction;
+    private Collision collision;
     public Skeleton(Context context, double positionX, double positionY, int HP, int damage,
                   int radius, int speed) {
         super(context, positionX, positionY, HP, damage, 100, speed, new Paint());
@@ -34,7 +36,7 @@ public class Skeleton extends Enemy {
         canvas.drawCircle((float) positionX, (float) positionY, (float) radius, paint);
     }
 
-    public void move(int speed) {
+    public void move() {
         this.incrementPace();
         if (HP > 0) {
             if (this.getPace() % 7 == 0) {
