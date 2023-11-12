@@ -17,7 +17,6 @@ public class Ghost extends Enemy{
     private double radius;
     private Paint paint;
     private Movement movement;
-    private Enemy enemy;
     private char direction;
     private Collision collision;
     public Ghost(Context context, double positionX, double positionY, int HP, int damage,
@@ -38,10 +37,10 @@ public class Ghost extends Enemy{
     }
 
     public void move(int speed) {
-        enemy.incrementPace();
+        this.incrementPace();
         if (HP > 0) {
-            if (enemy.getPace() % 3 == 0) {
-                direction = enemy.getRandomDirection();
+            if (this.getPace() % 3 == 0) {
+                direction = this.getRandomDirection();
             }
             switch (direction) {
                 case 'w':

@@ -33,6 +33,7 @@ public class PlayerData {
         this.username = username;
         this.spriteSelected = spriteSelected;
     }
+
     public PlayerData(Context context, double positionX, double positionY, double radius) {
         this.positionX = positionX;
         this.positionY = positionY;
