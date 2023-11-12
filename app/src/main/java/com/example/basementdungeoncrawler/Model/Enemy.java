@@ -1,22 +1,25 @@
 package com.example.basementdungeoncrawler.Model;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.graphics.Paint;
 
-public abstract class Enemy extends Entity{
+public abstract class Enemy{
+    //implements PlayerSubscriber
     private int HP;
     private int damage;
     private int radius;
     private int speed;
     private Paint paint;
-
+    private Movement movement;
+    private char direction;
     private double xPosition;
 
     private double yPosition;
+    private static int pace;
 
     public Enemy(Context context, double positionX, double positionY, int HP, int damage,
                  int radius, int speed, Paint paint) {
-        super(positionX, positionY);
         this.xPosition = positionX;
         this.yPosition = positionY;
         this.HP = HP;
@@ -26,17 +29,21 @@ public abstract class Enemy extends Entity{
     }
 
     public char getRandomDirection() {
-        int random = (int) (Math.random() * 4);
+        int random = (int) (Math.random() * 4) + 1;
         char direction = ' ';
         switch (random) {
         case 0:
             direction = 'w';
+            break;
         case 1:
             direction = 'a';
+            break;
         case 2:
             direction = 's';
+            break;
         case 3:
             direction = 'd';
+            break;
         default:
             break;
         }
@@ -62,4 +69,16 @@ public abstract class Enemy extends Entity{
     public double getPositionX() { return xPosition; }
 
     public double getPositionY() { return yPosition; }
+
+    public int getPace() {
+        return pace;
+    }
+
+    public void incrementPace() {
+        pace++;
+    }
+
+    public void draw(Canvas canvas) {
+        canvas.drawCircle((float) xPosition, (float) yPosition, (float) radius, paint);
+    }
 }
