@@ -4,7 +4,10 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
-public abstract class Enemy{
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
+public abstract class Enemy {
     //implements PlayerSubscriber
     private int HP;
     private int damage;
@@ -17,6 +20,9 @@ public abstract class Enemy{
 
     private double yPosition;
     private static int pace;
+    private ArrayList<EnemySubscriber> subscribers;
+
+    protected EnemyCollision collision;
 
     public Enemy(Context context, double positionX, double positionY, int HP, int damage,
                  int radius, int speed, Paint paint) {
@@ -81,4 +87,26 @@ public abstract class Enemy{
     public void draw(Canvas canvas) {
         canvas.drawCircle((float) xPosition, (float) yPosition, (float) radius, paint);
     }
+
+    public void subscribe(EnemySubscriber sub) {
+        if (subscribers == null) {
+            subscribers = new ArrayList<>();
+        }
+        subscribers.add(sub);
+    }
+
+    public void removeObserver(EnemySubscriber sub) {
+        subscribers.remove(sub);
+    }
+
+    protected void notifySubscribers() {
+        for (EnemySubscriber sub : subscribers) {
+            sub.updateEnemyPosition(xPosition, yPosition, radius);
+        }
+    }
+
+    public void setCollision(EnemyCollision collision) {
+        this.collision = collision;
+    }
+
 }

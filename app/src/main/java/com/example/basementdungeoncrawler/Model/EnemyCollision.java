@@ -1,6 +1,8 @@
 
 package com.example.basementdungeoncrawler.Model;
 
+import android.util.Log;
+
 import com.example.basementdungeoncrawler.graphics.TileMap;
 
 import java.util.ArrayList;
@@ -8,25 +10,6 @@ import java.util.Arrays;
 
 public class EnemyCollision implements PlayerSubscriber, EnemySubscriber {
 
-    public boolean getRight() {
-        return right;
-    }
-
-    public boolean getLeft() {
-        return left;
-    }
-
-    public boolean getBottom() {
-        return bottom;
-    }
-
-    public boolean getUp() {
-        return up;
-    }
-
-    public boolean getCollideWithPlayer() {
-        return collideWithPlayer;
-    }
 
     private boolean right;
     private boolean left;
@@ -51,6 +34,27 @@ public class EnemyCollision implements PlayerSubscriber, EnemySubscriber {
     public EnemyCollision(TileMap t) {
         tileMap = t;
     }
+
+    public boolean getRight() {
+        return right;
+    }
+
+    public boolean getLeft() {
+        return left;
+    }
+
+    public boolean getBottom() {
+        return bottom;
+    }
+
+    public boolean getUp() {
+        return up;
+    }
+
+    public boolean getCollideWithPlayer() {
+        return collideWithPlayer;
+    }
+
     @Override
     public void update(double positionX, double positionY, double radius) {
         this.playerPosX = positionX;
@@ -73,6 +77,9 @@ public class EnemyCollision implements PlayerSubscriber, EnemySubscriber {
             && Math.abs(this.playerPosY - this.positionY) < radius + playerR ) {
             collideWithPlayer = true;
         }
+//        if (collideWithPlayer) {
+//            Log.d("Collide with player", "");
+//        }
     }
 
     private void checkCollisionWithWall() {
@@ -80,6 +87,19 @@ public class EnemyCollision implements PlayerSubscriber, EnemySubscriber {
         left = tileWallIds.contains(getTileId(tileMap, this.positionX - radius, this.positionY));
         bottom = tileWallIds.contains(getTileId(tileMap, this.positionX, this.positionY + radius));
         up = tileWallIds.contains(getTileId(tileMap, this.positionX, this.positionY - radius));
+//        Log.d("checking collision", "");
+//        if (right) {
+//            Log.d("right collide with wall", "");
+//        }
+//        if (left) {
+//            Log.d("left collide with wall", "");
+//        }
+//        if (up) {
+//            Log.d("up collide with wall", "");
+//        }
+//        if (bottom) {
+//            Log.d("bottom collide with wall", "");
+//        }
     }
 
     private int getTileId(TileMap tilemap, double positionX, double positionY) {

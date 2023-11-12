@@ -8,6 +8,8 @@ import androidx.core.content.ContextCompat;
 
 import com.example.basementdungeoncrawler.R;
 
+import java.util.ArrayList;
+
 public class Ghost extends Enemy{
     private int speed = 60;
     private int damage = 30;
@@ -18,7 +20,7 @@ public class Ghost extends Enemy{
     private Paint paint;
     private Movement movement;
     private char direction;
-    private Collision collision;
+
     public Ghost(Context context, double positionX, double positionY, int HP, int damage,
                     int radius, int speed) {
         super(context, positionX, positionY, HP, damage, 100, speed, new Paint());
@@ -39,29 +41,30 @@ public class Ghost extends Enemy{
                 direction = this.getRandomDirection();
             }
             switch (direction) {
-                case 'w':
-                    //if (!collision.getUp()) {
-                        this.setPositionY(this.getPositionY() - this.speed);
-                    //}
-                    break;
-                case 'a':
-                    //if (!collision.getLeft()) {
-                        this.setPositionX(this.getPositionX() - this.speed);
-                    //}
-                    break;
-                case 's':
-                    //if (!collision.getBottom()) {
-                        this.setPositionY(this.getPositionY() + this.speed);
-                    //}
-                    break;
-                case 'd':
-                    //if (!collision.getRight()) {
-                        this.setPositionX(this.getPositionX() + this.speed);
-                    //}
-                    break;
-                default:
-                    break;
+            case 'w':
+                if (!collision.getUp()) {
+                    this.setPositionY(this.getPositionY() - this.speed);
+                }
+                break;
+            case 'a':
+                if (!collision.getLeft()) {
+                    this.setPositionX(this.getPositionX() - this.speed);
+                }
+                break;
+            case 's':
+                if (!collision.getBottom()) {
+                    this.setPositionY(this.getPositionY() + this.speed);
+                }
+                break;
+            case 'd':
+                if (!collision.getRight()) {
+                    this.setPositionX(this.getPositionX() + this.speed);
+                }
+                break;
+            default:
+                break;
             }
         }
+        notifySubscribers();
     }
 }

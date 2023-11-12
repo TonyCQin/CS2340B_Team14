@@ -18,7 +18,7 @@ public class SerialKiller extends Enemy {
     private Paint paint;
     private Movement movement;
     private char direction;
-    private Collision collision;
+
     public SerialKiller(Context context, double positionX, double positionY, int HP, int damage,
                   int radius, int speed) {
         super(context, positionX, positionY, HP, damage, 100, speed, new Paint());
@@ -39,33 +39,34 @@ public class SerialKiller extends Enemy {
     public void move() {
         this.incrementPace();
         if (HP > 0) {
-            if (this.getPace() % 1 == 0) {
+            if (this.getPace() == 0) {
                 direction = this.getRandomDirection();
             }
             switch (direction) {
-                case 'w':
-                    //if (!collision.getUp()) {
+            case 'w':
+                if (!collision.getUp()) {
                     this.setPositionY(this.getPositionY() - this.speed);
-                    //}
-                    break;
-                case 'a':
-                    //if (!collision.getLeft()) {
+                }
+                break;
+            case 'a':
+                if (!collision.getLeft()) {
                     this.setPositionX(this.getPositionX() - this.speed);
-                    //}
-                    break;
-                case 's':
-                    //if (!collision.getBottom()) {
+                }
+                break;
+            case 's':
+                if (!collision.getBottom()) {
                     this.setPositionY(this.getPositionY() + this.speed);
-                    //}
-                    break;
-                case 'd':
-                    //if (!collision.getRight()) {
+                }
+                break;
+            case 'd':
+                if (!collision.getRight()) {
                     this.setPositionX(this.getPositionX() + this.speed);
-                    //}
-                    break;
-                default:
-                    break;
+                }
+                break;
+            default:
+                break;
             }
+            notifySubscribers();
         }
     }
 }

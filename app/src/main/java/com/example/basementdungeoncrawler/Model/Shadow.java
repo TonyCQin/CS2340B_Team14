@@ -8,6 +8,9 @@ import androidx.core.content.ContextCompat;
 
 import com.example.basementdungeoncrawler.R;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class Shadow extends Enemy {
     private int speed = 48;
     private int damage = 10;
@@ -18,7 +21,7 @@ public class Shadow extends Enemy {
     private Paint paint;
     private Movement movement;
     private char direction;
-    private Collision collision;
+
     public Shadow(Context context, double positionX, double positionY, int HP, int damage,
                   int radius, int speed) {
         super(context, positionX, positionY, HP, damage, 100, speed, new Paint());
@@ -39,31 +42,30 @@ public class Shadow extends Enemy {
                 direction = this.getRandomDirection();
             }
             switch (direction) {
-                case 'w':
-                    //if (!collision.getUp()) {
+            case 'w':
+                if (!collision.getUp()) {
                     this.setPositionY(this.getPositionY() - this.speed);
-                    //}
-                    break;
-                case 'a':
-                    //if (!collision.getLeft()) {
+                }
+                break;
+            case 'a':
+                if (!collision.getLeft()) {
                     this.setPositionX(this.getPositionX() - this.speed);
-                    //}
-                    break;
-                case 's':
-                    //if (!collision.getBottom()) {
+                }
+                break;
+            case 's':
+                if (!collision.getBottom()) {
                     this.setPositionY(this.getPositionY() + this.speed);
-                    //}
-                    break;
-                case 'd':
-                    //if (!collision.getRight()) {
+                }
+                break;
+            case 'd':
+                if (!collision.getRight()) {
                     this.setPositionX(this.getPositionX() + this.speed);
-                    //}
-                    break;
-                default:
-                    break;
+                }
+                break;
+            default:
+                break;
             }
         }
+        notifySubscribers();
     }
-
-
 }

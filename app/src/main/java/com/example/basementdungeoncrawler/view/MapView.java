@@ -13,6 +13,7 @@ import android.view.View;
 
 import com.example.basementdungeoncrawler.Model.Collision;
 import com.example.basementdungeoncrawler.Model.EdgeReached;
+import com.example.basementdungeoncrawler.Model.EnemyCollision;
 import com.example.basementdungeoncrawler.Model.Ghost;
 import com.example.basementdungeoncrawler.Model.GoalReached;
 import com.example.basementdungeoncrawler.Model.Movement;
@@ -44,6 +45,10 @@ public class MapView extends View {
     private Ghost ghost;
     private SerialKiller barry;
     private Collision collision;
+    private EnemyCollision ghostCollision;
+    private EnemyCollision shadowCollision;
+    private EnemyCollision barryCollision;
+    private EnemyCollision skeletonCollision;
     private GoalReached goalReached;
     private EdgeReached edgeReached;
     private GameScreen gameScreen;
@@ -67,6 +72,11 @@ public class MapView extends View {
         tileHeight = screenHeight / NUMBER_OF_ROW_TILES;
 
         collision = new Collision(tileMap);
+        ghostCollision = new EnemyCollision(tileMap);
+        shadowCollision = new EnemyCollision(tileMap);
+        barryCollision = new EnemyCollision(tileMap);
+        skeletonCollision = new EnemyCollision(tileMap);
+
         edgeReached = new EdgeReached(screenHeight, screenWidth);
         goalReached = new GoalReached();
         player = new PlayerData(getContext(), x, y, radius);
@@ -76,8 +86,24 @@ public class MapView extends View {
                 30, 50);
         skeleton = new Skeleton(getContext(), x - 50, y - 100, 20, 15, 50, 10);
         ghost = new Ghost(getContext(), x - 100, y + 200, 30, 5, 60, 60);
+        ghost.setCollision(ghostCollision);
+        shadow.setCollision(shadowCollision);
+        skeleton.setCollision(skeletonCollision);
+        barry.setCollision(barryCollision);
+
+
         player.subscribe(collision);
         player.subscribe(edgeReached);
+        player.subscribe(ghostCollision);
+        player.subscribe(shadowCollision);
+        player.subscribe(barryCollision);
+        player.subscribe(skeletonCollision);
+
+        ghost.subscribe(ghostCollision);
+        shadow.subscribe(shadowCollision);
+        skeleton.subscribe(skeletonCollision);
+        barry.subscribe(barryCollision);
+
         //player.subscribe(barry);
         //player.subscribe(ghost);
         //player.subscribe(skeleton);
