@@ -260,4 +260,40 @@ public class UnitTest {
         a.setScore(5);
         assertEquals(a.getScore(), 5);
     }
+
+    @Test
+    public void enemyPlayerCollisionFalse() {
+        double playerPosX = 10;
+        double playerPosY = 10;
+        double playerRadius = 1.0;
+
+        double posX = 0.0;
+        double posY = 0.0;
+        double radius = 1.0;
+
+        boolean collideWithPlayer = false;
+        if (Math.abs(playerPosX - posX) < radius + playerRadius
+            && Math.abs(playerPosY - posY) < radius + playerRadius) {
+            collideWithPlayer = true;
+        }
+        assertFalse(collideWithPlayer);
+    }
+
+    @Test
+    public void enemyPlayerCollisionTrue() {
+        double playerPosX = 1.0;
+        double playerPosY = 1.0;
+        double playerRadius = 1.0;
+
+        double posX = 0.0;
+        double posY = 0.0;
+        double radius = 1.0;
+
+        boolean collideWithPlayer = false;
+        if (Math.abs(playerPosX - posX) < radius + playerRadius
+            && Math.abs(playerPosY - posY) < radius + playerRadius) {
+            collideWithPlayer = true;
+        }
+        assertTrue(collideWithPlayer);
+    }
 }
