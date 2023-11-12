@@ -175,7 +175,6 @@ public class MapView extends View {
             if (e.isShiftPressed()) {
                 switch (key) {
                 case KeyEvent.KEYCODE_W:
-                    ghost.move(ghost.getSpeed());
                     direction = 'W';
                     break;
                 case KeyEvent.KEYCODE_A:
@@ -228,8 +227,11 @@ public class MapView extends View {
                     Log.d("calling update", "");
                     gameScreen.update();
                 }
-
                 player.move(direction, collision);
+                ghost.move(ghost.getSpeed());
+                skeleton.move(skeleton.getSpeed());
+                shadow.move(shadow.getSpeed());
+                barry.move(barry.getSpeed());
                 invalidate();
                 return true;
             }

@@ -32,35 +32,31 @@ public class Ghost extends Enemy{
         this.radius = radius;
     }
 
-    public void draw(Canvas canvas) {
-        canvas.drawCircle((float) positionX, (float) positionY, (float) radius, paint);
-    }
-
     public void move(int speed) {
         this.incrementPace();
         if (HP > 0) {
-            if (this.getPace() % 3 == 0) {
+            if (this.getPace() % 5 == 0) {
                 direction = this.getRandomDirection();
             }
             switch (direction) {
                 case 'w':
                     //if (!collision.getUp()) {
-                        this.setPositionY(this.getPositionY() - speed);
+                        this.setPositionY(this.getPositionY() - this.speed);
                     //}
                     break;
                 case 'a':
                     //if (!collision.getLeft()) {
-                        this.setPositionX(this.getPositionX() - speed);
+                        this.setPositionX(this.getPositionX() - this.speed);
                     //}
                     break;
                 case 's':
                     //if (!collision.getBottom()) {
-                        this.setPositionY(this.getPositionY() + speed);
+                        this.setPositionY(this.getPositionY() + this.speed);
                     //}
                     break;
                 case 'd':
                     //if (!collision.getRight()) {
-                        this.setPositionX(this.getPositionX() + speed);
+                        this.setPositionX(this.getPositionX() + this.speed);
                     //}
                     break;
                 default:
