@@ -11,7 +11,7 @@ import com.example.basementdungeoncrawler.R;
 public class Skeleton extends Enemy {
     private int speed = 10;
     private int damage = 15;
-    private int HP = 20;
+    private int hp = 20;
     private double positionX;
     private double positionY;
     private double radius;
@@ -19,9 +19,9 @@ public class Skeleton extends Enemy {
     private Movement movement;
     private char direction;
 
-    public Skeleton(Context context, double positionX, double positionY, int HP, int damage,
-                  int radius, int speed) {
-        super(context, positionX, positionY, HP, damage, 100, speed, new Paint());
+    public Skeleton(Context context, double positionX, double positionY, int hp, int damage,
+                    int radius, int speed) {
+        super(context, positionX, positionY, hp, damage, 100, speed, new Paint());
 
         paint = new Paint();
         int color = ContextCompat.getColor(context, R.color.grey);
@@ -34,7 +34,7 @@ public class Skeleton extends Enemy {
 
     public void move() {
         this.incrementPace();
-        if (HP > 0) {
+        if (hp > 0) {
             if (this.getPace() % 7 == 0) {
                 direction = this.getRandomDirection();
             }

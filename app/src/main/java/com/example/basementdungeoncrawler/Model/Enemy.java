@@ -3,13 +3,10 @@ package com.example.basementdungeoncrawler.Model;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public abstract class Enemy {
-    //implements PlayerSubscriber
-    private int HP;
+    private int hp;
     private int damage;
     private int radius;
     private int speed;
@@ -24,11 +21,11 @@ public abstract class Enemy {
 
     protected EnemyCollision collision;
 
-    public Enemy(Context context, double positionX, double positionY, int HP, int damage,
+    public Enemy(Context context, double positionX, double positionY, int hp, int damage,
                  int radius, int speed, Paint paint) {
         this.xPosition = positionX;
         this.yPosition = positionY;
-        this.HP = HP;
+        this.hp = hp;
         this.damage = damage;
         this.radius = radius;
         this.paint = paint;
@@ -60,21 +57,29 @@ public abstract class Enemy {
         return speed;
     }
 
-    public int getHP() {
-        return HP;
+    public int getHp() {
+        return hp;
     }
 
     public int getDamage() {
         return damage;
     }
 
-    public void setPositionX(double x) { xPosition = x; }
+    public void setPositionX(double x) {
+        xPosition = x;
+    }
 
-    public void setPositionY(double y) { yPosition = y; }
+    public void setPositionY(double y) {
+        yPosition = y;
+    }
 
-    public double getPositionX() { return xPosition; }
+    public double getPositionX() {
+        return xPosition;
+    }
 
-    public double getPositionY() { return yPosition; }
+    public double getPositionY() {
+        return yPosition;
+    }
 
     public int getPace() {
         return pace;

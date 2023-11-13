@@ -11,7 +11,7 @@ import com.example.basementdungeoncrawler.R;
 public class SerialKiller extends Enemy {
     private int speed = 70;
     private int damage = 50;
-    private int HP = 100;
+    private int hp = 100;
     private double positionX;
     private double positionY;
     private double radius;
@@ -19,9 +19,9 @@ public class SerialKiller extends Enemy {
     private Movement movement;
     private char direction;
 
-    public SerialKiller(Context context, double positionX, double positionY, int HP, int damage,
+    public SerialKiller(Context context, double positionX, double positionY, int hp, int damage,
                   int radius, int speed) {
-        super(context, positionX, positionY, HP, damage, 100, speed, new Paint());
+        super(context, positionX, positionY, hp, damage, 100, speed, new Paint());
 
         paint = new Paint();
         int color = ContextCompat.getColor(context, R.color.purple_200);
@@ -34,7 +34,7 @@ public class SerialKiller extends Enemy {
 
     public void move() {
         this.incrementPace();
-        if (HP > 0) {
+        if (hp > 0) {
             if (this.getPace() % 2 == 0) {
                 direction = this.getRandomDirection();
             }

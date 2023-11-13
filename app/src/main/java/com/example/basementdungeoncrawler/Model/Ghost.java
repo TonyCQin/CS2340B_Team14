@@ -3,18 +3,16 @@ package com.example.basementdungeoncrawler.Model;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.util.Log;
 
 import androidx.core.content.ContextCompat;
 
 import com.example.basementdungeoncrawler.R;
 
-import java.util.ArrayList;
 
-public class Ghost extends Enemy{
+public class Ghost extends Enemy {
     private int speed = 60;
     private int damage = 30;
-    private int HP = 5;
+    private int hp = 5;
     private double positionX;
     private double positionY;
     private double radius;
@@ -23,10 +21,10 @@ public class Ghost extends Enemy{
     private char direction;
     private PlayerData player;
 
-    public Ghost(Context context, double positionX, double positionY, int HP, int damage,
-                    int radius, int speed) {
+    public Ghost(Context context, double positionX, double positionY, int hp, int damage,
+                 int radius, int speed) {
 
-        super(context, positionX, positionY, HP, damage, 100, speed, new Paint());
+        super(context, positionX, positionY, hp, damage, 100, speed, new Paint());
 
         paint = new Paint();
         int color = ContextCompat.getColor(context, R.color.white);
@@ -39,14 +37,13 @@ public class Ghost extends Enemy{
 
     public void move() {
         this.incrementPace();
-        if (HP > 0) {
+        if (hp > 0) {
             if (this.getPace() % 5 == 0) {
                 direction = this.getRandomDirection();
             }
-//            if (collision.getCollideWithPlayer() == true) {
-//                player.setHp(player.getHp() - damage);
-//            }
-//            Log.d("Health", String.valueOf(player.getHp()));
+            //if (collision.getCollideWithPlayer() == true) {
+            //player.setHp(player.getHp() - damage);
+            //}
             switch (direction) {
             case 'w':
                 if (!collision.getUp()) {

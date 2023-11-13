@@ -89,19 +89,6 @@ public class EnemyCollision implements PlayerSubscriber, EnemySubscriber {
         left = tileWallIds.contains(getTileId(tileMap, this.positionX - radius, this.positionY));
         bottom = tileWallIds.contains(getTileId(tileMap, this.positionX, this.positionY + radius));
         up = tileWallIds.contains(getTileId(tileMap, this.positionX, this.positionY - radius));
-//        Log.d("checking collision", "");
-//        if (right) {
-//            Log.d("right collide with wall", "");
-//        }
-//        if (left) {
-//            Log.d("left collide with wall", "");
-//        }
-//        if (up) {
-//            Log.d("up collide with wall", "");
-//        }
-//        if (bottom) {
-//            Log.d("bottom collide with wall", "");
-//        }
     }
 
     private int getTileId(TileMap tilemap, double positionX, double positionY) {

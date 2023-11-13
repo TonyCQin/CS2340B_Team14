@@ -8,13 +8,10 @@ import androidx.core.content.ContextCompat;
 
 import com.example.basementdungeoncrawler.R;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-
 public class Shadow extends Enemy {
     private int speed = 48;
     private int damage = 10;
-    private int HP = 20;
+    private int hp = 20;
     private double positionX;
     private double positionY;
     private double radius;
@@ -22,9 +19,9 @@ public class Shadow extends Enemy {
     private Movement movement;
     private char direction;
 
-    public Shadow(Context context, double positionX, double positionY, int HP, int damage,
+    public Shadow(Context context, double positionX, double positionY, int hp, int damage,
                   int radius, int speed) {
-        super(context, positionX, positionY, HP, damage, 100, speed, new Paint());
+        super(context, positionX, positionY, hp, damage, 100, speed, new Paint());
 
         paint = new Paint();
         int color = ContextCompat.getColor(context, R.color.black);
@@ -37,7 +34,7 @@ public class Shadow extends Enemy {
 
     public void move() {
         this.incrementPace();
-        if (HP > 0) {
+        if (hp > 0) {
             if (this.getPace() % 3 == 0) {
                 direction = this.getRandomDirection();
             }
