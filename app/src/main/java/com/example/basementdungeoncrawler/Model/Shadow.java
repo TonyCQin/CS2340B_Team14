@@ -3,6 +3,7 @@ package com.example.basementdungeoncrawler.Model;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.util.Log;
 
 import androidx.core.content.ContextCompat;
 
@@ -19,6 +20,9 @@ public class Shadow extends Enemy {
     private Movement movement;
     private char direction;
 
+    private Game game;
+    private PlayerData player;
+
     public Shadow(Context context, double positionX, double positionY, int hp, int damage,
                   int radius, int speed) {
         super(context, positionX, positionY, hp, 100, speed, new Paint());
@@ -31,6 +35,9 @@ public class Shadow extends Enemy {
         this.positionX = positionX;
         this.positionY = positionY;
         this.radius = radius;
+
+        this.game = Game.getGame();
+        this.player = PlayerData.getPlayer();
     }
 
     public void move() {
@@ -39,25 +46,44 @@ public class Shadow extends Enemy {
             if (this.getPace() % 3 == 0) {
                 direction = this.getRandomDirection();
             }
+            if (collision.getCollideWithPlayer()) {
+                damagePlayer();
+            }
             switch (direction) {
             case 'w':
                 if (!collision.getUp()) {
                     this.setPositionY(this.getPositionY() - this.speed);
+                }
+
+                if (collision.getCollideWithPlayer()) {
+                    damagePlayer();
                 }
                 break;
             case 'a':
                 if (!collision.getLeft()) {
                     this.setPositionX(this.getPositionX() - this.speed);
                 }
+
+                if (collision.getCollideWithPlayer()) {
+                    damagePlayer();
+                }
                 break;
             case 's':
                 if (!collision.getBottom()) {
                     this.setPositionY(this.getPositionY() + this.speed);
                 }
+
+                if (collision.getCollideWithPlayer()) {
+                    damagePlayer();
+                }
                 break;
             case 'd':
                 if (!collision.getRight()) {
                     this.setPositionX(this.getPositionX() + this.speed);
+                }
+
+                if (collision.getCollideWithPlayer()) {
+                    damagePlayer();
                 }
                 break;
             default:
@@ -69,5 +95,12 @@ public class Shadow extends Enemy {
 
     public void draw(Canvas canvas) {
         super.draw(canvas, paint);
+    }
+
+    public void damagePlayer() {
+        int finalDamage = damage * game.getDifficulty();
+        int newHP = player.getHp() - finalDamage;
+        player.setHp(newHP);
+        Log.d("new HP", String.valueOf(player.getHp()));
     }
 }

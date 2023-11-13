@@ -161,7 +161,7 @@ public class GameScreen extends AppCompatActivity {
             startActivity(intent);
         }
 
-        if (playerViewModel.getHP() == 0) {
+        if (playerViewModel.getHP() <= 0) {
             Intent intent = new Intent(GameScreen.this, EndScreen.class);
             startActivity(intent);
         }
