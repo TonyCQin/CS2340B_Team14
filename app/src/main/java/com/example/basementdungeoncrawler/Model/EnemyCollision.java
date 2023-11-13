@@ -76,10 +76,12 @@ public class EnemyCollision implements PlayerSubscriber, EnemySubscriber {
         if (Math.abs(this.playerPosX - this.positionX) < radius + playerR
             && Math.abs(this.playerPosY - this.positionY) < radius + playerR) {
             collideWithPlayer = true;
+        } else {
+            collideWithPlayer = false;
         }
-//        if (collideWithPlayer) {
-//            Log.d("Collide with player", "");
-//        }
+        if (collideWithPlayer) {
+            Log.d("Collide with player", "");
+        }
     }
 
     private void checkCollisionWithWall() {

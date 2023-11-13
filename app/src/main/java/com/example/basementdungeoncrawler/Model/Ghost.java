@@ -3,6 +3,7 @@ package com.example.basementdungeoncrawler.Model;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.util.Log;
 
 import androidx.core.content.ContextCompat;
 
@@ -20,6 +21,7 @@ public class Ghost extends Enemy{
     private Paint paint;
     private Movement movement;
     private char direction;
+    private PlayerData player;
 
     public Ghost(Context context, double positionX, double positionY, int HP, int damage,
                     int radius, int speed) {
@@ -41,6 +43,10 @@ public class Ghost extends Enemy{
             if (this.getPace() % 5 == 0) {
                 direction = this.getRandomDirection();
             }
+//            if (collision.getCollideWithPlayer() == true) {
+//                player.setHp(player.getHp() - damage);
+//            }
+//            Log.d("Health", String.valueOf(player.getHp()));
             switch (direction) {
             case 'w':
                 if (!collision.getUp()) {

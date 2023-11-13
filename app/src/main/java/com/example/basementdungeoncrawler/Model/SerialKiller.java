@@ -9,7 +9,7 @@ import androidx.core.content.ContextCompat;
 import com.example.basementdungeoncrawler.R;
 
 public class SerialKiller extends Enemy {
-    private int speed = 50;
+    private int speed = 70;
     private int damage = 50;
     private int HP = 100;
     private double positionX;
