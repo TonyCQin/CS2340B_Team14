@@ -137,7 +137,6 @@ public class GameScreen extends AppCompatActivity {
 
     public void update() {
         int screenCounter = gameViewModel.getScreenCounter();
-
         if (screenCounter == 1) {
             //set map
             TileMap map3TileMap = new TileMap(this, R.raw.new_map_3);
@@ -161,6 +160,10 @@ public class GameScreen extends AppCompatActivity {
             startActivity(intent);
         }
 
+        checkDeath();
+    }
+
+    public void checkDeath() {
         if (playerViewModel.getHP() <= 0) {
             Intent intent = new Intent(GameScreen.this, EndScreen.class);
             startActivity(intent);
