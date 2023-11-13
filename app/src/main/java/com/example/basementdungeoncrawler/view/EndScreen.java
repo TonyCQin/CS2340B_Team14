@@ -29,7 +29,7 @@ public class EndScreen extends AppCompatActivity {
 
         playerViewModel = new ViewModelProvider(this).get(PlayerViewModel.class);
         // you won alert
-        if (playerViewModel.getHP() == 0) {
+        if (playerViewModel.getHP() <= 0) {
             showLossAlert();
         } else {
             showWinAlert();
