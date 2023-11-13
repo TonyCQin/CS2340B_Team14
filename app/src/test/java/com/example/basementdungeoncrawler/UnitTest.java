@@ -20,6 +20,7 @@ import com.example.basementdungeoncrawler.Model.GoalReached;
 import com.example.basementdungeoncrawler.Model.Movement;
 import com.example.basementdungeoncrawler.Model.PlayerData;
 import com.example.basementdungeoncrawler.Model.Score;
+import com.example.basementdungeoncrawler.Model.ScoresList;
 import com.example.basementdungeoncrawler.graphics.Tile;
 import com.example.basementdungeoncrawler.graphics.TileMap;
 import com.example.basementdungeoncrawler.view.ConfigScreen;
