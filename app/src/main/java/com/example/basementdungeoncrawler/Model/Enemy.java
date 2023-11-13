@@ -21,7 +21,7 @@ public abstract class Enemy {
 
     protected EnemyCollision collision;
 
-    public Enemy(Context context, double positionX, double positionY, int hp, int damage,
+    public Enemy(Context context, double positionX, double positionY, int hp,
                  int radius, int speed, Paint paint) {
         this.xPosition = positionX;
         this.yPosition = positionY;
@@ -29,6 +29,10 @@ public abstract class Enemy {
         this.damage = damage;
         this.radius = radius;
         this.paint = paint;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
     }
 
     public char getRandomDirection() {

@@ -24,7 +24,8 @@ public class Ghost extends Enemy {
     public Ghost(Context context, double positionX, double positionY, int hp, int damage,
                  int radius, int speed) {
 
-        super(context, positionX, positionY, hp, damage, 100, speed, new Paint());
+        super(context, positionX, positionY, hp, 100, speed, new Paint());
+        super.setDamage(damage);
 
         paint = new Paint();
         int color = ContextCompat.getColor(context, R.color.white);
