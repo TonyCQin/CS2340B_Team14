@@ -110,7 +110,7 @@ public abstract class Enemy {
 
     protected void notifySubscribers() {
         for (EnemySubscriber sub : subscribers) {
-            sub.updateEnemyPosition(xPosition, yPosition, radius);
+            sub.updateEnemyPosition(xPosition, yPosition, radius, speed);
         }
     }
 
