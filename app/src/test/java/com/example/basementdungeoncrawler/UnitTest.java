@@ -312,4 +312,18 @@ public class UnitTest {
         a.setDifficulty(6);
         assertEquals(a.getDifficulty(), 6);
     }
+
+    @Test
+    public void testSetUsername() {
+        PlayerViewModel p = new PlayerViewModel();
+        p.setUsername("a");
+        assertEquals(p.getUsername(), "a");
+    }
+
+    @Test
+    public void testClearingScores() {
+        EndScreenViewModel endScreenViewModel = new EndScreenViewModel();
+        endScreenViewModel.clearUserNameAndScores();
+        assertEquals(5, endScreenViewModel.getUserNamesAndScores().size());
+    }
 }

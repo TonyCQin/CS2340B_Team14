@@ -79,11 +79,14 @@ public class MapView extends View {
 
         edgeReached = new EdgeReached(screenHeight, screenWidth);
         goalReached = new GoalReached();
+
         player = new PlayerData(getContext(), x, y, radius);
+
         shadow = new Shadow(getContext(), 500, 800, 20, 10, 30, 48);
         barry = new SerialKiller(getContext(), 500, 700, 100, 50, 30, 50);
         skeleton = new Skeleton(getContext(), 500, 900, 20, 15, 50, 10);
         ghost = new Ghost(getContext(), 300, 1200, 30, 5, 60, 60);
+
         ghost.setCollision(ghostCollision);
         shadow.setCollision(shadowCollision);
         skeleton.setCollision(skeletonCollision);
@@ -191,6 +194,7 @@ public class MapView extends View {
 
     @Override
     public boolean onKeyDown(int key, KeyEvent e) {
+        gameScreen.checkDeath();
         char direction = ' ';
         if (e.getAction() == KeyEvent.ACTION_DOWN) {
             if (e.isShiftPressed()) {

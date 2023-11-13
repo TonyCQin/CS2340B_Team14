@@ -53,5 +53,6 @@ public class EndScreenViewModel extends ViewModel {
 
     public void clearUserNameAndScores() {
         userNamesAndScore.clear();
+        scoreslist.clearScores();
     }
 }
