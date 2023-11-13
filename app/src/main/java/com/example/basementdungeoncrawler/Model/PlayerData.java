@@ -24,6 +24,7 @@ public class PlayerData {
 
     private static volatile PlayerData playerData;
     private ArrayList<PlayerSubscriber> subscribers;
+    private Movement movement;
 
     /*
      * @param username username of playerData
@@ -47,6 +48,7 @@ public class PlayerData {
     public void setMovement(Movement m) {
         movement = m;
     }
+
     public void draw(Canvas canvas) {
         canvas.drawCircle((float) positionX, (float) positionY, (float) radius, paint);
     }
