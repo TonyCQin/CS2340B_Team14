@@ -84,7 +84,7 @@ public abstract class Enemy {
         pace++;
     }
 
-    public void draw(Canvas canvas) {
+    public void draw(Canvas canvas, Paint paint) {
         canvas.drawCircle((float) xPosition, (float) yPosition, (float) radius, paint);
     }
 

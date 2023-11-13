@@ -68,4 +68,8 @@ public class Shadow extends Enemy {
         }
         notifySubscribers();
     }
+
+    public void draw(Canvas canvas) {
+        super.draw(canvas, paint);
+    }
 }

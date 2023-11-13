@@ -23,6 +23,7 @@ public class Ghost extends Enemy{
 
     public Ghost(Context context, double positionX, double positionY, int HP, int damage,
                     int radius, int speed) {
+
         super(context, positionX, positionY, HP, damage, 100, speed, new Paint());
 
         paint = new Paint();
@@ -66,5 +67,10 @@ public class Ghost extends Enemy{
             }
         }
         notifySubscribers();
+    }
+
+    public void draw(Canvas canvas) {
+
+        super.draw(canvas, paint);
     }
 }

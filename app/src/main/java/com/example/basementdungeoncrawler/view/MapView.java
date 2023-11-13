@@ -104,10 +104,6 @@ public class MapView extends View {
         skeleton.subscribe(skeletonCollision);
         barry.subscribe(barryCollision);
 
-        //player.subscribe(barry);
-        //player.subscribe(ghost);
-        //player.subscribe(skeleton);
-        //player.subscribe(shadow);
         this.movement = new Movement(player, collision);
         player.setMovement(this.movement);
 
@@ -123,11 +119,12 @@ public class MapView extends View {
         for (Tile[][] layer : layers) {
             renderLayer(canvas, layer);
         }
+
+        ghost.draw(canvas);
         player.draw(canvas);
         shadow.draw(canvas);
         barry.draw(canvas);
         skeleton.draw(canvas);
-        ghost.draw(canvas);
         super.onDraw(canvas);
     }
 

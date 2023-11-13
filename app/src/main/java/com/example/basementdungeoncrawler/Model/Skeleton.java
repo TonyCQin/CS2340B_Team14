@@ -32,10 +32,6 @@ public class Skeleton extends Enemy {
         this.radius = radius;
     }
 
-    public void draw(Canvas canvas) {
-        canvas.drawCircle((float) positionX, (float) positionY, (float) radius, paint);
-    }
-
     public void move() {
         this.incrementPace();
         if (HP > 0) {
@@ -68,5 +64,9 @@ public class Skeleton extends Enemy {
             }
             notifySubscribers();
         }
+    }
+
+    public void draw(Canvas canvas) {
+        super.draw(canvas, paint);
     }
 }

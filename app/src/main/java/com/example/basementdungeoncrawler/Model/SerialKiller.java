@@ -32,14 +32,10 @@ public class SerialKiller extends Enemy {
         this.radius = radius;
     }
 
-    public void draw(Canvas canvas) {
-        canvas.drawCircle((float) positionX, (float) positionY, (float) radius, paint);
-    }
-
     public void move() {
         this.incrementPace();
         if (HP > 0) {
-            if (this.getPace() == 0) {
+            if (this.getPace() % 2 == 0) {
                 direction = this.getRandomDirection();
             }
             switch (direction) {
@@ -69,5 +65,10 @@ public class SerialKiller extends Enemy {
             notifySubscribers();
         }
     }
+
+    public void draw(Canvas canvas) {
+        super.draw(canvas, paint);
+    }
+
 }
 
