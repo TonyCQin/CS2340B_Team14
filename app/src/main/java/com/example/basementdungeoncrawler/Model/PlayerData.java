@@ -24,7 +24,6 @@ public class PlayerData {
 
     private static volatile PlayerData playerData;
     private ArrayList<PlayerSubscriber> subscribers;
-    private Movement movement;
 
     /*
      * @param username username of playerData

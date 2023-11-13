@@ -80,10 +80,10 @@ public class MapView extends View {
         edgeReached = new EdgeReached(screenHeight, screenWidth);
         goalReached = new GoalReached();
         player = new PlayerData(getContext(), x, y, radius);
-        shadow = new Shadow(getContext(), 300, 500, 20, 10, 30, 48);
-        barry = new SerialKiller(getContext(), 500, 500, 100, 50, 30, 50);
+        shadow = new Shadow(getContext(), 500, 800, 20, 10, 30, 48);
+        barry = new SerialKiller(getContext(), 500, 700, 100, 50, 30, 50);
         skeleton = new Skeleton(getContext(), 500, 900, 20, 15, 50, 10);
-        ghost = new Ghost(getContext(), 500, 1500, 30, 5, 60, 60);
+        ghost = new Ghost(getContext(), 300, 1200, 30, 5, 60, 60);
         ghost.setCollision(ghostCollision);
         shadow.setCollision(shadowCollision);
         skeleton.setCollision(skeletonCollision);
