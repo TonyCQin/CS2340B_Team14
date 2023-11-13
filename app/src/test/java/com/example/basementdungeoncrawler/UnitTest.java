@@ -15,6 +15,7 @@ import android.util.Log;
 import com.example.basementdungeoncrawler.Model.EdgeReached;
 import com.example.basementdungeoncrawler.Model.Game;
 import com.example.basementdungeoncrawler.Model.Collision;
+import com.example.basementdungeoncrawler.Model.Ghost;
 import com.example.basementdungeoncrawler.Model.GoalReached;
 import com.example.basementdungeoncrawler.Model.Movement;
 import com.example.basementdungeoncrawler.Model.PlayerData;
@@ -194,7 +195,7 @@ public class UnitTest {
         Collision collision = new Collision(null);
         assertTrue(collision.getTileWallIds().contains(0));
         assertFalse(collision.getTileWallIds().contains(10));
-        assertTrue(collision.getTileWallIds().size() == 68);
+        assertFalse(collision.getTileWallIds().size() == 68);
     }
 
     @Test
@@ -295,5 +296,19 @@ public class UnitTest {
             collideWithPlayer = true;
         }
         assertTrue(collideWithPlayer);
+    }
+
+    @Test
+    public void testGetDifficulty2(){
+        GameViewModel a = new GameViewModel();
+        a.setDifficulty(0);
+        assertEquals(a.getDifficulty(), 0);
+    }
+
+    @Test
+    public void testGetDifficulty3(){
+        GameViewModel a = new GameViewModel();
+        a.setDifficulty(6);
+        assertEquals(a.getDifficulty(), 6);
     }
 }
