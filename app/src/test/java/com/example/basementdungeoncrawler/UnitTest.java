@@ -312,4 +312,20 @@ public class UnitTest {
         a.setDifficulty(6);
         assertEquals(a.getDifficulty(), 6);
     }
+    @Test
+    public void testClearScores() {
+        ScoresList list = ScoresList.getList();
+        list.addScore("username", 100);
+        list.clearScores();
+        assertEquals(list.getRecentScore().getUsername(), "placeholder");
+        assertEquals(list.getRecentScore().getScore(), 0);
+    }
+
+    @Test
+    public void testEndScreenSetUp() {
+        EndScreenViewModel end = new EndScreenViewModel();
+        end.setUpUserNamesAndScores();
+        ArrayList<String> nameAndScore = new ArrayList<>();
+        assertEquals(end.getUserNamesAndScores(), nameAndScore);
+    }
 }
