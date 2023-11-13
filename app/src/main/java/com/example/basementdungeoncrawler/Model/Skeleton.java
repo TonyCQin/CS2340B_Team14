@@ -3,6 +3,7 @@ package com.example.basementdungeoncrawler.Model;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.util.Log;
 
 import androidx.core.content.ContextCompat;
 
@@ -19,6 +20,9 @@ public class Skeleton extends Enemy {
     private Movement movement;
     private char direction;
 
+    private PlayerData player;
+    private Game game;
+
     public Skeleton(Context context, double positionX, double positionY, int hp, int damage,
                     int radius, int speed) {
         super(context, positionX, positionY, hp, 100, speed, new Paint());
@@ -31,6 +35,9 @@ public class Skeleton extends Enemy {
         this.positionX = positionX;
         this.positionY = positionY;
         this.radius = radius;
+
+        this.player = PlayerData.getPlayer();
+        this.game = Game.getGame();
     }
 
     public void move() {
@@ -38,6 +45,9 @@ public class Skeleton extends Enemy {
         if (hp > 0) {
             if (this.getPace() % 7 == 0) {
                 direction = this.getRandomDirection();
+            }
+            if (collision.getCollideWithPlayer()) {
+                damagePlayer();
             }
             switch (direction) {
             case 'w':
@@ -69,5 +79,12 @@ public class Skeleton extends Enemy {
 
     public void draw(Canvas canvas) {
         super.draw(canvas, paint);
+    }
+
+    public void damagePlayer() {
+        int finalDamage = damage * game.getDifficulty();
+        int newHP = player.getHp() - finalDamage;
+        player.setHp(newHP);
+        Log.d("new HP", String.valueOf(player.getHp()));
     }
 }
