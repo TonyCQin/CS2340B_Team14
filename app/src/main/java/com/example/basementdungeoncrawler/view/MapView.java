@@ -13,9 +13,14 @@ import android.view.View;
 
 import com.example.basementdungeoncrawler.Model.Collision;
 import com.example.basementdungeoncrawler.Model.EdgeReached;
+import com.example.basementdungeoncrawler.Model.EnemyCollision;
+import com.example.basementdungeoncrawler.Model.Ghost;
 import com.example.basementdungeoncrawler.Model.GoalReached;
 import com.example.basementdungeoncrawler.Model.Movement;
 import com.example.basementdungeoncrawler.Model.PlayerData;
+import com.example.basementdungeoncrawler.Model.SerialKiller;
+import com.example.basementdungeoncrawler.Model.Shadow;
+import com.example.basementdungeoncrawler.Model.Skeleton;
 import com.example.basementdungeoncrawler.R;
 import com.example.basementdungeoncrawler.graphics.Tile;
 import com.example.basementdungeoncrawler.graphics.TileMap;
@@ -35,7 +40,15 @@ public class MapView extends View {
     private int tileWidth = screenWidth / NUMBER_OF_COLUMN_TILES;
     private int tileHeight = screenHeight / NUMBER_OF_ROW_TILES;
     private final PlayerData player;
+    private Shadow shadow;
+    private Skeleton skeleton;
+    private Ghost ghost;
+    private SerialKiller barry;
     private Collision collision;
+    private EnemyCollision ghostCollision;
+    private EnemyCollision shadowCollision;
+    private EnemyCollision barryCollision;
+    private EnemyCollision skeletonCollision;
     private GoalReached goalReached;
     private EdgeReached edgeReached;
     private GameScreen gameScreen;
@@ -59,11 +72,36 @@ public class MapView extends View {
         tileHeight = screenHeight / NUMBER_OF_ROW_TILES;
 
         collision = new Collision(tileMap);
+        ghostCollision = new EnemyCollision(tileMap);
+        shadowCollision = new EnemyCollision(tileMap);
+        barryCollision = new EnemyCollision(tileMap);
+        skeletonCollision = new EnemyCollision(tileMap);
+
         edgeReached = new EdgeReached(screenHeight, screenWidth);
         goalReached = new GoalReached();
         player = new PlayerData(getContext(), x, y, radius);
+        shadow = new Shadow(getContext(), 300, 500, 20, 10, 30, 48);
+        barry = new SerialKiller(getContext(), 500, 500, 100, 50, 30, 50);
+        skeleton = new Skeleton(getContext(), 500, 900, 20, 15, 50, 10);
+        ghost = new Ghost(getContext(), 500, 1500, 30, 5, 60, 60);
+        ghost.setCollision(ghostCollision);
+        shadow.setCollision(shadowCollision);
+        skeleton.setCollision(skeletonCollision);
+        barry.setCollision(barryCollision);
+
+
         player.subscribe(collision);
         player.subscribe(edgeReached);
+        player.subscribe(ghostCollision);
+        player.subscribe(shadowCollision);
+        player.subscribe(barryCollision);
+        player.subscribe(skeletonCollision);
+
+        ghost.subscribe(ghostCollision);
+        shadow.subscribe(shadowCollision);
+        skeleton.subscribe(skeletonCollision);
+        barry.subscribe(barryCollision);
+
         this.movement = new Movement(player, collision);
         player.setMovement(this.movement);
 
@@ -79,7 +117,12 @@ public class MapView extends View {
         for (Tile[][] layer : layers) {
             renderLayer(canvas, layer);
         }
+
+        ghost.draw(canvas);
         player.draw(canvas);
+        shadow.draw(canvas);
+        barry.draw(canvas);
+        skeleton.draw(canvas);
         super.onDraw(canvas);
     }
 
@@ -205,8 +248,11 @@ public class MapView extends View {
                     Log.d("calling update", "");
                     gameScreen.update();
                 }
-
                 player.move(direction, collision);
+                ghost.move();
+                skeleton.move();
+                shadow.move();
+                barry.move();
                 invalidate();
                 return true;
             }

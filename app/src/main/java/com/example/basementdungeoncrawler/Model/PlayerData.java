@@ -20,6 +20,7 @@ public class PlayerData {
     private double radius;
     private Paint paint;
     private EdgeReached edgeReached;
+    private Movement movement;
 
     private static volatile PlayerData playerData;
     private ArrayList<PlayerSubscriber> subscribers;
@@ -33,6 +34,7 @@ public class PlayerData {
         this.username = username;
         this.spriteSelected = spriteSelected;
     }
+
     public PlayerData(Context context, double positionX, double positionY, double radius) {
         this.positionX = positionX;
         this.positionY = positionY;
@@ -46,66 +48,15 @@ public class PlayerData {
     public void setMovement(Movement m) {
         movement = m;
     }
-     public void draw(Canvas canvas) {
+
+    public void draw(Canvas canvas) {
         canvas.drawCircle((float) positionX, (float) positionY, (float) radius, paint);
     }
 
     public void move(char direction, Collision collision) {
         movement.walk(direction);
         movement.run(direction);
-//        switch (direction) {
-//        case 'w':
-//            if (!collision.getUp()) {
-//                positionY = positionY - 16;
-//            }
-//            break;
-//
-//        case 'a':
-//            if (!collision.getLeft()) {
-//                positionX = positionX - 16;
-//            }
-//            break;
-//
-//        case 's':
-//            if (!collision.getBottom()) {
-//                positionY = positionY + 16;
-//            }
-//            break;
-//
-//        case 'd':
-//            if (!collision.getRight()) {
-//                positionX = positionX + 16;
-//            }
-//            break;
-//
-//        case 'W':
-//            if (!collision.getUp()) {
-//                positionY = positionY - 48;
-//            }
-//            break;
-//        case 'A':
-//            if (!collision.getLeft()) {
-//                positionX = positionX - 48;
-//            }
-//            break;
-//
-//
-//        case 'S':
-//            if (!collision.getBottom()) {
-//                positionY = positionY + 48;
-//            }
-//            break;
-//
-//        case 'D':
-//            if (!collision.getRight()) {
-//                positionX = positionX + 48;
-//            }
-//            break;
-//
-//        default:
-//            break;
-//        }
-//        notifySubscribers();
+        notifySubscribers();
     }
   
     private PlayerData() {

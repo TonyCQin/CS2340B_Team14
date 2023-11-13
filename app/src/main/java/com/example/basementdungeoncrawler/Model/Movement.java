@@ -1,9 +1,11 @@
 package com.example.basementdungeoncrawler.Model;
 
-public class Movement implements Action {
+public class Movement implements MovementInter {
     private PlayerData player;
     private Collision collision;
-
+    private Enemy enemy;
+    private int speed;
+    private char direction = ' ';
     public Movement(PlayerData player, Collision collision) {
         this.player = player;
         this.collision = collision;
