@@ -19,11 +19,9 @@ public class PlayerData {
     private double positionY;
     private double radius;
     private Paint paint;
-    private EdgeReached edgeReached;
-    private Movement movement;
 
     private static volatile PlayerData playerData;
-    private ArrayList<PlayerSubscriber> subscribers;
+
 
     /*
      * @param username username of playerData
@@ -42,20 +40,6 @@ public class PlayerData {
         paint = new Paint();
         int color = ContextCompat.getColor(context, R.color.player);
         paint.setColor(color);
-    }
-
-    public void setMovement(Movement m) {
-        movement = m;
-    }
-
-    public void draw(Canvas canvas) {
-        canvas.drawCircle((float) positionX, (float) positionY, (float) radius, paint);
-    }
-
-    public void move(char direction, Collision collision) {
-        movement.walk(direction);
-        movement.run(direction);
-        notifySubscribers();
     }
   
     private PlayerData() {
@@ -115,23 +99,6 @@ public class PlayerData {
         return hp;
     }
 
-    public void subscribe(PlayerSubscriber sub) {
-        if (subscribers == null) {
-            subscribers = new ArrayList<>();
-        }
-        subscribers.add(sub);
-    }
-
-    public void removeObserver(PlayerSubscriber sub) {
-        subscribers.remove(sub);
-    }
-
-    protected void notifySubscribers() {
-        for (PlayerSubscriber sub : subscribers) {
-            sub.update(positionX, positionY, radius);
-        }
-    }
-
     public double getPositionX() {
         return positionX;
     }
@@ -147,5 +114,9 @@ public class PlayerData {
     }
     public void setPositionY(double positionY) {
         this.positionY = positionY;
+    }
+
+    public void setRadius(double radius) {
+        this.radius = radius;
     }
 }

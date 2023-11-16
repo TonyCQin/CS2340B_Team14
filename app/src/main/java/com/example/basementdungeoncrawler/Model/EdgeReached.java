@@ -9,9 +9,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class EdgeReached implements PlayerSubscriber {
-    private PlayerData player;
-    private GameScreen gameScreen;
-    private Context context;
     private Boolean isEdgeReached = false;
     private int height;
     private int width;
