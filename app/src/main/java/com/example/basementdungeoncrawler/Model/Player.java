@@ -37,14 +37,12 @@ public class Player {
 
     public void draw(Canvas canvas) {
         int sprite = PlayerData.getPlayer().getSpriteSelected();
-        Log.d("sprite", String.valueOf(sprite));
         Bitmap spriteBitmap = BitmapFactory.decodeResource(context.getResources(), sprite, null);
 
         int newWidth = (int) spriteBitmap.getWidth() * 2;
         int newHeight = (int) spriteBitmap.getHeight() * 2;
 
         Bitmap scaledBitmap = Bitmap.createScaledBitmap(spriteBitmap, newWidth, newHeight, true);
-//        canvas.drawCircle((float) positionX, (float) positionY, (float) radius, paint);
         canvas.drawBitmap(scaledBitmap, (float) positionX, (float) positionY, null);
     }
 

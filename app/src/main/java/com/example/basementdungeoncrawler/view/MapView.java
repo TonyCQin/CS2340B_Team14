@@ -244,12 +244,11 @@ public class MapView extends View {
                     gameScreen.update();
                 }
                 //goal checking logic
-                Log.d("Is goal reached (mapview)", String.valueOf(
-                    GoalReached.getGoalReached().getIsGoalReached()));
                 if (GoalReached.getGoalReached().getIsGoalReached()) {
                     Log.d("calling update", "");
                     gameScreen.update();
                 }
+                Log.d("moving", "");
                 player.move(direction, collision);
                 shaman.move();
                 skeleton.move();
