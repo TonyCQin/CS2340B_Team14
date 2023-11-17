@@ -46,7 +46,7 @@ public class GameScreen extends AppCompatActivity {
         gameViewModel.setScreenCounter(1);
         Log.d("tileMap", String.valueOf(map1TileMap.getLayers()));
         MapView mapView = new MapView(this, map1TileMap.getLayers(), map1TileMap,
-            this, 400, 1600, 30);
+            this, 400, 1600, 32);
         setContentView(mapView);
 
         //connecting the buttons, name, character health,

@@ -1,6 +1,5 @@
 package com.example.basementdungeoncrawler;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -8,24 +7,13 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 
-import android.content.Context;
-import android.content.res.Resources;
-import android.util.Log;
-
 import com.example.basementdungeoncrawler.Model.EdgeReached;
-import com.example.basementdungeoncrawler.Model.Game;
 import com.example.basementdungeoncrawler.Model.Collision;
-import com.example.basementdungeoncrawler.Model.Ghost;
 import com.example.basementdungeoncrawler.Model.GoalReached;
-import com.example.basementdungeoncrawler.Model.Movement;
-import com.example.basementdungeoncrawler.Model.PlayerData;
 import com.example.basementdungeoncrawler.Model.Score;
 import com.example.basementdungeoncrawler.Model.ScoresList;
 import com.example.basementdungeoncrawler.graphics.Tile;
-import com.example.basementdungeoncrawler.graphics.TileMap;
 import com.example.basementdungeoncrawler.view.ConfigScreen;
-import com.example.basementdungeoncrawler.view.GameScreen;
-import com.example.basementdungeoncrawler.view.MapView;
 import com.example.basementdungeoncrawler.viewModel.EndScreenViewModel;
 import com.example.basementdungeoncrawler.viewModel.GameViewModel;
 import com.example.basementdungeoncrawler.viewModel.LeaderBoardAdapter;

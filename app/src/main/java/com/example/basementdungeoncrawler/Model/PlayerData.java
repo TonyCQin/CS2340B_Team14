@@ -81,13 +81,13 @@ public class PlayerData {
 
     public void setSpriteSelected(int newSprite) {
         if (newSprite == 1) {
-            spriteSelected = (R.drawable.idle_crop1);
+            spriteSelected = (R.drawable.knight_sheet);
         }
         if (newSprite == 2) {
-            spriteSelected = (R.drawable.pumpkin_crop);
+            spriteSelected = (R.drawable.rogue_sheet);
         }
         if (newSprite == 3) {
-            spriteSelected = (R.drawable.doc_crop);
+            spriteSelected = (R.drawable.wizard_sheet);
         }
     }
 

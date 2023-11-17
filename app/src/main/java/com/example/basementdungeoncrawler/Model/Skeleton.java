@@ -1,6 +1,8 @@
 package com.example.basementdungeoncrawler.Model;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.Log;
@@ -22,6 +24,7 @@ public class Skeleton extends Enemy {
 
     private PlayerData player;
     private Game game;
+    private Context context;
 
     public Skeleton(Context context, double positionX, double positionY, int hp, int damage,
                     int radius, int speed) {
@@ -35,6 +38,7 @@ public class Skeleton extends Enemy {
         this.positionX = positionX;
         this.positionY = positionY;
         this.radius = radius;
+        this.context = context;
 
         this.player = PlayerData.getPlayer();
         this.game = Game.getGame();
@@ -78,7 +82,8 @@ public class Skeleton extends Enemy {
     }
 
     public void draw(Canvas canvas) {
-        super.draw(canvas, paint);
+        Bitmap spriteBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.skeleton, null);
+        canvas.drawBitmap(spriteBitmap, (float) positionX, (float) positionY, null);
     }
 
     public void damagePlayer() {
