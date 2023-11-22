@@ -17,7 +17,7 @@ public class Skeleton extends Enemy {
     private int hp = 20;
     private double positionX;
     private double positionY;
-    private double radius;
+    private int radius;
     private Paint paint;
     private Movement movement;
     private char direction;
@@ -25,15 +25,12 @@ public class Skeleton extends Enemy {
     private PlayerData player;
     private Game game;
     private Context context;
+    private Bitmap spriteBitmap;
 
     public Skeleton(Context context, double positionX, double positionY, int hp, int damage,
                     int radius, int speed) {
-        super(context, positionX, positionY, hp, radius, speed, new Paint());
+        super(context, positionX, positionY, hp, radius, speed);
         super.setDamage(damage);
-
-        paint = new Paint();
-        int color = ContextCompat.getColor(context, R.color.grey);
-        paint.setColor(color);
 
         this.positionX = positionX;
         this.positionY = positionY;
@@ -42,11 +39,17 @@ public class Skeleton extends Enemy {
 
         this.player = PlayerData.getPlayer();
         this.game = Game.getGame();
+
+        spriteBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.skeleton, null);
     }
 
     public void move() {
         this.incrementPace();
         if (hp > 0) {
+            Log.d("skeleton up", String.valueOf(collision.getUp()));
+            Log.d("skeleton down", String.valueOf(collision.getBottom()));
+            Log.d("skeleton left", String.valueOf(collision.getLeft()));
+            Log.d("skeleton right", String.valueOf(collision.getRight()));
             if (this.getPace() % 7 == 0) {
                 direction = this.getRandomDirection();
             }
@@ -94,13 +97,12 @@ public class Skeleton extends Enemy {
                     break;
             }
             Log.d("skeleton new location", String.format("%f, %f", positionX, positionY));
-            notifySubscribers();
+            notifySubscribers(positionX, positionY, radius, speed);
         }
     }
 
     public void draw(Canvas canvas) {
-        Bitmap spriteBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.skeleton, null);
-        canvas.drawBitmap(spriteBitmap, (float) positionX, (float) positionY, null);
+        canvas.drawBitmap(super.scaleBitmap(spriteBitmap), (float) positionX, (float) positionY, null);
     }
 
     public void damagePlayer() {

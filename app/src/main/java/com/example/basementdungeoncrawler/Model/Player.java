@@ -24,15 +24,11 @@ public class Player {
     private ArrayList<PlayerSubscriber> subscribers;
     private Context context;
 
-    public Player(Context context, double positionX, double positionY, double radius) {
+    public Player(Context context, double positionX, double positionY) {
         this.positionX = positionX;
         this.positionY = positionY;
-        this.radius = radius;
         this.context = context;
 
-        paint = new Paint();
-        int color = ContextCompat.getColor(context, R.color.player);
-        paint.setColor(color);
     }
 
     public void draw(Canvas canvas) {
@@ -62,7 +58,7 @@ public class Player {
 
     protected void notifySubscribers() {
         for (PlayerSubscriber sub : subscribers) {
-            sub.update(positionX, positionY, radius);
+            sub.update(positionX, positionY);
         }
     }
 

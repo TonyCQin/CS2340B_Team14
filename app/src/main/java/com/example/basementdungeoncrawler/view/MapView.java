@@ -56,7 +56,7 @@ public class MapView extends View {
     private Movement movement;
 
     public MapView(Context context, ArrayList<Tile[][]> layers, TileMap tileMap,
-                   GameScreen gameScreen, int x, int y, int radius) {
+                   GameScreen gameScreen, int x, int y) {
         super(context);
         this.layers = layers;
         this.gameScreen = gameScreen;
@@ -80,17 +80,16 @@ public class MapView extends View {
         edgeReached = new EdgeReached(screenHeight, screenWidth);
         goalReached = new GoalReached();
 
-        player = new Player(getContext(), x, y, radius);
-        mage = new Mage(getContext(), 500, 1100, 20, 10, 35, 48);
-        shaman = new Shaman(getContext(), 500, 1400, 100, 50, 35, 50);
-        skeleton = new Skeleton(getContext(), 400, 1300, 20, 15, 50, 10);
-        orc = new Orc(getContext(), 300, 1200, 30, 5, 60, 60);
+        player = new Player(getContext(), x, y);
+        mage = new Mage(getContext(), 800, 1100, 20, 10, 64, 48);
+        shaman = new Shaman(getContext(), 300, 1300, 100, 50, 64, 50);
+        skeleton = new Skeleton(getContext(), 400, 1300, 20, 15, 64, 10);
+        orc = new Orc(getContext(), 200, 1200, 30, 5, 64, 64);
 
         mage.setCollision(mageCollision);
         shaman.setCollision(shamanCollision);
         skeleton.setCollision(skeletonCollision);
         orc.setCollision(orcCollision);
-
 
         player.subscribe(collision);
         player.subscribe(edgeReached);

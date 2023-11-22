@@ -23,12 +23,11 @@ public class EdgeReached implements PlayerSubscriber {
         this.isEdgeReached = false;
     }
 
-    public void update(double x, double y, double radius) {
+    public void update(double x, double y) {
         checkEdgeReached(x, y);
     }
 
     public void checkEdgeReached(double x, double y) {
-        Log.d("width", String.valueOf(width));
         if (x > width || y > height) {
             isEdgeReached = true;
         } else {

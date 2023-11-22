@@ -46,7 +46,7 @@ public class GameScreen extends AppCompatActivity {
         gameViewModel.setScreenCounter(1);
         Log.d("tileMap", String.valueOf(map1TileMap.getLayers()));
         MapView mapView = new MapView(this, map1TileMap.getLayers(), map1TileMap,
-            this, 400, 1600, 32);
+            this, 400, 400);
         setContentView(mapView);
 
         //connecting the buttons, name, character health,
@@ -142,7 +142,7 @@ public class GameScreen extends AppCompatActivity {
             TileMap map3TileMap = new TileMap(this, R.raw.new_map_3);
             Log.d("tileMap", String.valueOf(map3TileMap.getLayers()));
             MapView map3View = new MapView(this, map3TileMap.getLayers(), map3TileMap,
-                this, 200, 250, 30);
+                this, 200, 250);
             EdgeReached.getEdgeReached().setIsEdgeReached(false);
             setContentView(map3View);
             //add buttons

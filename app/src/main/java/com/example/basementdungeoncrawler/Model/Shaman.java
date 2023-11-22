@@ -17,22 +17,19 @@ public class Shaman extends Enemy {
     private int hp = 100;
     private double positionX;
     private double positionY;
-    private double radius;
+    private int radius;
     private Paint paint;
     private Movement movement;
     private char direction;
     private PlayerData player;
     private Game game;
     private Context context;
+    private Bitmap spriteBitmap;
 
     public Shaman(Context context, double positionX, double positionY, int hp, int damage,
                   int radius, int speed) {
-        super(context, positionX, positionY, hp, radius, speed, new Paint());
+        super(context, positionX, positionY, hp, radius, speed);
         super.setDamage(damage);
-
-        paint = new Paint();
-        int color = ContextCompat.getColor(context, R.color.purple_200);
-        paint.setColor(color);
 
         this.positionX = positionX;
         this.positionY = positionY;
@@ -41,12 +38,18 @@ public class Shaman extends Enemy {
 
         this.player = PlayerData.getPlayer();
         this.game = Game.getGame();
+
+        spriteBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.shaman, null);
     }
 
     public void move() {
         this.incrementPace();
         if (hp > 0) {
-            if (this.getPace() % 2 == 0) {
+            Log.d("shaman up", String.valueOf(collision.getUp()));
+            Log.d("shaman down", String.valueOf(collision.getBottom()));
+            Log.d("shaman left", String.valueOf(collision.getLeft()));
+            Log.d("shaman right", String.valueOf(collision.getRight()));
+            if (this.getPace() % 3 == 0) {
                 direction = this.getRandomDirection();
             }
             if (collision.getCollideWithPlayer()) {
@@ -93,13 +96,12 @@ public class Shaman extends Enemy {
                     break;
             }
             Log.d("shaman new location", String.format("%f, %f", positionX, positionY));
-            notifySubscribers();
+            notifySubscribers(positionX, positionY, radius, speed);
         }
     }
 
     public void draw(Canvas canvas) {
-        Bitmap spriteBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.shaman, null);
-        canvas.drawBitmap(spriteBitmap, (float) positionX, (float) positionY, null);
+        canvas.drawBitmap(super.scaleBitmap(spriteBitmap), (float) positionX, (float) positionY, null);
     }
 
     public void damagePlayer() {

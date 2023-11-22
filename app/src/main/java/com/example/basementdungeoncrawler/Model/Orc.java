@@ -18,22 +18,19 @@ public class Orc extends Enemy {
     private int hp = 5;
     private double positionX;
     private double positionY;
-    private double radius;
+    private int radius;
     private Paint paint;
     private Movement movement;
     private char direction;
     private PlayerData player;
     private Game game;
     private Context context;
+    private Bitmap spriteBitmap;
     public Orc(Context context, double positionX, double positionY, int hp, int damage,
                int radius, int speed) {
 
-        super(context, positionX, positionY, hp, radius, speed, new Paint());
+        super(context, positionX, positionY, hp, radius, speed);
         super.setDamage(damage);
-
-        paint = new Paint();
-        int color = ContextCompat.getColor(context, R.color.white);
-        paint.setColor(color);
 
         this.positionX = positionX;
         this.positionY = positionY;
@@ -43,11 +40,17 @@ public class Orc extends Enemy {
         this.player = PlayerData.getPlayer();
         this.game = Game.getGame();
         this.damage = 10;
+
+        spriteBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.orc, null);
     }
 
     public void move() {
         this.incrementPace();
         if (hp > 0) {
+            Log.d("orc up", String.valueOf(collision.getUp()));
+            Log.d("orc down", String.valueOf(collision.getBottom()));
+            Log.d("orc left", String.valueOf(collision.getLeft()));
+            Log.d("orc right", String.valueOf(collision.getRight()));
             if (this.getPace() % 5 == 0) {
                 direction = this.getRandomDirection();
             }
@@ -57,7 +60,7 @@ public class Orc extends Enemy {
             switch (direction) {
                 case 'w':
                     if (!collision.getUp()) {
-                        positionY -= speed;
+                        this.positionY -= speed;
                     }
 
                     if (collision.getCollideWithPlayer()) {
@@ -66,7 +69,7 @@ public class Orc extends Enemy {
                     break;
                 case 'a':
                     if (!collision.getLeft()) {
-                        positionX -= speed;
+                        this.positionX -= speed;
                     }
 
                     if (collision.getCollideWithPlayer()) {
@@ -75,7 +78,7 @@ public class Orc extends Enemy {
                     break;
                 case 's':
                     if (!collision.getBottom()) {
-                        positionY += speed;
+                        this.positionY += speed;
                     }
 
                     if (collision.getCollideWithPlayer()) {
@@ -84,7 +87,7 @@ public class Orc extends Enemy {
                     break;
                 case 'd':
                     if (!collision.getRight()) {
-                        positionX += speed;
+                        this.positionX += speed;
                     }
 
                     if (collision.getCollideWithPlayer()) {
@@ -94,14 +97,13 @@ public class Orc extends Enemy {
                 default:
                     break;
             }
+            Log.d("orc new location", String.format("%f, %f", positionX, positionY));
+            notifySubscribers(positionX, positionY, radius, speed);
         }
-        Log.d("orc new location", String.format("%f, %f", positionX, positionY));
-        notifySubscribers();
     }
 
     public void draw(Canvas canvas) {
-        Bitmap spriteBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.orc, null);
-        canvas.drawBitmap(spriteBitmap, (float) positionX, (float) positionY, null);
+        canvas.drawBitmap(super.scaleBitmap(spriteBitmap), (float) positionX, (float) positionY, null);
     }
 
     public void damagePlayer() {

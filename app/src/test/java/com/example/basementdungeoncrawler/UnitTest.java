@@ -48,13 +48,13 @@ public class UnitTest {
         PlayerViewModel playerViewModel = new PlayerViewModel();
 
         playerViewModel.setSprite(1);
-        assertEquals(R.drawable.idle_crop1, playerViewModel.getSprite());
+        assertEquals(R.drawable.knight_sheet, playerViewModel.getSprite());
 
         playerViewModel.setSprite(2);
-        assertEquals(R.drawable.pumpkin_crop, playerViewModel.getSprite());
+        assertEquals(R.drawable.rogue_sheet, playerViewModel.getSprite());
 
         playerViewModel.setSprite(3);
-        assertEquals(R.drawable.doc_crop, playerViewModel.getSprite());
+        assertEquals(R.drawable.wizard_sheet, playerViewModel.getSprite());
     }
 
     @Test

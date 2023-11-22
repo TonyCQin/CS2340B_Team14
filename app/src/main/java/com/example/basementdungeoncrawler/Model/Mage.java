@@ -17,10 +17,11 @@ public class Mage extends Enemy {
     private int hp = 20;
     private double positionX;
     private double positionY;
-    private double radius;
+    private int radius;
     private Paint paint;
     private Movement movement;
     private char direction;
+    private Bitmap spriteBitmap;
 
     private Game game;
     private PlayerData player;
@@ -28,12 +29,8 @@ public class Mage extends Enemy {
 
     public Mage(Context context, double positionX, double positionY, int hp, int damage,
                   int radius, int speed) {
-        super(context, positionX, positionY, hp, radius, speed, new Paint());
+        super(context, positionX, positionY, hp, radius, speed);
         super.setDamage(damage);
-
-        paint = new Paint();
-        int color = ContextCompat.getColor(context, R.color.black);
-        paint.setColor(color);
 
         this.positionX = positionX;
         this.positionY = positionY;
@@ -42,11 +39,17 @@ public class Mage extends Enemy {
 
         this.game = Game.getGame();
         this.player = PlayerData.getPlayer();
+
+        spriteBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.mage, null);
     }
 
     public void move() {
         this.incrementPace();
         if (hp > 0) {
+            Log.d("mage up", String.valueOf(collision.getUp()));
+            Log.d("mage down", String.valueOf(collision.getBottom()));
+            Log.d("mage left", String.valueOf(collision.getLeft()));
+            Log.d("mage right", String.valueOf(collision.getRight()));
             if (this.getPace() % 3 == 0) {
                 direction = this.getRandomDirection();
             }
@@ -93,14 +96,13 @@ public class Mage extends Enemy {
                 default:
                     break;
             }
+            Log.d("mage new location", String.format("%f, %f", positionX, positionY));
+            notifySubscribers(positionX, positionY, radius, speed);
         }
-        Log.d("mage new location", String.format("%f, %f", positionX, positionY));
-        notifySubscribers();
     }
 
     public void draw(Canvas canvas) {
-        Bitmap spriteBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.mage, null);
-        canvas.drawBitmap(spriteBitmap, (float) positionX, (float) positionY, null);
+        canvas.drawBitmap(super.scaleBitmap(spriteBitmap), (float) positionX, (float) positionY, null);
     }
 
     public void damagePlayer() {
