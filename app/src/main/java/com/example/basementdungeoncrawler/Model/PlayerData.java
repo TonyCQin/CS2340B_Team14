@@ -19,11 +19,9 @@ public class PlayerData {
     private double positionY;
     private double radius;
     private Paint paint;
-    private EdgeReached edgeReached;
-    private Movement movement;
 
     private static volatile PlayerData playerData;
-    private ArrayList<PlayerSubscriber> subscribers;
+
 
     /*
      * @param username username of playerData
@@ -42,20 +40,6 @@ public class PlayerData {
         paint = new Paint();
         int color = ContextCompat.getColor(context, R.color.player);
         paint.setColor(color);
-    }
-
-    public void setMovement(Movement m) {
-        movement = m;
-    }
-
-    public void draw(Canvas canvas) {
-        canvas.drawCircle((float) positionX, (float) positionY, (float) radius, paint);
-    }
-
-    public void move(char direction, Collision collision) {
-        movement.walk(direction);
-        movement.run(direction);
-        notifySubscribers();
     }
   
     private PlayerData() {
@@ -97,13 +81,13 @@ public class PlayerData {
 
     public void setSpriteSelected(int newSprite) {
         if (newSprite == 1) {
-            spriteSelected = (R.drawable.idle_crop1);
+            spriteSelected = (R.drawable.knight_sheet);
         }
         if (newSprite == 2) {
-            spriteSelected = (R.drawable.pumpkin_crop);
+            spriteSelected = (R.drawable.rogue_sheet);
         }
         if (newSprite == 3) {
-            spriteSelected = (R.drawable.doc_crop);
+            spriteSelected = (R.drawable.wizard_sheet);
         }
     }
 
@@ -113,23 +97,6 @@ public class PlayerData {
 
     public int getHp() {
         return hp;
-    }
-
-    public void subscribe(PlayerSubscriber sub) {
-        if (subscribers == null) {
-            subscribers = new ArrayList<>();
-        }
-        subscribers.add(sub);
-    }
-
-    public void removeObserver(PlayerSubscriber sub) {
-        subscribers.remove(sub);
-    }
-
-    protected void notifySubscribers() {
-        for (PlayerSubscriber sub : subscribers) {
-            sub.update(positionX, positionY, radius);
-        }
     }
 
     public double getPositionX() {
@@ -147,5 +114,9 @@ public class PlayerData {
     }
     public void setPositionY(double positionY) {
         this.positionY = positionY;
+    }
+
+    public void setRadius(double radius) {
+        this.radius = radius;
     }
 }

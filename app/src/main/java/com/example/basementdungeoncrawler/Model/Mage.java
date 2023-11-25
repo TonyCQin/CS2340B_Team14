@@ -11,9 +11,9 @@ import androidx.core.content.ContextCompat;
 
 import com.example.basementdungeoncrawler.R;
 
-public class Skeleton extends Enemy {
-    private int speed = 10;
-    private int damage = 15;
+public class Mage extends Enemy {
+    private int speed = 48;
+    private int damage = 10;
     private int hp = 20;
     private double positionX;
     private double positionY;
@@ -21,14 +21,14 @@ public class Skeleton extends Enemy {
     private Paint paint;
     private Movement movement;
     private char direction;
-
-    private PlayerData player;
-    private Game game;
-    private Context context;
     private Bitmap spriteBitmap;
 
-    public Skeleton(Context context, double positionX, double positionY, int hp, int damage,
-                    int radius, int speed) {
+    private Game game;
+    private PlayerData player;
+    private Context context;
+
+    public Mage(Context context, double positionX, double positionY, int hp, int damage,
+                  int radius, int speed) {
         super(context, positionX, positionY, hp, radius, speed);
         super.setDamage(damage);
 
@@ -37,20 +37,20 @@ public class Skeleton extends Enemy {
         this.radius = radius;
         this.context = context;
 
-        this.player = PlayerData.getPlayer();
         this.game = Game.getGame();
+        this.player = PlayerData.getPlayer();
 
-        spriteBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.skeleton, null);
+        spriteBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.mage, null);
     }
 
     public void move() {
         this.incrementPace();
         if (hp > 0) {
-            Log.d("skeleton up", String.valueOf(collision.getUp()));
-            Log.d("skeleton down", String.valueOf(collision.getBottom()));
-            Log.d("skeleton left", String.valueOf(collision.getLeft()));
-            Log.d("skeleton right", String.valueOf(collision.getRight()));
-            if (this.getPace() % 7 == 0) {
+            Log.d("mage up", String.valueOf(collision.getUp()));
+            Log.d("mage down", String.valueOf(collision.getBottom()));
+            Log.d("mage left", String.valueOf(collision.getLeft()));
+            Log.d("mage right", String.valueOf(collision.getRight()));
+            if (this.getPace() % 3 == 0) {
                 direction = this.getRandomDirection();
             }
             if (collision.getCollideWithPlayer()) {
@@ -96,7 +96,7 @@ public class Skeleton extends Enemy {
                 default:
                     break;
             }
-            Log.d("skeleton new location", String.format("%f, %f", positionX, positionY));
+            Log.d("mage new location", String.format("%f, %f", positionX, positionY));
             notifySubscribers(positionX, positionY, radius, speed);
         }
     }

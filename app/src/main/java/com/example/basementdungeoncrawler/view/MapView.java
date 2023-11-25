@@ -14,12 +14,12 @@ import android.view.View;
 import com.example.basementdungeoncrawler.Model.Collision;
 import com.example.basementdungeoncrawler.Model.EdgeReached;
 import com.example.basementdungeoncrawler.Model.EnemyCollision;
-import com.example.basementdungeoncrawler.Model.Ghost;
+import com.example.basementdungeoncrawler.Model.Orc;
 import com.example.basementdungeoncrawler.Model.GoalReached;
 import com.example.basementdungeoncrawler.Model.Movement;
-import com.example.basementdungeoncrawler.Model.PlayerData;
-import com.example.basementdungeoncrawler.Model.SerialKiller;
-import com.example.basementdungeoncrawler.Model.Shadow;
+import com.example.basementdungeoncrawler.Model.Player;
+import com.example.basementdungeoncrawler.Model.Shaman;
+import com.example.basementdungeoncrawler.Model.Mage;
 import com.example.basementdungeoncrawler.Model.Skeleton;
 import com.example.basementdungeoncrawler.R;
 import com.example.basementdungeoncrawler.graphics.Tile;
@@ -39,15 +39,15 @@ public class MapView extends View {
     private int screenHeight;
     private int tileWidth = screenWidth / NUMBER_OF_COLUMN_TILES;
     private int tileHeight = screenHeight / NUMBER_OF_ROW_TILES;
-    private final PlayerData player;
-    private Shadow shadow;
+    private final Player player;
+    private Mage mage;
     private Skeleton skeleton;
-    private Ghost ghost;
-    private SerialKiller barry;
+    private Orc orc;
+    private Shaman shaman;
     private Collision collision;
-    private EnemyCollision ghostCollision;
-    private EnemyCollision shadowCollision;
-    private EnemyCollision barryCollision;
+    private EnemyCollision mageCollision;
+    private EnemyCollision orcCollision;
+    private EnemyCollision shamanCollision;
     private EnemyCollision skeletonCollision;
     private GoalReached goalReached;
     private EdgeReached edgeReached;
@@ -56,7 +56,7 @@ public class MapView extends View {
     private Movement movement;
 
     public MapView(Context context, ArrayList<Tile[][]> layers, TileMap tileMap,
-                   GameScreen gameScreen, int x, int y, int radius) {
+                   GameScreen gameScreen, int x, int y) {
         super(context);
         this.layers = layers;
         this.gameScreen = gameScreen;
@@ -72,37 +72,36 @@ public class MapView extends View {
         tileHeight = screenHeight / NUMBER_OF_ROW_TILES;
 
         collision = new Collision(tileMap);
-        ghostCollision = new EnemyCollision(tileMap);
-        shadowCollision = new EnemyCollision(tileMap);
-        barryCollision = new EnemyCollision(tileMap);
+        shamanCollision = new EnemyCollision(tileMap);
+        mageCollision = new EnemyCollision(tileMap);
+        orcCollision = new EnemyCollision(tileMap);
         skeletonCollision = new EnemyCollision(tileMap);
 
         edgeReached = new EdgeReached(screenHeight, screenWidth);
         goalReached = new GoalReached();
 
-        player = new PlayerData(getContext(), x, y, radius);
-        shadow = new Shadow(getContext(), 500, 1100, 20, 10, 35, 48);
-        barry = new SerialKiller(getContext(), 500, 1400, 100, 50, 35, 50);
-        skeleton = new Skeleton(getContext(), 400, 1300, 20, 15, 50, 10);
-        ghost = new Ghost(getContext(), 300, 1200, 30, 5, 60, 60);
+        player = new Player(getContext(), x, y);
+        mage = new Mage(getContext(), 800, 1100, 20, 10, 64, 48);
+        shaman = new Shaman(getContext(), 300, 1300, 100, 50, 64, 50);
+        skeleton = new Skeleton(getContext(), 400, 1300, 20, 15, 64, 10);
+        orc = new Orc(getContext(), 200, 1200, 30, 5, 64, 64);
 
-        ghost.setCollision(ghostCollision);
-        shadow.setCollision(shadowCollision);
+        mage.setCollision(mageCollision);
+        shaman.setCollision(shamanCollision);
         skeleton.setCollision(skeletonCollision);
-        barry.setCollision(barryCollision);
-
+        orc.setCollision(orcCollision);
 
         player.subscribe(collision);
         player.subscribe(edgeReached);
-        player.subscribe(ghostCollision);
-        player.subscribe(shadowCollision);
-        player.subscribe(barryCollision);
+        player.subscribe(mageCollision);
+        player.subscribe(shamanCollision);
+        player.subscribe(orcCollision);
         player.subscribe(skeletonCollision);
 
-        ghost.subscribe(ghostCollision);
-        shadow.subscribe(shadowCollision);
+        shaman.subscribe(shamanCollision);
+        orc.subscribe(orcCollision);
         skeleton.subscribe(skeletonCollision);
-        barry.subscribe(barryCollision);
+        mage.subscribe(mageCollision);
 
         this.movement = new Movement(player, collision);
         player.setMovement(this.movement);
@@ -119,11 +118,10 @@ public class MapView extends View {
         for (Tile[][] layer : layers) {
             renderLayer(canvas, layer);
         }
-
-        ghost.draw(canvas);
+        orc.draw(canvas);
         player.draw(canvas);
-        shadow.draw(canvas);
-        barry.draw(canvas);
+        mage.draw(canvas);
+        shaman.draw(canvas);
         skeleton.draw(canvas);
         super.onDraw(canvas);
     }
@@ -245,17 +243,16 @@ public class MapView extends View {
                     gameScreen.update();
                 }
                 //goal checking logic
-                Log.d("Is goal reached (mapview)", String.valueOf(
-                    GoalReached.getGoalReached().getIsGoalReached()));
                 if (GoalReached.getGoalReached().getIsGoalReached()) {
                     Log.d("calling update", "");
                     gameScreen.update();
                 }
+                Log.d("moving", "");
                 player.move(direction, collision);
-                ghost.move();
+                shaman.move();
                 skeleton.move();
-                shadow.move();
-                barry.move();
+                orc.move();
+                mage.move();
                 invalidate();
                 return true;
             }
