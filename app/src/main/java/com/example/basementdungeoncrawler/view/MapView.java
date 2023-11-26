@@ -208,6 +208,13 @@ public class MapView extends View {
                 case KeyEvent.KEYCODE_D:
                     direction = 'D';
                     break;
+                case KeyEvent.KEYCODE_SPACE:
+                    player.attack(mage.getPositionX(), mage.getPositionY());
+                    player.attack(orc.getPositionX(), orc.getPositionY());
+                    player.attack(shaman.getPositionX(), shaman.getPositionY());
+                    player.attack(skeleton.getPositionX(), skeleton.getPositionY());
+                    direction = ' ';
+                    break;
                 default:
                     break;
                 }

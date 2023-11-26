@@ -19,6 +19,7 @@ public class Player {
     private double positionX;
     private double positionY;
     private double radius;
+    private double attackRange = 60;
     private Paint paint;
     private Movement movement;
     private ArrayList<PlayerSubscriber> subscribers;
@@ -88,5 +89,10 @@ public class Player {
     }
     public void setRadius(double radius) {
         this.radius = radius;
+    }
+
+    public boolean attack(double enemyX, double enemyY) {
+
+
     }
 }
