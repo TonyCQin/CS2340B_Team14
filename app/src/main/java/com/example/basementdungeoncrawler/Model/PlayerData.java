@@ -3,9 +3,11 @@ package com.example.basementdungeoncrawler.Model;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.util.Log;
 
 import androidx.core.content.ContextCompat;
 
+import com.example.basementdungeoncrawler.Model.powerups.PowerUp;
 import com.example.basementdungeoncrawler.R;
 
 import java.util.ArrayList;
@@ -18,7 +20,7 @@ public class PlayerData {
     private double positionX;
     private double positionY;
     private double radius;
-    private Paint paint;
+    private boolean invincable;
 
     private static volatile PlayerData playerData;
 
@@ -36,10 +38,7 @@ public class PlayerData {
         this.positionX = positionX;
         this.positionY = positionY;
         this.radius = radius;
-
-        paint = new Paint();
-        int color = ContextCompat.getColor(context, R.color.player);
-        paint.setColor(color);
+        invincable = false;
     }
   
     private PlayerData() {
@@ -92,7 +91,9 @@ public class PlayerData {
     }
 
     public void setHp(int hp) {
-        this.hp = hp;
+        if (invincable) {
+            this.hp = hp;
+        }
     }
 
     public int getHp() {
@@ -118,5 +119,9 @@ public class PlayerData {
 
     public void setRadius(double radius) {
         this.radius = radius;
+    }
+
+    public void apply(PowerUp p) {
+        System.out.println("doing something");
     }
 }
