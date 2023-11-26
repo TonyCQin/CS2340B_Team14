@@ -12,6 +12,8 @@ import com.example.basementdungeoncrawler.Model.Collision;
 import com.example.basementdungeoncrawler.Model.GoalReached;
 import com.example.basementdungeoncrawler.Model.Score;
 import com.example.basementdungeoncrawler.Model.ScoresList;
+import com.example.basementdungeoncrawler.Model.powerups.PowerUpNotifier;
+import com.example.basementdungeoncrawler.Model.powerups.SpeedPowerUp;
 import com.example.basementdungeoncrawler.graphics.Tile;
 import com.example.basementdungeoncrawler.view.ConfigScreen;
 import com.example.basementdungeoncrawler.viewModel.EndScreenViewModel;
@@ -330,5 +332,21 @@ public class UnitTest {
         end.setUpUserNamesAndScores();
         ArrayList<String> nameAndScore = new ArrayList<>();
         assertEquals(end.getUserNamesAndScores(), nameAndScore);
+    }
+
+    @Test
+    public void setSpeedPowerupX() {
+        PowerUpNotifier notifier = new PowerUpNotifier();
+        SpeedPowerUp speed = new SpeedPowerUp(0, 0, notifier);
+        speed.setX(0);
+        assertEquals(0, speed.getX(), 0);
+    }
+
+    @Test
+    public void setSpeedPowerupY() {
+        PowerUpNotifier notifier = new PowerUpNotifier();
+        SpeedPowerUp speed = new SpeedPowerUp(0, 0, notifier);
+        speed.setY(0);
+        assertEquals(0, speed.getY(), 0);
     }
 }

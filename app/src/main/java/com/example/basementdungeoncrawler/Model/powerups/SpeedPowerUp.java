@@ -47,9 +47,17 @@ public class SpeedPowerUp implements PowerUp, PlayerSubscriber {
         return x;
     }
 
+    public void setX(double newX) {
+        this.x = newX;
+    }
+
     @Override
     public double getY() {
         return y;
+    }
+
+    public void setY(double newY) {
+        this.y = newY;
     }
 
     public int getSprite() {
