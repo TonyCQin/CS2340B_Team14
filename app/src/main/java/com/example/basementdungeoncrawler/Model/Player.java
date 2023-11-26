@@ -92,7 +92,10 @@ public class Player {
     }
 
     public boolean attack(double enemyX, double enemyY) {
-
-
+        if ((Math.abs(Math.sqrt(Math.pow((enemyX - positionX), 2) + Math.pow((enemyY - positionY), 2)))) <= attackRange) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
