@@ -211,16 +211,16 @@ public class MapView extends View {
                 case KeyEvent.KEYCODE_SPACE:
                     if (player.attack(mage.getPositionX(), mage.getPositionY())) {
                         mage.die(context);
-                    };
+                    }
                     if (player.attack(orc.getPositionX(), orc.getPositionY())) {
                         orc.die(context);
-                    };
+                    }
                     if (player.attack(shaman.getPositionX(), shaman.getPositionY())) {
                         shaman.die(context);
-                    };
+                    }
                     if (player.attack(skeleton.getPositionX(), skeleton.getPositionY())) {
                         skeleton.die(context);
-                    };
+                    }
                     direction = ' ';
                     break;
                 default:
@@ -243,21 +243,21 @@ public class MapView extends View {
                 case KeyEvent.KEYCODE_D:
                     direction = 'd';
                     break;
-                    case KeyEvent.KEYCODE_SPACE:
-                        if (player.attack(mage.getPositionX(), mage.getPositionY())) {
-                            mage.die(context);
-                        };
-                        if (player.attack(orc.getPositionX(), orc.getPositionY())) {
-                            orc.die(context);
-                        };
-                        if (player.attack(shaman.getPositionX(), shaman.getPositionY())) {
-                            shaman.die(context);
-                        };
-                        if (player.attack(skeleton.getPositionX(), skeleton.getPositionY())) {
-                            skeleton.die(context);
-                        };
-                        direction = ' ';
-                        break;
+                case KeyEvent.KEYCODE_SPACE:
+                    if (player.attack(mage.getPositionX(), mage.getPositionY())) {
+                        mage.die(context);
+                    }
+                    if (player.attack(orc.getPositionX(), orc.getPositionY())) {
+                        orc.die(context);
+                    }
+                    if (player.attack(shaman.getPositionX(), shaman.getPositionY())) {
+                        shaman.die(context);
+                    }
+                    if (player.attack(skeleton.getPositionX(), skeleton.getPositionY())) {
+                        skeleton.die(context);
+                    };
+                    direction = ' ';
+                    break;
                 default:
                     break;
                 }

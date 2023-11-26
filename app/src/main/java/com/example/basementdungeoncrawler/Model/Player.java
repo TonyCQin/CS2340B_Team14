@@ -19,7 +19,7 @@ public class Player {
     private double positionX;
     private double positionY;
     private double radius;
-    private double attackRange = 60;
+    private double attackRange = 100;
     private Paint paint;
     private Movement movement;
     private ArrayList<PlayerSubscriber> subscribers;
