@@ -1,0 +1,153 @@
+Index: app/src/main/java/com/example/basementdungeoncrawler/Model/Movement.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.basementdungeoncrawler.Model;\r\n\r\npublic class Movement implements MovementInter {\r\n    private PlayerData player;\r\n    private Collision collision;\r\n    private Enemy enemy;\r\n    private int speed;\r\n    private char direction = ' ';\r\n\r\n    public Movement(PlayerData player, Collision collision) {\r\n        this.player = player;\r\n        this.collision = collision;\r\n    }\r\n    @Override\r\n    public void walk(char direction) {\r\n        switch (direction) {\r\n        case 'w':\r\n            if (!collision.getUp()) {\r\n                player.setPositionY(player.getPositionY() - 16);\r\n            }\r\n            break;\r\n        case 'a':\r\n            if (!collision.getLeft()) {\r\n                player.setPositionX(player.getPositionX() - 16);\r\n            }\r\n            break;\r\n        case 's':\r\n            if (!collision.getBottom()) {\r\n                player.setPositionY(player.getPositionY() + 16);\r\n            }\r\n            break;\r\n        case 'd':\r\n            if (!collision.getRight()) {\r\n                player.setPositionX(player.getPositionX() + 16);\r\n            }\r\n            break;\r\n        default:\r\n            break;\r\n        }\r\n        player.notifySubscribers();\r\n    }\r\n\r\n    @Override\r\n    public void run(char direction) {\r\n        switch (direction) {\r\n        case 'W':\r\n            if (!collision.getUp()) {\r\n                player.setPositionY(player.getPositionY() - 48);\r\n            }\r\n            break;\r\n        case 'A':\r\n            if (!collision.getLeft()) {\r\n                player.setPositionX(player.getPositionX() - 48);\r\n            }\r\n            break;\r\n        case 'S':\r\n            if (!collision.getBottom()) {\r\n                player.setPositionY(player.getPositionY() + 48);\r\n            }\r\n            break;\r\n        case 'D':\r\n            if (!collision.getRight()) {\r\n                player.setPositionX(player.getPositionX() + 48);\r\n            }\r\n            break;\r\n        default:\r\n            break;\r\n        }\r\n        player.notifySubscribers();\r\n    }\r\n\r\n    public void enemyMove(int speed) {\r\n//        int pace = 0;\r\n//        while (enemy.getHP() > 0) {\r\n//            if (pace % 5 != 0) {\r\n//                direction = enemy.getRandomDirection();\r\n//            }\r\n//            int enemySpeed = enemy.getSpeed();\r\n//            if (enemySpeed < 30) {\r\n//                walk(direction);\r\n//            } else {\r\n//                run(direction);\r\n//            }\r\n//            pace++;\r\n//        }\r\n        int pace = 0;\r\n        while (enemy.getHP() > 0) {\r\n            if (pace % 3 != 0) {\r\n               direction = enemy.getRandomDirection();\r\n            }\r\n\r\n            switch (direction) {\r\n                case 'W':\r\n                    if (!collision.getUp()) {\r\n                        enemy.setPositionY(enemy.getPositionY() - speed);\r\n                    }\r\n                    break;\r\n                case 'A':\r\n                    if (!collision.getLeft()) {\r\n                        enemy.setPositionX(enemy.getPositionX() - speed);\r\n                    }\r\n                    break;\r\n                case 'S':\r\n                    if (!collision.getBottom()) {\r\n                        enemy.setPositionY(enemy.getPositionY() + speed);\r\n                    }\r\n                    break;\r\n                case 'D':\r\n                    if (!collision.getRight()) {\r\n                        enemy.setPositionX(enemy.getPositionX() + speed);\r\n                    }\r\n                    break;\r\n                default:\r\n                    break;\r\n            }\r\n            pace++;\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/basementdungeoncrawler/Model/Movement.java b/app/src/main/java/com/example/basementdungeoncrawler/Model/Movement.java
+--- a/app/src/main/java/com/example/basementdungeoncrawler/Model/Movement.java	
++++ b/app/src/main/java/com/example/basementdungeoncrawler/Model/Movement.java	
+@@ -5,6 +5,7 @@
+     private Collision collision;
+     private Enemy enemy;
+     private int speed;
++    private int enemyPace = 0;
+     private char direction = ' ';
+ 
+     public Movement(PlayerData player, Collision collision) {
+@@ -37,6 +38,7 @@
+         default:
+             break;
+         }
++        enemyPace++;
+         player.notifySubscribers();
+     }
+ 
+@@ -66,46 +68,36 @@
+         default:
+             break;
+         }
++        enemyPace++;
+         player.notifySubscribers();
+     }
+ 
+     public void enemyMove(int speed) {
+-//        int pace = 0;
+-//        while (enemy.getHP() > 0) {
+-//            if (pace % 5 != 0) {
+-//                direction = enemy.getRandomDirection();
+-//            }
+-//            int enemySpeed = enemy.getSpeed();
+-//            if (enemySpeed < 30) {
+-//                walk(direction);
+-//            } else {
+-//                run(direction);
+-//            }
+-//            pace++;
+-//        }
+-        int pace = 0;
+-        while (enemy.getHP() > 0) {
+-            if (pace % 3 != 0) {
++        if (!(enemy.getHP() > 0)) {
++            return;
++        }
++        else {
++            if (enemyPace % 3 != 0) {
+                direction = enemy.getRandomDirection();
+             }
+ 
+             switch (direction) {
+-                case 'W':
++                case 'w':
+                     if (!collision.getUp()) {
+                         enemy.setPositionY(enemy.getPositionY() - speed);
+                     }
+                     break;
+-                case 'A':
++                case 'a':
+                     if (!collision.getLeft()) {
+                         enemy.setPositionX(enemy.getPositionX() - speed);
+                     }
+                     break;
+-                case 'S':
++                case 's':
+                     if (!collision.getBottom()) {
+                         enemy.setPositionY(enemy.getPositionY() + speed);
+                     }
+                     break;
+-                case 'D':
++                case 'd':
+                     if (!collision.getRight()) {
+                         enemy.setPositionX(enemy.getPositionX() + speed);
+                     }
+@@ -113,7 +105,6 @@
+                 default:
+                     break;
+             }
+-            pace++;
+         }
+     }
+ }
+Index: app/src/main/java/com/example/basementdungeoncrawler/view/MapView.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.basementdungeoncrawler.view;\r\n\r\nimport android.content.Context;\r\nimport android.content.res.Resources;\r\nimport android.graphics.Bitmap;\r\nimport android.graphics.Canvas;\r\nimport android.graphics.Color;\r\nimport android.graphics.Paint;\r\nimport android.graphics.Rect;\r\nimport android.util.Log;\r\nimport android.view.KeyEvent;\r\nimport android.view.View;\r\n\r\nimport com.example.basementdungeoncrawler.Model.Collision;\r\nimport com.example.basementdungeoncrawler.Model.EdgeReached;\r\nimport com.example.basementdungeoncrawler.Model.Ghost;\r\nimport com.example.basementdungeoncrawler.Model.GoalReached;\r\nimport com.example.basementdungeoncrawler.Model.Movement;\r\nimport com.example.basementdungeoncrawler.Model.PlayerData;\r\nimport com.example.basementdungeoncrawler.Model.SerialKiller;\r\nimport com.example.basementdungeoncrawler.Model.Shadow;\r\nimport com.example.basementdungeoncrawler.Model.Skeleton;\r\nimport com.example.basementdungeoncrawler.R;\r\nimport com.example.basementdungeoncrawler.graphics.Tile;\r\nimport com.example.basementdungeoncrawler.graphics.TileMap;\r\nimport com.example.basementdungeoncrawler.graphics.TileSet;\r\n\r\nimport static com.example.basementdungeoncrawler.graphics.MapLayout.NUMBER_OF_COLUMN_TILES;\r\nimport static com.example.basementdungeoncrawler.graphics.MapLayout.NUMBER_OF_ROW_TILES;\r\n\r\nimport java.util.ArrayList;\r\n\r\npublic class MapView extends View {\r\n    private ArrayList<Tile[][]> layers;\r\n    private TileSet dungeonTileSet;\r\n    private TileSet propTileSet;\r\n    private int screenWidth;\r\n    private int screenHeight;\r\n    private int tileWidth = screenWidth / NUMBER_OF_COLUMN_TILES;\r\n    private int tileHeight = screenHeight / NUMBER_OF_ROW_TILES;\r\n    private final PlayerData player;\r\n    private Shadow shadow;\r\n    private Skeleton skeleton;\r\n    private Ghost ghost;\r\n    private SerialKiller barry;\r\n    private Collision collision;\r\n    private GoalReached goalReached;\r\n    private EdgeReached edgeReached;\r\n    private GameScreen gameScreen;\r\n    private Context context;\r\n    private Movement movement;\r\n\r\n    public MapView(Context context, ArrayList<Tile[][]> layers, TileMap tileMap,\r\n                   GameScreen gameScreen, int x, int y, int radius) {\r\n        super(context);\r\n        this.layers = layers;\r\n        this.gameScreen = gameScreen;\r\n        dungeonTileSet = new TileSet(context, R.drawable.tiles2, 16);\r\n        propTileSet = new TileSet(context, R.drawable.props, 16);\r\n\r\n        this.context = context;\r\n\r\n        Resources resources = context.getResources();\r\n        screenHeight = resources.getDisplayMetrics().heightPixels;\r\n        screenWidth = resources.getDisplayMetrics().widthPixels;\r\n        tileWidth = screenWidth / NUMBER_OF_COLUMN_TILES;\r\n        tileHeight = screenHeight / NUMBER_OF_ROW_TILES;\r\n\r\n        collision = new Collision(tileMap);\r\n        edgeReached = new EdgeReached(screenHeight, screenWidth);\r\n        goalReached = new GoalReached();\r\n        player = new PlayerData(getContext(), x, y, radius);\r\n        shadow = new Shadow(getContext(), x + 20, y + 20,20, 10,\r\n                30, 48);\r\n        barry = new SerialKiller(getContext(), x - 50, y - 50,100, 50,\r\n                30, 50);\r\n        skeleton = new Skeleton(getContext(), x - 50, y - 100, 20, 15, 50, 10);\r\n        ghost = new Ghost(getContext(), x - 100, y + 200, 30, 5, 60, 60);\r\n        player.subscribe(collision);\r\n        player.subscribe(edgeReached);\r\n        player.subscribe(barry);\r\n        player.subscribe(ghost);\r\n        player.subscribe(skeleton);\r\n        player.subscribe(shadow);\r\n        this.movement = new Movement(player, collision);\r\n\r\n        setFocusable(true);\r\n    }\r\n\r\n    /**\r\n     * Function to draw stuff onto the canvas\r\n     * @param canvas canvas to be drawn on (this one defaults to this view)\r\n     */\r\n    @Override\r\n    protected void onDraw(Canvas canvas) {\r\n        for (Tile[][] layer : layers) {\r\n            renderLayer(canvas, layer);\r\n        }\r\n        player.draw(canvas);\r\n        shadow.draw(canvas);\r\n        barry.draw(canvas);\r\n        skeleton.draw(canvas);\r\n        ghost.draw(canvas);\r\n        super.onDraw(canvas);\r\n    }\r\n\r\n    /**\r\n     * contains logic for creating the rect to draw the tile at\r\n     * @param row row of the screen\r\n     * @param col col of the screen\r\n     * @return the rect defining the area a tile is drawn at\r\n     */\r\n    private Rect drawDestRect(int row, int col) {\r\n        return new Rect(col * tileWidth,\r\n                row * tileHeight,\r\n                (col + 1) * tileWidth,\r\n                (row + 1) * tileHeight\r\n                );\r\n    }\r\n\r\n    /**\r\n     * Iterates through a Tile[][] layer to draw all the tiles at their row and column\r\n     * @param canvas canvas to drawn on\r\n     * @param layer the layer being iterated over\r\n     */\r\n    private void renderLayer(Canvas canvas, Tile[][] layer) {\r\n        for (int row = 0; row < NUMBER_OF_ROW_TILES; row++) {\r\n            for (int col = 0; col < NUMBER_OF_COLUMN_TILES; col++) {\r\n                Tile toDraw = layer[row][col];\r\n                drawTile(canvas, toDraw, row, col);\r\n            }\r\n        }\r\n    }\r\n\r\n    /**\r\n     * contains logic determining the tile to draw, and drawing the tile\r\n     * @param canvas the canvas to drawn on\r\n     * @param tile the tile to draw\r\n     * @param row the row the tile is drawn at\r\n     * @param col the column the tile is drawn at\r\n     */\r\n    private void drawTile(Canvas canvas, Tile tile, int row, int col) {\r\n        Rect srcRect = tile.getRect();\r\n        Rect destRect = drawDestRect(row, col);\r\n        int tileId = tile.getTileId();\r\n        if (tileId > 0) {\r\n            canvas.drawBitmap(dungeonTileSet.getBitmap(), srcRect, destRect, null);\r\n        }\r\n        if (tileId > 626) {\r\n            canvas.drawBitmap(propTileSet.getBitmap(), srcRect, destRect, null);\r\n        }\r\n\r\n        if (tileId <= 0) {\r\n            int width = 16; // Width of the Bitmap\r\n            int height = 16; // Height of the Bitmap\r\n\r\n            Bitmap redBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);\r\n            Canvas testCanvas = new Canvas(redBitmap);\r\n\r\n            Paint paint = new Paint();\r\n            paint.setColor(Color.TRANSPARENT);\r\n            paint.setAlpha(0);\r\n\r\n            testCanvas.drawRect(0, 0, width, height, paint);\r\n            Rect placeholderRect = new Rect(0, 0, 16, 16);\r\n            canvas.drawBitmap(redBitmap, placeholderRect, destRect, null);\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public boolean onKeyDown(int key, KeyEvent e) {\r\n        char direction = ' ';\r\n        if (e.getAction() == KeyEvent.ACTION_DOWN) {\r\n            if (e.isShiftPressed()) {\r\n                switch (key) {\r\n                case KeyEvent.KEYCODE_W:\r\n                    direction = 'W';\r\n                    break;\r\n                case KeyEvent.KEYCODE_A:\r\n                    direction = 'A';\r\n                    break;\r\n                case KeyEvent.KEYCODE_S:\r\n                    direction = 'S';\r\n                    break;\r\n                case KeyEvent.KEYCODE_D:\r\n                    direction = 'D';\r\n                    break;\r\n                default:\r\n                    break;\r\n                }\r\n                if (direction != ' ') {\r\n                    movement.run(direction);\r\n                }\r\n            } else {\r\n                switch (key) {\r\n                case KeyEvent.KEYCODE_W:\r\n                    direction = 'w';\r\n                    break;\r\n                case KeyEvent.KEYCODE_A:\r\n                    direction = 'a';\r\n                    break;\r\n                case KeyEvent.KEYCODE_S:\r\n                    direction = 's';\r\n                    break;\r\n                case KeyEvent.KEYCODE_D:\r\n                    direction = 'd';\r\n                    break;\r\n                default:\r\n                    break;\r\n                }\r\n                if (direction != ' ') {\r\n                    movement.walk(direction);\r\n                }\r\n            }\r\n            if (direction != ' ') {\r\n                // edge checking logic\r\n                Log.d(\"moved\", \"\");\r\n                if (EdgeReached.getEdgeReached().getIsEdgeReached()) {\r\n                    Log.d(\"calling update\", \"\");\r\n                    gameScreen.update();\r\n                }\r\n                //goal checking logic\r\n                Log.d(\"Is goal reached (mapview)\", String.valueOf(\r\n                    GoalReached.getGoalReached().getIsGoalReached()));\r\n                if (GoalReached.getGoalReached().getIsGoalReached()) {\r\n                    Log.d(\"calling update\", \"\");\r\n                    gameScreen.update();\r\n                }\r\n\r\n                player.move(direction, collision);\r\n                invalidate();\r\n                return true;\r\n            }\r\n        }\r\n        return super.onKeyDown(key, e);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/basementdungeoncrawler/view/MapView.java b/app/src/main/java/com/example/basementdungeoncrawler/view/MapView.java
+--- a/app/src/main/java/com/example/basementdungeoncrawler/view/MapView.java	
++++ b/app/src/main/java/com/example/basementdungeoncrawler/view/MapView.java	
+@@ -175,6 +175,7 @@
+                 switch (key) {
+                 case KeyEvent.KEYCODE_W:
+                     direction = 'W';
++                    ghost.move();
+                     break;
+                 case KeyEvent.KEYCODE_A:
+                     direction = 'A';
+Index: app/src/main/java/com/example/basementdungeoncrawler/Model/Enemy.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.basementdungeoncrawler.Model;\r\n\r\nimport android.content.Context;\r\nimport android.graphics.Paint;\r\n\r\npublic abstract class Enemy extends Entity implements PlayerSubscriber{\r\n    private int HP;\r\n    private int damage;\r\n    private int radius;\r\n    private int speed;\r\n    private Paint paint;\r\n    private Movement movement;\r\n\r\n    private double xPosition;\r\n\r\n    private double yPosition;\r\n\r\n    public Enemy(Context context, double positionX, double positionY, int HP, int damage,\r\n                 int radius, int speed, Paint paint) {\r\n        super(positionX, positionY);\r\n        this.xPosition = positionX;\r\n        this.yPosition = positionY;\r\n        this.HP = HP;\r\n        this.damage = damage;\r\n        this.radius = radius;\r\n        this.paint = paint;\r\n    }\r\n\r\n    public char getRandomDirection() {\r\n        int random = (int) (Math.random() * 4);\r\n        char direction = ' ';\r\n        switch (random) {\r\n        case 0:\r\n            direction = 'w';\r\n        case 1:\r\n            direction = 'a';\r\n        case 2:\r\n            direction = 's';\r\n        case 3:\r\n            direction = 'd';\r\n        default:\r\n            break;\r\n        }\r\n        return direction;\r\n    }\r\n\r\n    public int getSpeed() {\r\n        return speed;\r\n    }\r\n\r\n    public int getHP() {\r\n        return HP;\r\n    }\r\n\r\n    public int getDamage() {\r\n        return damage;\r\n    }\r\n\r\n    public void setPositionX(double x) { xPosition = x; }\r\n\r\n    public void setPositionY(double y) { yPosition = y; }\r\n\r\n    public double getPositionX() { return xPosition; }\r\n\r\n    public double getPositionY() { return yPosition; }\r\n    @Override\r\n    public void update(double positionX, double positionY, double radius) {\r\n        movement.enemyMove(speed);\r\n    }\r\n}\r\n
+===================================================================
+diff --git a/app/src/main/java/com/example/basementdungeoncrawler/Model/Enemy.java b/app/src/main/java/com/example/basementdungeoncrawler/Model/Enemy.java
+--- a/app/src/main/java/com/example/basementdungeoncrawler/Model/Enemy.java	
++++ b/app/src/main/java/com/example/basementdungeoncrawler/Model/Enemy.java	
+@@ -3,7 +3,7 @@
+ import android.content.Context;
+ import android.graphics.Paint;
+ 
+-public abstract class Enemy extends Entity implements PlayerSubscriber{
++public abstract class Enemy implements PlayerSubscriber{
+     private int HP;
+     private int damage;
+     private int radius;
+@@ -17,7 +17,6 @@
+ 
+     public Enemy(Context context, double positionX, double positionY, int HP, int damage,
+                  int radius, int speed, Paint paint) {
+-        super(positionX, positionY);
+         this.xPosition = positionX;
+         this.yPosition = positionY;
+         this.HP = HP;
+@@ -44,6 +43,10 @@
+         return direction;
+     }
+ 
++    public void move(){
++        movement.enemyMove(this.speed);
++    }
++
+     public int getSpeed() {
+         return speed;
+     }
+@@ -63,6 +66,7 @@
+     public double getPositionX() { return xPosition; }
+ 
+     public double getPositionY() { return yPosition; }
++
+     @Override
+     public void update(double positionX, double positionY, double radius) {
+         movement.enemyMove(speed);
