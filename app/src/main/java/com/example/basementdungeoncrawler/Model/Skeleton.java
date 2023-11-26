@@ -112,6 +112,8 @@ public class Skeleton extends Enemy {
         Log.d("new HP", String.valueOf(player.getHp()));
     }
     public void die(Context context) {
-           spriteBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.skeleton_death, null);
+        hp = 0;
+        speed = 0;
+        spriteBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.skeleton_death, null);
     }
 }

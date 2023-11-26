@@ -112,6 +112,8 @@ public class Shaman extends Enemy {
     }
 
     public void die(Context context) {
+        hp = 0;
+        speed = 0;
         spriteBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.shaman_death, null);
     }
 }

@@ -42,6 +42,8 @@ public class Orc extends Enemy {
         this.damage = 10;
 
         spriteBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.orc, null);
+
+        //this.die(context);
     }
 
     public void move() {
@@ -114,6 +116,8 @@ public class Orc extends Enemy {
     }
 
     public void die(Context context) {
+        hp = 0;
+        speed = 0;
         spriteBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.orc_death, null);
     }
 }
