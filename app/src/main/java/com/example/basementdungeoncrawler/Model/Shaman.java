@@ -110,5 +110,9 @@ public class Shaman extends Enemy {
         player.setHp(newHP);
         Log.d("new HP", String.valueOf(player.getHp()));
     }
+
+    public void die(Context context) {
+        spriteBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.shaman_death, null);
+    }
 }
 

@@ -112,4 +112,8 @@ public class Orc extends Enemy {
         player.setHp(newHP);
         Log.d("", String.valueOf(player.getHp()));
     }
+
+    public void die(Context context) {
+        spriteBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.orc_death, null);
+    }
 }
