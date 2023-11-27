@@ -19,7 +19,7 @@ public class Player {
     private double positionX;
     private double positionY;
     private double radius;
-    private double attackRange = 100;
+    private double attackRange = 50;
     private Paint paint;
     private Movement movement;
     private ArrayList<PlayerSubscriber> subscribers;
@@ -92,7 +92,7 @@ public class Player {
     }
 
     public boolean attack(double enemyX, double enemyY) {
-        if ((Math.abs(Math.sqrt(Math.pow((enemyX - positionX), 2) + Math.pow((enemyY - positionY), 2)))) <= attackRange) {
+        if (((positionX - enemyX)*(positionX - enemyX) + ((positionY - enemyY)*(positionX - enemyY))) <= attackRange*attackRange) {
             return true;
         } else {
             return false;

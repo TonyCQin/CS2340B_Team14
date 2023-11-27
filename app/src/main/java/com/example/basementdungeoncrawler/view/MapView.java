@@ -210,7 +210,7 @@ public class MapView extends View {
                     break;
                 case KeyEvent.KEYCODE_SPACE:
                     if (player.attack(mage.getPositionX(), mage.getPositionY())) {
-                        mage.die(context);
+                    mage.die(context);
                     }
                     if (player.attack(orc.getPositionX(), orc.getPositionY())) {
                         orc.die(context);
@@ -255,7 +255,7 @@ public class MapView extends View {
                     }
                     if (player.attack(skeleton.getPositionX(), skeleton.getPositionY())) {
                         skeleton.die(context);
-                    };
+                    }
                     direction = ' ';
                     break;
                 default:
