@@ -1,14 +1,11 @@
 package com.example.basementdungeoncrawler.Model;
 
 import android.content.Context;
-import android.graphics.Canvas;
 import android.graphics.Paint;
 
 import androidx.core.content.ContextCompat;
 
 import com.example.basementdungeoncrawler.R;
-
-import java.util.ArrayList;
 
 public class PlayerData {
 
