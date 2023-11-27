@@ -53,12 +53,12 @@ public class Collision implements PlayerSubscriber {
         posX += 16;
         posY += 16;
         int r = 48;
-        Log.d("player tiles", String.format("right: %d, left: %d, up: %d, down: %d",
-                getTileId(tileMap, posX + r, posY),
-                getTileId(tileMap, posX - r, posY),
-                getTileId(tileMap, posX, posY - r),
-                getTileId(tileMap, posX, posY + r)
-                ));
+//        Log.d("player tiles", String.format("right: %d, left: %d, up: %d, down: %d",
+//                getTileId(tileMap, posX + r, posY),
+//                getTileId(tileMap, posX - r, posY),
+//                getTileId(tileMap, posX, posY - r),
+//                getTileId(tileMap, posX, posY + r)
+//                ));
         right = tileWallIds.contains(getTileId(tileMap, posX + r, posY));
         left = tileWallIds.contains(getTileId(tileMap, posX - r, posY));
         bottom = tileWallIds.contains(getTileId(tileMap, posX, posY + r));
