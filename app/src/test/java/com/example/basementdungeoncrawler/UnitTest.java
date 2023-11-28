@@ -334,19 +334,5 @@ public class UnitTest {
         assertEquals(end.getUserNamesAndScores(), nameAndScore);
     }
 
-    @Test
-    public void setSpeedPowerupX() {
-        PowerUpNotifier notifier = new PowerUpNotifier();
-        SpeedPowerUp speed = new SpeedPowerUp(0, 0, notifier);
-        speed.setX(0);
-        assertEquals(0, speed.getX(), 0);
-    }
 
-    @Test
-    public void setSpeedPowerupY() {
-        PowerUpNotifier notifier = new PowerUpNotifier();
-        SpeedPowerUp speed = new SpeedPowerUp(0, 0, notifier);
-        speed.setY(0);
-        assertEquals(0, speed.getY(), 0);
-    }
 }

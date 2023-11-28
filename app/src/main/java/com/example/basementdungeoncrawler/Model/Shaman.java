@@ -45,10 +45,10 @@ public class Shaman extends Enemy {
     public void move() {
         this.incrementPace();
         if (hp > 0) {
-            Log.d("shaman up", String.valueOf(collision.getUp()));
-            Log.d("shaman down", String.valueOf(collision.getBottom()));
-            Log.d("shaman left", String.valueOf(collision.getLeft()));
-            Log.d("shaman right", String.valueOf(collision.getRight()));
+//            Log.d("shaman up", String.valueOf(collision.getUp()));
+//            Log.d("shaman down", String.valueOf(collision.getBottom()));
+//            Log.d("shaman left", String.valueOf(collision.getLeft()));
+//            Log.d("shaman right", String.valueOf(collision.getRight()));
             if (this.getPace() % 3 == 0) {
                 direction = this.getRandomDirection();
             }
@@ -95,7 +95,7 @@ public class Shaman extends Enemy {
                 default:
                     break;
             }
-            Log.d("shaman new location", String.format("%f, %f", positionX, positionY));
+//            Log.d("shaman new location", String.format("%f, %f", positionX, positionY));
             notifySubscribers(positionX, positionY, radius, speed);
         }
     }

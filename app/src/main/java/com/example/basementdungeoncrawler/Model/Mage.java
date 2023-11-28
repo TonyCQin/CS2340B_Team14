@@ -46,10 +46,10 @@ public class Mage extends Enemy {
     public void move() {
         this.incrementPace();
         if (hp > 0) {
-            Log.d("mage up", String.valueOf(collision.getUp()));
-            Log.d("mage down", String.valueOf(collision.getBottom()));
-            Log.d("mage left", String.valueOf(collision.getLeft()));
-            Log.d("mage right", String.valueOf(collision.getRight()));
+//            Log.d("mage up", String.valueOf(collision.getUp()));
+//            Log.d("mage down", String.valueOf(collision.getBottom()));
+//            Log.d("mage left", String.valueOf(collision.getLeft()));
+//            Log.d("mage right", String.valueOf(collision.getRight()));
             if (this.getPace() % 3 == 0) {
                 direction = this.getRandomDirection();
             }
@@ -96,7 +96,7 @@ public class Mage extends Enemy {
                 default:
                     break;
             }
-            Log.d("mage new location", String.format("%f, %f", positionX, positionY));
+//            Log.d("mage new location", String.format("%f, %f", positionX, positionY));
             notifySubscribers(positionX, positionY, radius, speed);
         }
     }
