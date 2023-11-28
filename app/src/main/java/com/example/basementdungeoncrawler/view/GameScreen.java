@@ -26,7 +26,7 @@ import android.util.Log;
 public class GameScreen extends AppCompatActivity {
     private PlayerViewModel playerViewModel;
     private GameViewModel gameViewModel;
-    private MapView mapView;
+    private Map1View map1View;
     private TextView hp;
 
 
@@ -45,7 +45,7 @@ public class GameScreen extends AppCompatActivity {
         TileMap map1TileMap = new TileMap(this, R.raw.new_map1);
         gameViewModel.setScreenCounter(1);
         Log.d("tileMap", String.valueOf(map1TileMap.getLayers()));
-        MapView mapView = new MapView(this, map1TileMap.getLayers(), map1TileMap,
+        Map1View mapView = new Map1View(this, map1TileMap.getLayers(), map1TileMap,
             this, 400, 400);
         setContentView(mapView);
 
@@ -141,7 +141,7 @@ public class GameScreen extends AppCompatActivity {
             //set map
             TileMap map3TileMap = new TileMap(this, R.raw.new_map_3);
             Log.d("tileMap", String.valueOf(map3TileMap.getLayers()));
-            MapView map3View = new MapView(this, map3TileMap.getLayers(), map3TileMap,
+            Map3View map3View = new Map3View(this, map3TileMap.getLayers(), map3TileMap,
                 this, 200, 250);
             EdgeReached.getEdgeReached().setIsEdgeReached(false);
             setContentView(map3View);

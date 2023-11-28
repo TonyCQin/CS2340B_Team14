@@ -1,12 +1,14 @@
 package com.example.basementdungeoncrawler.Model;
 
 import android.content.Context;
+import android.os.CountDownTimer;
 import android.graphics.Paint;
 import android.util.Log;
 
-import androidx.core.content.ContextCompat;
-
+import com.example.basementdungeoncrawler.Model.powerups.HPPowerUp;
+import com.example.basementdungeoncrawler.Model.powerups.InvincabilityPowerUp;
 import com.example.basementdungeoncrawler.Model.powerups.PowerUp;
+import com.example.basementdungeoncrawler.Model.powerups.SpeedPowerUp;
 import com.example.basementdungeoncrawler.R;
 
 public class PlayerData {
@@ -17,9 +19,10 @@ public class PlayerData {
     private double positionX;
     private double positionY;
     private double radius;
-    private boolean invincable;
+    private boolean invincible;
 
     private static volatile PlayerData playerData;
+    private double speed;
 
 
     /*
@@ -35,7 +38,8 @@ public class PlayerData {
         this.positionX = positionX;
         this.positionY = positionY;
         this.radius = radius;
-        invincable = false;
+        speed = 1;
+        invincible = false;
     }
   
     private PlayerData() {
@@ -88,7 +92,7 @@ public class PlayerData {
     }
 
     public void setHp(int hp) {
-        if (invincable) {
+        if (!invincible) {
             this.hp = hp;
         }
     }
@@ -117,8 +121,44 @@ public class PlayerData {
     public void setRadius(double radius) {
         this.radius = radius;
     }
+    public void setSpeed(double newSpeed) {
+        speed = newSpeed;
+    }
+    public double getSpeed() {
+        return speed;
+    }
 
     public void apply(PowerUp p) {
-        System.out.println("doing something");
+        if (p instanceof HPPowerUp) {
+            hp += ((HPPowerUp) p).getHPIncrease();
+            Log.d("adding hp", String.valueOf(((HPPowerUp) p).getHPIncrease()));
+            Log.d("new hp", String.valueOf(hp));
+        }
+
+        if (p instanceof SpeedPowerUp) {
+            speed = ((SpeedPowerUp) p).getSpeed();
+            Log.d("setting speed", String.valueOf(((SpeedPowerUp) p).getSpeed()));
+        }
+
+        if (p instanceof InvincabilityPowerUp) {
+            invincible = true;
+            Log.d("starting timer", "");
+            startInvincibilityTimer();
+        }
+    }
+
+    private void startInvincibilityTimer() {
+        new CountDownTimer(5000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                Log.d("timer at", String.valueOf(millisUntilFinished / 1000));
+            }
+
+            public void onFinish() {
+                invincible = false;
+                Log.d("finished timer", "");
+            }
+
+        }.start();
     }
 }

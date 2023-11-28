@@ -21,6 +21,11 @@ import com.example.basementdungeoncrawler.Model.Player;
 import com.example.basementdungeoncrawler.Model.Shaman;
 import com.example.basementdungeoncrawler.Model.Mage;
 import com.example.basementdungeoncrawler.Model.Skeleton;
+import com.example.basementdungeoncrawler.Model.powerups.HPPowerUp;
+import com.example.basementdungeoncrawler.Model.powerups.InvincabilityPowerUp;
+import com.example.basementdungeoncrawler.Model.powerups.PowerUp;
+import com.example.basementdungeoncrawler.Model.powerups.PowerUpNotifier;
+import com.example.basementdungeoncrawler.Model.powerups.SpeedPowerUp;
 import com.example.basementdungeoncrawler.R;
 import com.example.basementdungeoncrawler.graphics.Tile;
 import com.example.basementdungeoncrawler.graphics.TileMap;
@@ -31,7 +36,7 @@ import static com.example.basementdungeoncrawler.graphics.MapLayout.NUMBER_OF_RO
 
 import java.util.ArrayList;
 
-public class MapView extends View {
+public class Map1View extends View {
     private ArrayList<Tile[][]> layers;
     private TileSet dungeonTileSet;
     private TileSet propTileSet;
@@ -49,13 +54,16 @@ public class MapView extends View {
     private EnemyCollision orcCollision;
     private EnemyCollision shamanCollision;
     private EnemyCollision skeletonCollision;
+    private SpeedPowerUp speed;
+    private HPPowerUp hp;
+    private InvincabilityPowerUp inv;
     private GoalReached goalReached;
     private EdgeReached edgeReached;
     private GameScreen gameScreen;
     private Context context;
     private Movement movement;
 
-    public MapView(Context context, ArrayList<Tile[][]> layers, TileMap tileMap,
+    public Map1View(Context context, ArrayList<Tile[][]> layers, TileMap tileMap,
                    GameScreen gameScreen, int x, int y) {
         super(context);
         this.layers = layers;
@@ -71,6 +79,7 @@ public class MapView extends View {
         tileWidth = screenWidth / NUMBER_OF_COLUMN_TILES;
         tileHeight = screenHeight / NUMBER_OF_ROW_TILES;
 
+        //collision logic
         collision = new Collision(tileMap);
         shamanCollision = new EnemyCollision(tileMap);
         mageCollision = new EnemyCollision(tileMap);
@@ -80,11 +89,19 @@ public class MapView extends View {
         edgeReached = new EdgeReached(screenHeight, screenWidth);
         goalReached = new GoalReached();
 
+        //making player + enemies
         player = new Player(getContext(), x, y);
         mage = new Mage(getContext(), 800, 1100, 20, 10, 64, 48);
         shaman = new Shaman(getContext(), 300, 1300, 100, 50, 64, 50);
         skeleton = new Skeleton(getContext(), 400, 1300, 20, 15, 64, 10);
         orc = new Orc(getContext(), 200, 1200, 30, 5, 64, 64);
+
+        //powerups
+        PowerUpNotifier notifier = new PowerUpNotifier();
+        speed = new SpeedPowerUp(800, 400, 2, notifier, context);
+        hp = new HPPowerUp(400, 400, 1000, notifier, context);
+        inv = new InvincabilityPowerUp(600, 400, notifier, context);
+
 
         mage.setCollision(mageCollision);
         shaman.setCollision(shamanCollision);
@@ -97,6 +114,9 @@ public class MapView extends View {
         player.subscribe(shamanCollision);
         player.subscribe(orcCollision);
         player.subscribe(skeletonCollision);
+        player.subscribe(speed);
+        player.subscribe(inv);
+        player.subscribe(hp);
 
         shaman.subscribe(shamanCollision);
         orc.subscribe(orcCollision);
@@ -123,6 +143,20 @@ public class MapView extends View {
         mage.draw(canvas);
         shaman.draw(canvas);
         skeleton.draw(canvas);
+
+        //powerup drawing
+        if (!speed.getClaimed()) {
+            speed.draw(canvas);
+        }
+
+        if (!hp.getClaimed()) {
+            hp.draw(canvas);
+        }
+
+        if (!inv.getClaimed()) {
+            inv.draw(canvas);
+        }
+
         super.onDraw(canvas);
     }
 
