@@ -1,5 +1,6 @@
 package com.example.basementdungeoncrawler;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -10,6 +11,7 @@ import static org.mockito.Mockito.mock;
 import com.example.basementdungeoncrawler.Model.EdgeReached;
 import com.example.basementdungeoncrawler.Model.Collision;
 import com.example.basementdungeoncrawler.Model.GoalReached;
+import com.example.basementdungeoncrawler.Model.PlayerData;
 import com.example.basementdungeoncrawler.Model.Score;
 import com.example.basementdungeoncrawler.Model.ScoresList;
 import com.example.basementdungeoncrawler.Model.powerups.PowerUpNotifier;
@@ -334,5 +336,24 @@ public class UnitTest {
         assertEquals(end.getUserNamesAndScores(), nameAndScore);
     }
 
+    @Test
+    public void settingSpeed() {
+        PlayerData player = PlayerData.getPlayer();
+        player.setSpeed(2);
+        assertEquals(2, player.getSpeed(), 0);
+        player.setSpeed(4);
+        assertEquals(4, player.getSpeed(), 0);
+        player.setSpeed(6);
+        assertEquals(6, player.getSpeed(), 0);
+    }
 
+    @Test
+    public void radiusSetting() {
+        PlayerData player = PlayerData.getPlayer();
+        player.setRadius(15);
+        player.setRadius(20);
+        assertEquals(player.getRadius(), 20, 0);
+        player.setRadius(15);
+        assertEquals(player.getRadius(), 15, 0);
+    }
 }
