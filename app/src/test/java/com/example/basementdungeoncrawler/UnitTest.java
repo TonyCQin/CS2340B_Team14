@@ -331,4 +331,36 @@ public class UnitTest {
         ArrayList<String> nameAndScore = new ArrayList<>();
         assertEquals(end.getUserNamesAndScores(), nameAndScore);
     }
+
+    @Test
+    public void enemyAttackTrue() {
+        int attackRange = 100;
+        double playerX = 5;
+        double playerY = 5;
+
+        double enemyX = 6;
+        double enemyY = 6;
+
+        boolean enemyDies = false;
+        if ((enemyX-playerX)*(enemyX-playerX) + (enemyY-playerY)*(enemyY-playerY) <= attackRange*attackRange) {
+            enemyDies = true;
+        }
+        assertTrue(enemyDies);
+    }
+
+    @Test
+    public void enemyAttackFalse() {
+        int attackRange = 10;
+        double playerX = 5;
+        double playerY = 5;
+
+        double enemyX = 15;
+        double enemyY = 15;
+
+        boolean enemyDies = false;
+        if ((enemyX-playerX)*(enemyX-playerX) + (enemyY-playerY)*(enemyY-playerY) <= attackRange*attackRange) {
+            enemyDies = true;
+        }
+        assertFalse(enemyDies);
+    }
 }
