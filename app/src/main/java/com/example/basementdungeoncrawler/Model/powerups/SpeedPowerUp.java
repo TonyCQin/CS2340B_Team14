@@ -53,7 +53,7 @@ public class SpeedPowerUp implements PowerUp, PlayerSubscriber {
 
     public boolean checkCollision(double positionX, double positionY) {
         return (x - 64 < positionX && positionX < x + 64)
-                && (y - 64 < positionY && positionY < y + 64);
+                && (y - 128 < positionY && positionY < y + 32);
     }
 
     @Override

@@ -47,7 +47,7 @@ public class InvincabilityPowerUp implements PowerUp, PlayerSubscriber {
 //        Log.d("player X", String.valueOf(positionX));
 //        Log.d("player Y", String.valueOf(positionY));
         return (x - 64 < positionX && positionX < x + 64)
-                && (y - 64 < positionY && positionY < y + 64);
+                && (y - 128 < positionY && positionY < y + 32);
     }
 
     @Override
