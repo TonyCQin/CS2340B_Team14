@@ -31,6 +31,10 @@ public abstract class Enemy {
         this.hp = hp;
         this.radius = radius;
     }
+    public abstract void draw(Canvas canvas);
+    public abstract void move();
+    public abstract void damagePlayer();
+    public abstract void die(Context context);
 
     public char getRandomDirection() {
         int random = (int) (Math.random() * 4) + 1;
@@ -98,10 +102,6 @@ public abstract class Enemy {
 
     public void incrementPace() {
         pace++;
-    }
-
-    public void draw(Canvas canvas) {
-        canvas.drawCircle((float) xPosition, (float) yPosition, (float) radius, paint);
     }
 
     public void subscribe(EnemySubscriber sub) {
