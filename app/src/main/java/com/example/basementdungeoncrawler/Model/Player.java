@@ -5,11 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.util.Log;
-
-import androidx.core.content.ContextCompat;
-
-import com.example.basementdungeoncrawler.R;
 
 import java.util.ArrayList;
 
@@ -19,6 +14,7 @@ public class Player {
     private double positionX;
     private double positionY;
     private double radius;
+    private double attackRange = 50;
     private Paint paint;
     private Movement movement;
     private ArrayList<PlayerSubscriber> subscribers;
@@ -88,5 +84,10 @@ public class Player {
     }
     public void setRadius(double radius) {
         this.radius = radius;
+    }
+
+    public boolean attack(double enemyX, double enemyY) {
+        return (((positionX - enemyX) * (positionX - enemyX)
+                + ((positionY - enemyY) * (positionX - enemyY))) <= attackRange * attackRange);
     }
 }

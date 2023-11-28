@@ -7,8 +7,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.Log;
 
-import androidx.core.content.ContextCompat;
-
 import com.example.basementdungeoncrawler.R;
 
 
@@ -60,44 +58,40 @@ public class Orc extends Enemy {
                 damagePlayer();
             }
             switch (direction) {
-                case 'w':
-                    if (!collision.getUp()) {
-                        this.positionY -= speed;
-                    }
-
-                    if (collision.getCollideWithPlayer()) {
-                        damagePlayer();
-                    }
-                    break;
-                case 'a':
-                    if (!collision.getLeft()) {
-                        this.positionX -= speed;
-                    }
-
-                    if (collision.getCollideWithPlayer()) {
-                        damagePlayer();
-                    }
-                    break;
-                case 's':
-                    if (!collision.getBottom()) {
-                        this.positionY += speed;
-                    }
-
-                    if (collision.getCollideWithPlayer()) {
-                        damagePlayer();
-                    }
-                    break;
-                case 'd':
-                    if (!collision.getRight()) {
-                        this.positionX += speed;
-                    }
-
-                    if (collision.getCollideWithPlayer()) {
-                        damagePlayer();
-                    }
-                    break;
-                default:
-                    break;
+            case 'w':
+                if (!collision.getUp()) {
+                    this.positionY -= speed;
+                }
+                if (collision.getCollideWithPlayer()) {
+                    damagePlayer();
+                }
+                break;
+            case 'a':
+                if (!collision.getLeft()) {
+                    this.positionX -= speed;
+                }
+                if (collision.getCollideWithPlayer()) {
+                    damagePlayer();
+                }
+                break;
+            case 's':
+                if (!collision.getBottom()) {
+                    this.positionY += speed;
+                }
+                if (collision.getCollideWithPlayer()) {
+                    damagePlayer();
+                }
+                break;
+            case 'd':
+                if (!collision.getRight()) {
+                    this.positionX += speed;
+                }
+                if (collision.getCollideWithPlayer()) {
+                    damagePlayer();
+                }
+                break;
+            default:
+                break;
             }
             Log.d("orc new location", String.format("%f, %f", positionX, positionY));
             notifySubscribers(positionX, positionY, radius, speed);
@@ -105,7 +99,8 @@ public class Orc extends Enemy {
     }
 
     public void draw(Canvas canvas) {
-        canvas.drawBitmap(super.scaleBitmap(spriteBitmap), (float) positionX, (float) positionY, null);
+        canvas.drawBitmap(super.scaleBitmap(spriteBitmap), (float) positionX, (float) positionY,
+                null);
     }
 
     public void damagePlayer() {
@@ -118,6 +113,7 @@ public class Orc extends Enemy {
     public void die(Context context) {
         hp = 0;
         speed = 0;
-        spriteBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.orc_death, null);
+        spriteBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.orc_death,
+                null);
     }
 }
