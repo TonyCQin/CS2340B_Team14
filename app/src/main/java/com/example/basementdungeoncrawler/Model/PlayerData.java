@@ -2,6 +2,7 @@ package com.example.basementdungeoncrawler.Model;
 
 import android.content.Context;
 import android.os.CountDownTimer;
+import android.graphics.Paint;
 import android.util.Log;
 
 import com.example.basementdungeoncrawler.Model.powerups.HPPowerUp;

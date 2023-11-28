@@ -133,7 +133,8 @@ public abstract class Enemy {
 
         double scaleWidth = radius / 32;
         double scaleHeight = radius / 32;
-        Bitmap scaledBitmap = Bitmap.createScaledBitmap(originalBitmap, (int) (originalWidth * scaleWidth), (int) (originalHeight * scaleHeight), true);
+        Bitmap scaledBitmap = Bitmap.createScaledBitmap(originalBitmap,
+                (int) (originalWidth * scaleWidth), (int) (originalHeight * scaleHeight), true);
         return scaledBitmap;
     }
 }
