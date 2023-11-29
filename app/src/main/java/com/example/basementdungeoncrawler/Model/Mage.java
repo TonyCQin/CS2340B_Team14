@@ -27,8 +27,7 @@ public class Mage extends Enemy {
 
     public Mage(Context context, double positionX, double positionY, int hp, int damage,
                   int radius, int speed) {
-        super(context, positionX, positionY, hp, radius, speed);
-        super.setDamage(damage);
+        super(context, positionX, positionY, hp, radius, speed, damage);
 
         this.positionX = positionX;
         this.positionY = positionY;

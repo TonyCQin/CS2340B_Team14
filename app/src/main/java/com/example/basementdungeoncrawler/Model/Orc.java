@@ -27,8 +27,7 @@ public class Orc extends Enemy {
     public Orc(Context context, double positionX, double positionY, int hp, int damage,
                int radius, int speed) {
 
-        super(context, positionX, positionY, hp, radius, speed);
-        super.setDamage(damage);
+        super(context, positionX, positionY, hp, radius, speed, damage);
 
         this.positionX = positionX;
         this.positionY = positionY;
@@ -40,8 +39,6 @@ public class Orc extends Enemy {
         this.damage = 10;
 
         spriteBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.orc, null);
-
-        //this.die(context);
     }
 
     public void move() {

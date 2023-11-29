@@ -33,11 +33,12 @@ public abstract class Enemy {
      * @param speed enemy unique speed for movement
      */
     public Enemy(Context context, double positionX, double positionY, int hp,
-                 int radius, int speed) {
+                 int radius, int speed, int damage) {
         this.xPosition = positionX;
         this.yPosition = positionY;
         this.hp = hp;
         this.radius = radius;
+        this.damage = damage;
     }
 
     /**
