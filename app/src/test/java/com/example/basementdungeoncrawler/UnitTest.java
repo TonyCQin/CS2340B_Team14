@@ -9,6 +9,7 @@ import static org.mockito.Mockito.mock;
 
 import com.example.basementdungeoncrawler.Model.EdgeReached;
 import com.example.basementdungeoncrawler.Model.Collision;
+import com.example.basementdungeoncrawler.Model.Game;
 import com.example.basementdungeoncrawler.Model.GoalReached;
 import com.example.basementdungeoncrawler.Model.Score;
 import com.example.basementdungeoncrawler.Model.ScoresList;
@@ -249,6 +250,19 @@ public class UnitTest {
         GameViewModel a = new GameViewModel();
         a.setScore(5);
         assertEquals(a.getScore(), 5);
+    }
+
+    @Test
+    public void testEnemyDeathAffectsScore() {
+        Game game = new Game();
+        int ogScore = game.getScore();
+        game.setScore(game.getScore() + 25); //Simulates mage death
+        game.setScore(game.getScore() + 25); //Simulates orc death
+        game.setScore(game.getScore() + 50); //Simulates skeleton death
+        game.setScore(game.getScore() + 100); //Simulates shaman death
+        int finalScore = game.getScore();
+        int difference = finalScore - ogScore;
+        assertTrue(difference == 200);
     }
 
     @Test

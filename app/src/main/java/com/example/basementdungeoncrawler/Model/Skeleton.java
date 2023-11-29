@@ -114,6 +114,7 @@ public class Skeleton extends Enemy {
     public void die(Context context) {
         hp = 0;
         speed = 0;
+        game.setScore(game.getScore() + 50);
         spriteBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.skeleton_death, null);
     }
 }
