@@ -270,6 +270,7 @@ public class Map1View extends View {
                 }
             }
             if (direction != ' ') {
+                gameScreen.updateScore();
                 // edge checking logic
                 Log.d("moved", "");
                 if (EdgeReached.getEdgeReached().getIsEdgeReached()) {

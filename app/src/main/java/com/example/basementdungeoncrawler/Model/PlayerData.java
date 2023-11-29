@@ -133,24 +133,29 @@ public class PlayerData {
     public void apply(PowerUp p) {
         GameViewModel gameViewModel = new GameViewModel();
         if (p instanceof HPPowerUp) {
-            hp += ((HPPowerUp) p).getHPIncrease();
-            Log.d("adding hp", String.valueOf(((HPPowerUp) p).getHPIncrease()));
-            Log.d("new hp", String.valueOf(hp));
-            gameViewModel.setScore(gameViewModel.getScore() + 10);
-
+            if (!((HPPowerUp) p).getClaimed()) {
+                hp += ((HPPowerUp) p).getHPIncrease();
+                Log.d("adding hp", String.valueOf(((HPPowerUp) p).getHPIncrease()));
+                Log.d("new hp", String.valueOf(hp));
+                gameViewModel.setScore(gameViewModel.getScore() + 10);
+            }
         }
 
         if (p instanceof SpeedPowerUp) {
-            speed = ((SpeedPowerUp) p).getSpeed();
-            Log.d("setting speed", String.valueOf(((SpeedPowerUp) p).getSpeed()));
-            gameViewModel.setScore(gameViewModel.getScore() + 5);
+            if (!((SpeedPowerUp) p).getClaimed()) {
+                speed = ((SpeedPowerUp) p).getSpeed();
+                Log.d("setting speed", String.valueOf(((SpeedPowerUp) p).getSpeed()));
+                gameViewModel.setScore(gameViewModel.getScore() + 5);
+            }
         }
 
         if (p instanceof InvincabilityPowerUp) {
-            invincible = true;
-            Log.d("starting timer", "");
-            startInvincibilityTimer();
-            gameViewModel.setScore(gameViewModel.getScore() + 20);
+            if (!((InvincabilityPowerUp) p).getClaimed()) {
+                invincible = true;
+                Log.d("starting timer", "");
+                startInvincibilityTimer();
+                gameViewModel.setScore(gameViewModel.getScore() + 20);
+            }
         }
     }
 

@@ -28,6 +28,7 @@ public class GameScreen extends AppCompatActivity {
     private GameViewModel gameViewModel;
     private Map1View map1View;
     private TextView hp;
+    private TextView score;
 
 
     @Override
@@ -53,9 +54,8 @@ public class GameScreen extends AppCompatActivity {
         addEndScreenButton();
         addSpriteImageView();
         addUsernameTextView();
-        addScoreTextView();
-        addHPTextView();
-        TextView score = findViewById(R.id.score);
+        score = addScoreTextView();
+        hp = addHPTextView();
         score.setText("60");
     }
 
@@ -108,7 +108,7 @@ public class GameScreen extends AppCompatActivity {
         addContentView(username, params);
     }
 
-    private void addScoreTextView() {
+    private TextView addScoreTextView() {
         TextView score = new TextView(this);
         score.setId(R.id.score);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
@@ -119,9 +119,10 @@ public class GameScreen extends AppCompatActivity {
         score.setLayoutParams(params);
         score.setTextColor(Color.WHITE);
         addContentView(score, params);
+        return score;
     }
 
-    private void addHPTextView() {
+    private TextView addHPTextView() {
         TextView hp = new TextView(this);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT
@@ -133,6 +134,7 @@ public class GameScreen extends AppCompatActivity {
         hp.setText(String.valueOf(playerViewModel.getHP()));
         hp.setId(R.id.HP);
         addContentView(hp, params);
+        return hp;
     }
 
     public void update() {
@@ -149,9 +151,8 @@ public class GameScreen extends AppCompatActivity {
             addEndScreenButton();
             addSpriteImageView();
             addUsernameTextView();
-            addScoreTextView();
-            addHPTextView();
-            TextView score = findViewById(R.id.score);
+            score = addScoreTextView();
+            hp = addHPTextView();
             score.setText(String.valueOf(gameViewModel.getScore()));
         }
 
@@ -162,6 +163,12 @@ public class GameScreen extends AppCompatActivity {
         }
 
         checkDeath();
+    }
+
+    public void updateScore() {
+        score.setText(String.valueOf(gameViewModel.getScore()));
+        hp.setText(String.valueOf(playerViewModel.getHP()));
+        Log.d(String.valueOf(gameViewModel.getScore()), "is score updated in gamescreen");
     }
 
     public void checkDeath() {
