@@ -1,14 +1,17 @@
 package com.example.basementdungeoncrawler.Model;
 
 import android.content.Context;
-import android.graphics.Canvas;
+import android.os.CountDownTimer;
 import android.graphics.Paint;
+import android.util.Log;
 
-import androidx.core.content.ContextCompat;
-
+import com.example.basementdungeoncrawler.Model.powerups.HPPowerUp;
+import com.example.basementdungeoncrawler.Model.powerups.InvincabilityPowerUp;
+import com.example.basementdungeoncrawler.Model.powerups.PowerUp;
+import com.example.basementdungeoncrawler.Model.powerups.SpeedPowerUp;
 import com.example.basementdungeoncrawler.R;
-
-import java.util.ArrayList;
+import com.example.basementdungeoncrawler.viewModel.GameViewModel;
+import com.example.basementdungeoncrawler.viewModel.PlayerViewModel;
 
 public class PlayerData {
 
@@ -18,12 +21,11 @@ public class PlayerData {
     private double positionX;
     private double positionY;
     private double radius;
-    private Paint paint;
-    private EdgeReached edgeReached;
-    private Movement movement;
+    private boolean invincible;
 
     private static volatile PlayerData playerData;
-    private ArrayList<PlayerSubscriber> subscribers;
+    private double speed;
+
 
     /*
      * @param username username of playerData
@@ -38,24 +40,8 @@ public class PlayerData {
         this.positionX = positionX;
         this.positionY = positionY;
         this.radius = radius;
-
-        paint = new Paint();
-        int color = ContextCompat.getColor(context, R.color.player);
-        paint.setColor(color);
-    }
-
-    public void setMovement(Movement m) {
-        movement = m;
-    }
-
-    public void draw(Canvas canvas) {
-        canvas.drawCircle((float) positionX, (float) positionY, (float) radius, paint);
-    }
-
-    public void move(char direction, Collision collision) {
-        movement.walk(direction);
-        movement.run(direction);
-        notifySubscribers();
+        speed = 1;
+        invincible = false;
     }
   
     private PlayerData() {
@@ -97,39 +83,24 @@ public class PlayerData {
 
     public void setSpriteSelected(int newSprite) {
         if (newSprite == 1) {
-            spriteSelected = (R.drawable.idle_crop1);
+            spriteSelected = (R.drawable.knight_sheet);
         }
         if (newSprite == 2) {
-            spriteSelected = (R.drawable.pumpkin_crop);
+            spriteSelected = (R.drawable.rogue_sheet);
         }
         if (newSprite == 3) {
-            spriteSelected = (R.drawable.doc_crop);
+            spriteSelected = (R.drawable.wizard_sheet);
         }
     }
 
     public void setHp(int hp) {
-        this.hp = hp;
+        if (!invincible) {
+            this.hp = hp;
+        }
     }
 
     public int getHp() {
         return hp;
-    }
-
-    public void subscribe(PlayerSubscriber sub) {
-        if (subscribers == null) {
-            subscribers = new ArrayList<>();
-        }
-        subscribers.add(sub);
-    }
-
-    public void removeObserver(PlayerSubscriber sub) {
-        subscribers.remove(sub);
-    }
-
-    protected void notifySubscribers() {
-        for (PlayerSubscriber sub : subscribers) {
-            sub.update(positionX, positionY, radius);
-        }
     }
 
     public double getPositionX() {
@@ -147,5 +118,54 @@ public class PlayerData {
     }
     public void setPositionY(double positionY) {
         this.positionY = positionY;
+    }
+
+    public void setRadius(double radius) {
+        this.radius = radius;
+    }
+    public void setSpeed(double newSpeed) {
+        speed = newSpeed;
+    }
+    public double getSpeed() {
+        return speed;
+    }
+
+    public void apply(PowerUp p) {
+        GameViewModel gameViewModel = new GameViewModel();
+        if (p instanceof HPPowerUp) {
+            hp += ((HPPowerUp) p).getHPIncrease();
+            Log.d("adding hp", String.valueOf(((HPPowerUp) p).getHPIncrease()));
+            Log.d("new hp", String.valueOf(hp));
+            gameViewModel.setScore(gameViewModel.getScore() + 10);
+
+        }
+
+        if (p instanceof SpeedPowerUp) {
+            speed = ((SpeedPowerUp) p).getSpeed();
+            Log.d("setting speed", String.valueOf(((SpeedPowerUp) p).getSpeed()));
+            gameViewModel.setScore(gameViewModel.getScore() + 5);
+        }
+
+        if (p instanceof InvincabilityPowerUp) {
+            invincible = true;
+            Log.d("starting timer", "");
+            startInvincibilityTimer();
+            gameViewModel.setScore(gameViewModel.getScore() + 20);
+        }
+    }
+
+    private void startInvincibilityTimer() {
+        new CountDownTimer(5000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                Log.d("timer at", String.valueOf(millisUntilFinished / 1000));
+            }
+
+            public void onFinish() {
+                invincible = false;
+                Log.d("finished timer", "");
+            }
+
+        }.start();
     }
 }

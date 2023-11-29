@@ -1,8 +1,11 @@
 package com.example.basementdungeoncrawler.Model;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.util.Log;
+
 import java.util.ArrayList;
 
 public abstract class Enemy {
@@ -22,17 +25,11 @@ public abstract class Enemy {
     protected EnemyCollision collision;
 
     public Enemy(Context context, double positionX, double positionY, int hp,
-                 int radius, int speed, Paint paint) {
+                 int radius, int speed) {
         this.xPosition = positionX;
         this.yPosition = positionY;
         this.hp = hp;
-        this.damage = damage;
         this.radius = radius;
-        this.paint = paint;
-    }
-
-    public void setDamage(int damage) {
-        this.damage = damage;
     }
 
     public char getRandomDirection() {
@@ -60,13 +57,23 @@ public abstract class Enemy {
     public int getSpeed() {
         return speed;
     }
+    public void setSpeed(int newSpeed) {
+        this.speed = newSpeed;
+    }
 
     public int getHp() {
         return hp;
     }
+    public void setHp(int newHp) {
+        this.hp = newHp;
+    }
 
     public int getDamage() {
         return damage;
+    }
+
+    public void setDamage(int newDamage) {
+        this.damage = newDamage;
     }
 
     public void setPositionX(double x) {
@@ -93,7 +100,7 @@ public abstract class Enemy {
         pace++;
     }
 
-    public void draw(Canvas canvas, Paint paint) {
+    public void draw(Canvas canvas) {
         canvas.drawCircle((float) xPosition, (float) yPosition, (float) radius, paint);
     }
 
@@ -108,9 +115,11 @@ public abstract class Enemy {
         subscribers.remove(sub);
     }
 
-    protected void notifySubscribers() {
+    protected void notifySubscribers(double x, double y, int radius, int speed) {
         for (EnemySubscriber sub : subscribers) {
-            sub.updateEnemyPosition(xPosition, yPosition, radius, speed);
+//            Log.d("updating subscibers","");
+//            Log.d("stuff getting sent", String.format("x: %f, y: %f, r: %d, s: %d", x, y, radius, speed));
+            sub.updateEnemyPosition(x, y, radius, speed);
         }
     }
 
@@ -118,4 +127,14 @@ public abstract class Enemy {
         this.collision = collision;
     }
 
+    public Bitmap scaleBitmap(Bitmap originalBitmap) {
+        int originalWidth = originalBitmap.getWidth();
+        int originalHeight = originalBitmap.getHeight();
+
+        double scaleWidth = radius / 32;
+        double scaleHeight = radius / 32;
+        Bitmap scaledBitmap = Bitmap.createScaledBitmap(originalBitmap,
+                (int) (originalWidth * scaleWidth), (int) (originalHeight * scaleHeight), true);
+        return scaledBitmap;
+    }
 }

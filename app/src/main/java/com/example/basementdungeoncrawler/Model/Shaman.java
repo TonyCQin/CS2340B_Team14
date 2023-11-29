@@ -9,24 +9,23 @@ import android.util.Log;
 
 import com.example.basementdungeoncrawler.R;
 
-public class Skeleton extends Enemy {
-    private int speed = 10;
-    private int damage = 15;
-    private int hp = 20;
+public class Shaman extends Enemy {
+    private int speed = 70;
+    private int damage = 50;
+    private int hp = 100;
     private double positionX;
     private double positionY;
     private int radius;
     private Paint paint;
     private Movement movement;
     private char direction;
-
     private PlayerData player;
     private Game game;
     private Context context;
     private Bitmap spriteBitmap;
 
-    public Skeleton(Context context, double positionX, double positionY, int hp, int damage,
-                    int radius, int speed) {
+    public Shaman(Context context, double positionX, double positionY, int hp, int damage,
+                  int radius, int speed) {
         super(context, positionX, positionY, hp, radius, speed);
         super.setDamage(damage);
 
@@ -38,18 +37,18 @@ public class Skeleton extends Enemy {
         this.player = PlayerData.getPlayer();
         this.game = Game.getGame();
 
-        spriteBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.skeleton,
+        spriteBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.shaman,
                 null);
     }
 
     public void move() {
         this.incrementPace();
         if (hp > 0) {
-//            Log.d("skeleton up", String.valueOf(collision.getUp()));
-//            Log.d("skeleton down", String.valueOf(collision.getBottom()));
-//            Log.d("skeleton left", String.valueOf(collision.getLeft()));
-//            Log.d("skeleton right", String.valueOf(collision.getRight()));
-            if (this.getPace() % 7 == 0) {
+//            Log.d("shaman up", String.valueOf(collision.getUp()));
+//            Log.d("shaman down", String.valueOf(collision.getBottom()));
+//            Log.d("shaman left", String.valueOf(collision.getLeft()));
+//            Log.d("shaman right", String.valueOf(collision.getRight()));
+            if (this.getPace() % 3 == 0) {
                 direction = this.getRandomDirection();
             }
             if (collision.getCollideWithPlayer()) {
@@ -91,7 +90,7 @@ public class Skeleton extends Enemy {
             default:
                 break;
             }
-//            Log.d("skeleton new location", String.format("%f, %f", positionX, positionY));
+//            Log.d("shaman new location", String.format("%f, %f", positionX, positionY));
             notifySubscribers(positionX, positionY, radius, speed);
         }
     }
@@ -108,3 +107,4 @@ public class Skeleton extends Enemy {
         Log.d("new HP", String.valueOf(player.getHp()));
     }
 }
+

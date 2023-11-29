@@ -11,6 +11,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -33,6 +34,13 @@ public class ConfigScreen extends AppCompatActivity {
         playerViewModel = new ViewModelProvider(this).get(PlayerViewModel.class);
         gameViewModel = new ViewModelProvider(this).get(GameViewModel.class);
 
+        ImageView sprite1 = findViewById(R.id.sprite1);
+        ImageView sprite2 = findViewById(R.id.sprite2);
+        ImageView sprite3 = findViewById(R.id.sprite3);
+
+        sprite1.setImageResource(R.drawable.knight_sheet);
+        sprite2.setImageResource(R.drawable.rogue_sheet);
+        sprite3.setImageResource(R.drawable.wizard_sheet);
 
         //username check
         EditText usernameInput = findViewById(R.id.editText);
@@ -164,6 +172,7 @@ public class ConfigScreen extends AppCompatActivity {
                 playerViewModel.setUsername(username[0]);
                 playerViewModel.setSprite(charIdentifierSelected[0]);
                 gameViewModel.setDifficulty(difficultySelected[0]);
+                playerViewModel.setSpeed(1);
                 Intent game = new Intent(ConfigScreen.this, GameScreen.class);
                 startActivity(game);
                 finish();

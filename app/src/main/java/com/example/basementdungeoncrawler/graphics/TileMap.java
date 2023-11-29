@@ -24,7 +24,7 @@ public class TileMap {
     }
 
     /**
-     * Takes the mapLayout and generates and List of Tile[][] layers for use in MapView.java
+     * Takes the mapLayout and generates and List of Tile[][] layers for use in Map1View.java
      * @param context context to get resources from
      * @param mapLayout mapLayout that stored the tileIds from the parsed map
      */
@@ -58,13 +58,27 @@ public class TileMap {
         int screenWidth = context.getResources().getDisplayMetrics().widthPixels;
         int tileWidth = screenWidth / 12;
         int tileHeight = screenHeight / 24;
-        int col = ((int) positionX) / tileWidth;
-        int row = ((int) positionY) / tileHeight;
+        int col = (int) Math.ceil(positionX / tileWidth);
+        int row = (int) Math.ceil(positionY / tileHeight);
         try {
             return tileMap[row][col];
         } catch (Exception error) {
             EdgeReached edgeReached = EdgeReached.getEdgeReached();
             edgeReached.setIsEdgeReached(true);
+            return new Tile(1, new Rect(0, 0, 16, 16));
+        }
+    }
+
+    public Tile getEnemyTile(double positionX, double positionY) {
+        int screenHeight = context.getResources().getDisplayMetrics().heightPixels;
+        int screenWidth = context.getResources().getDisplayMetrics().widthPixels;
+        int tileWidth = screenWidth / 12;
+        int tileHeight = screenHeight / 24;
+        int col = ((int) positionX) / tileWidth;
+        int row = ((int) positionY) / tileHeight;
+        try {
+            return tileMap[row][col];
+        } catch (Exception error) {
             return new Tile(1, new Rect(0, 0, 16, 16));
         }
     }

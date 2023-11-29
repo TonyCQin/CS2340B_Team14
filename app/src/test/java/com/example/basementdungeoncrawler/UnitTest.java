@@ -1,8 +1,12 @@
 package com.example.basementdungeoncrawler;
 
+
 import static com.example.basementdungeoncrawler.Model.EnemyCollision.getTileId;
 
 import org.junit.Before;
+
+import org.junit.Assert;
+
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -10,24 +14,16 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 
-import android.content.Context;
-import android.content.res.Resources;
-import android.util.Log;
-
 import com.example.basementdungeoncrawler.Model.EdgeReached;
-import com.example.basementdungeoncrawler.Model.Game;
 import com.example.basementdungeoncrawler.Model.Collision;
-import com.example.basementdungeoncrawler.Model.Ghost;
 import com.example.basementdungeoncrawler.Model.GoalReached;
-import com.example.basementdungeoncrawler.Model.Movement;
 import com.example.basementdungeoncrawler.Model.PlayerData;
 import com.example.basementdungeoncrawler.Model.Score;
 import com.example.basementdungeoncrawler.Model.ScoresList;
+import com.example.basementdungeoncrawler.Model.powerups.PowerUpNotifier;
+import com.example.basementdungeoncrawler.Model.powerups.SpeedPowerUp;
 import com.example.basementdungeoncrawler.graphics.Tile;
-import com.example.basementdungeoncrawler.graphics.TileMap;
 import com.example.basementdungeoncrawler.view.ConfigScreen;
-import com.example.basementdungeoncrawler.view.GameScreen;
-import com.example.basementdungeoncrawler.view.MapView;
 import com.example.basementdungeoncrawler.viewModel.EndScreenViewModel;
 import com.example.basementdungeoncrawler.viewModel.GameViewModel;
 import com.example.basementdungeoncrawler.viewModel.LeaderBoardAdapter;
@@ -63,13 +59,13 @@ public class UnitTest {
         PlayerViewModel playerViewModel = new PlayerViewModel();
 
         playerViewModel.setSprite(1);
-        assertEquals(R.drawable.idle_crop1, playerViewModel.getSprite());
+        assertEquals(R.drawable.knight_sheet, playerViewModel.getSprite());
 
         playerViewModel.setSprite(2);
-        assertEquals(R.drawable.pumpkin_crop, playerViewModel.getSprite());
+        assertEquals(R.drawable.rogue_sheet, playerViewModel.getSprite());
 
         playerViewModel.setSprite(3);
-        assertEquals(R.drawable.doc_crop, playerViewModel.getSprite());
+        assertEquals(R.drawable.wizard_sheet, playerViewModel.getSprite());
     }
 
     @Test
@@ -348,6 +344,7 @@ public class UnitTest {
     }
 
 
+
     @Test
     public void collisionCheckWithArray() {
         ArrayList<Integer> tileWallIds = new ArrayList<>(Arrays.asList(0));
@@ -359,5 +356,27 @@ public class UnitTest {
             x + s, y))) ;
     }
 
+
+
+    @Test
+    public void settingSpeed() {
+        PlayerData player = PlayerData.getPlayer();
+        player.setSpeed(2);
+        assertEquals(2, player.getSpeed(), 0);
+        player.setSpeed(4);
+        assertEquals(4, player.getSpeed(), 0);
+        player.setSpeed(6);
+        assertEquals(6, player.getSpeed(), 0);
+    }
+
+    @Test
+    public void radiusSetting() {
+        PlayerData player = PlayerData.getPlayer();
+        player.setRadius(15);
+        player.setRadius(20);
+        assertEquals(player.getRadius(), 20, 0);
+        player.setRadius(15);
+        assertEquals(player.getRadius(), 15, 0);
+    }
 
 }

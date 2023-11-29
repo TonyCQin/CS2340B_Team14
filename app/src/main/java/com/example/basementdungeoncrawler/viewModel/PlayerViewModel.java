@@ -25,6 +25,13 @@ public class PlayerViewModel extends ViewModel {
     public void setSprite(int newSprite) {
         playerData.setSpriteSelected(newSprite);
     }
+    public double getSpeed() {
+        return playerData.getSpeed();
+    }
+
+    public void setSpeed(double newSpeed) {
+        playerData.setSpeed(newSpeed);
+    }
 
     public int getSprite() {
         return playerData.getSpriteSelected();
