@@ -4,7 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.util.Log;
+
 
 import java.util.ArrayList;
 
@@ -117,8 +117,9 @@ public abstract class Enemy {
 
     protected void notifySubscribers(double x, double y, int radius, int speed) {
         for (EnemySubscriber sub : subscribers) {
-//            Log.d("updating subscibers","");
-//            Log.d("stuff getting sent", String.format("x: %f, y: %f, r: %d, s: %d", x, y, radius, speed));
+            // Log.d("updating subscibers","");
+            // Log.d("stuff getting sent", String.format("x: %f, y: %f, r: %d, s: %d", x, y,
+            // radius, speed));
             sub.updateEnemyPosition(x, y, radius, speed);
         }
     }
