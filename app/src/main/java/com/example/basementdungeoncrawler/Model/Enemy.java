@@ -23,7 +23,15 @@ public abstract class Enemy {
     private ArrayList<EnemySubscriber> subscribers;
 
     protected EnemyCollision collision;
-
+    /**
+     * General super constructor for all enemies
+     * @param context context needed for sprite drawing
+     * @param positionX initial x position
+     * @param positionY initial y position
+     * @param hp enemy health points
+     * @param radius radius of enemy sprite
+     * @param speed enemy unique speed for movement
+     */
     public Enemy(Context context, double positionX, double positionY, int hp,
                  int radius, int speed) {
         this.xPosition = positionX;
@@ -31,11 +39,30 @@ public abstract class Enemy {
         this.hp = hp;
         this.radius = radius;
     }
-    public abstract void draw(Canvas canvas);
-    public abstract void move();
-    public abstract void damagePlayer();
-    public abstract void die(Context context);
 
+    /**
+     * draw method for sprite rendering
+     * @param canvas Canvas where sprite is being drawn
+     */
+    public abstract void draw(Canvas canvas);
+    /**
+     * movement method all enemies will implement
+     */
+    public abstract void move();
+    /**
+     * damage to player method all enemies will implement
+     */
+    public abstract void damagePlayer();
+    /**
+     * method of each enemy dying
+     * @param context context needed to show dying sprite rendering
+     */
+
+    public abstract void die(Context context);
+    /**
+     * method that generates random direction for unique movement implementaiton of each enemy
+     * @return character representing a direction
+     */
     public char getRandomDirection() {
         int random = (int) (Math.random() * 4) + 1;
         char direction = ' ';
