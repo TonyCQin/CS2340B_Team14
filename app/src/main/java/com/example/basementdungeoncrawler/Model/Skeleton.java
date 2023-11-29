@@ -44,10 +44,10 @@ public class Skeleton extends Enemy {
     public void move() {
         this.incrementPace();
         if (hp > 0) {
-            Log.d("skeleton up", String.valueOf(collision.getUp()));
-            Log.d("skeleton down", String.valueOf(collision.getBottom()));
-            Log.d("skeleton left", String.valueOf(collision.getLeft()));
-            Log.d("skeleton right", String.valueOf(collision.getRight()));
+//            Log.d("skeleton up", String.valueOf(collision.getUp()));
+//            Log.d("skeleton down", String.valueOf(collision.getBottom()));
+//            Log.d("skeleton left", String.valueOf(collision.getLeft()));
+//            Log.d("skeleton right", String.valueOf(collision.getRight()));
             if (this.getPace() % 7 == 0) {
                 direction = this.getRandomDirection();
             }
@@ -94,7 +94,7 @@ public class Skeleton extends Enemy {
             default:
                 break;
             }
-            Log.d("skeleton new location", String.format("%f, %f", positionX, positionY));
+//            Log.d("skeleton new location", String.format("%f, %f", positionX, positionY));
             notifySubscribers(positionX, positionY, radius, speed);
         }
     }

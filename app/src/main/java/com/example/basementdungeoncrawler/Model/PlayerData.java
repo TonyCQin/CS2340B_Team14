@@ -1,14 +1,17 @@
 package com.example.basementdungeoncrawler.Model;
 
 import android.content.Context;
-import android.graphics.Canvas;
+import android.os.CountDownTimer;
 import android.graphics.Paint;
+import android.util.Log;
 
-import androidx.core.content.ContextCompat;
-
+import com.example.basementdungeoncrawler.Model.powerups.HPPowerUp;
+import com.example.basementdungeoncrawler.Model.powerups.InvincabilityPowerUp;
+import com.example.basementdungeoncrawler.Model.powerups.PowerUp;
+import com.example.basementdungeoncrawler.Model.powerups.SpeedPowerUp;
 import com.example.basementdungeoncrawler.R;
-
-import java.util.ArrayList;
+import com.example.basementdungeoncrawler.viewModel.GameViewModel;
+import com.example.basementdungeoncrawler.viewModel.PlayerViewModel;
 
 public class PlayerData {
 
@@ -20,8 +23,10 @@ public class PlayerData {
     private double radius;
     private Paint paint;
     private double attackRadius = 200;
+    private boolean invincible;
 
     private static volatile PlayerData playerData;
+    private double speed;
 
 
     /*
@@ -37,10 +42,8 @@ public class PlayerData {
         this.positionX = positionX;
         this.positionY = positionY;
         this.radius = radius;
-
-        paint = new Paint();
-        int color = ContextCompat.getColor(context, R.color.red);
-        paint.setColor(color);
+        speed = 1;
+        invincible = false;
     }
   
     private PlayerData() {
@@ -93,7 +96,9 @@ public class PlayerData {
     }
 
     public void setHp(int hp) {
-        this.hp = hp;
+        if (!invincible) {
+            this.hp = hp;
+        }
     }
 
     public int getHp() {
@@ -122,4 +127,54 @@ public class PlayerData {
         this.radius = radius;
     }
     public void setAttackRadius(double attackRadius) { this.attackRadius = attackRadius; }
+    public void setSpeed(double newSpeed) {
+        speed = newSpeed;
+    }
+    public double getSpeed() {
+        return speed;
+    }
+
+    public void apply(PowerUp p) {
+        GameViewModel gameViewModel = new GameViewModel();
+        if (p instanceof HPPowerUp) {
+            if (!((HPPowerUp) p).getClaimed()) {
+                hp += ((HPPowerUp) p).getHPIncrease();
+                Log.d("adding hp", String.valueOf(((HPPowerUp) p).getHPIncrease()));
+                Log.d("new hp", String.valueOf(hp));
+                gameViewModel.setScore(gameViewModel.getScore() + 10);
+            }
+        }
+
+        if (p instanceof SpeedPowerUp) {
+            if (!((SpeedPowerUp) p).getClaimed()) {
+                speed = ((SpeedPowerUp) p).getSpeed();
+                Log.d("setting speed", String.valueOf(((SpeedPowerUp) p).getSpeed()));
+                gameViewModel.setScore(gameViewModel.getScore() + 5);
+            }
+        }
+
+        if (p instanceof InvincabilityPowerUp) {
+            if (!((InvincabilityPowerUp) p).getClaimed()) {
+                invincible = true;
+                Log.d("starting timer", "");
+                startInvincibilityTimer();
+                gameViewModel.setScore(gameViewModel.getScore() + 20);
+            }
+        }
+    }
+
+    private void startInvincibilityTimer() {
+        new CountDownTimer(5000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                Log.d("timer at", String.valueOf(millisUntilFinished / 1000));
+            }
+
+            public void onFinish() {
+                invincible = false;
+                Log.d("finished timer", "");
+            }
+
+        }.start();
+    }
 }

@@ -21,6 +21,11 @@ import com.example.basementdungeoncrawler.Model.Player;
 import com.example.basementdungeoncrawler.Model.Shaman;
 import com.example.basementdungeoncrawler.Model.Mage;
 import com.example.basementdungeoncrawler.Model.Skeleton;
+import com.example.basementdungeoncrawler.Model.powerups.HPPowerUp;
+import com.example.basementdungeoncrawler.Model.powerups.InvincabilityPowerUp;
+import com.example.basementdungeoncrawler.Model.powerups.PowerUp;
+import com.example.basementdungeoncrawler.Model.powerups.PowerUpNotifier;
+import com.example.basementdungeoncrawler.Model.powerups.SpeedPowerUp;
 import com.example.basementdungeoncrawler.R;
 import com.example.basementdungeoncrawler.graphics.Tile;
 import com.example.basementdungeoncrawler.graphics.TileMap;
@@ -31,7 +36,7 @@ import static com.example.basementdungeoncrawler.graphics.MapLayout.NUMBER_OF_RO
 
 import java.util.ArrayList;
 
-public class MapView extends View {
+public class Map3View extends View {
     private ArrayList<Tile[][]> layers;
     private TileSet dungeonTileSet;
     private TileSet propTileSet;
@@ -49,16 +54,17 @@ public class MapView extends View {
     private EnemyCollision orcCollision;
     private EnemyCollision shamanCollision;
     private EnemyCollision skeletonCollision;
+    private SpeedPowerUp speed;
+    private HPPowerUp hp;
+    private InvincabilityPowerUp inv;
     private GoalReached goalReached;
     private EdgeReached edgeReached;
     private GameScreen gameScreen;
     private Context context;
     private Movement movement;
-    private boolean pressedSpace = false;
-    private Paint paint = new Paint(R.color.red);
 
-    public MapView(Context context, ArrayList<Tile[][]> layers, TileMap tileMap,
-                   GameScreen gameScreen, int x, int y) {
+    public Map3View(Context context, ArrayList<Tile[][]> layers, TileMap tileMap,
+                    GameScreen gameScreen, int x, int y) {
         super(context);
         this.layers = layers;
         this.gameScreen = gameScreen;
@@ -73,6 +79,7 @@ public class MapView extends View {
         tileWidth = screenWidth / NUMBER_OF_COLUMN_TILES;
         tileHeight = screenHeight / NUMBER_OF_ROW_TILES;
 
+        //collision logic
         collision = new Collision(tileMap);
         shamanCollision = new EnemyCollision(tileMap);
         mageCollision = new EnemyCollision(tileMap);
@@ -82,11 +89,19 @@ public class MapView extends View {
         edgeReached = new EdgeReached(screenHeight, screenWidth);
         goalReached = new GoalReached();
 
+        //making player + enemies
         player = new Player(getContext(), x, y);
         mage = new Mage(getContext(), 800, 1100, 20, 10, 64, 48);
         shaman = new Shaman(getContext(), 300, 1300, 100, 50, 64, 50);
         skeleton = new Skeleton(getContext(), 400, 1300, 20, 15, 64, 10);
         orc = new Orc(getContext(), 200, 1200, 30, 5, 64, 64);
+
+        //powerups
+        PowerUpNotifier notifier = new PowerUpNotifier();
+        speed = new SpeedPowerUp(800, 1600, 2, notifier, context);
+        hp = new HPPowerUp(400, 1600, 1000, notifier, context);
+        inv = new InvincabilityPowerUp(600, 1600, notifier, context);
+
 
         mage.setCollision(mageCollision);
         shaman.setCollision(shamanCollision);
@@ -99,6 +114,9 @@ public class MapView extends View {
         player.subscribe(shamanCollision);
         player.subscribe(orcCollision);
         player.subscribe(skeletonCollision);
+        player.subscribe(speed);
+        player.subscribe(inv);
+        player.subscribe(hp);
 
         shaman.subscribe(shamanCollision);
         orc.subscribe(orcCollision);
@@ -125,12 +143,20 @@ public class MapView extends View {
         mage.draw(canvas);
         shaman.draw(canvas);
         skeleton.draw(canvas);
-        if (pressedSpace) {
-            canvas.drawCircle((float) player.getPositionX() + 100,
-                    (float) player.getPositionY() + 80,
-                    (float) player.getAttackRadius(), paint);
-            pressedSpace = false;
+
+        //powerup drawing
+        if (!speed.getClaimed()) {
+            speed.draw(canvas);
         }
+
+        if (!hp.getClaimed()) {
+            hp.draw(canvas);
+        }
+
+        if (!inv.getClaimed()) {
+            inv.draw(canvas);
+        }
+
         super.onDraw(canvas);
     }
 
@@ -145,7 +171,7 @@ public class MapView extends View {
                 row * tileHeight,
                 (col + 1) * tileWidth,
                 (row + 1) * tileHeight
-                );
+        );
     }
 
     /**
@@ -197,12 +223,6 @@ public class MapView extends View {
         }
     }
 
-    public void drawPlayerAttack(Canvas canvas, double attackRadius) {
-        canvas.drawCircle((float) player.getPositionX(), (float) player.getPositionY(),
-                (float) player.getAttackRadius(), paint);
-        invalidate();
-    }
-
     @Override
     public boolean onKeyDown(int key, KeyEvent e) {
         gameScreen.checkDeath();
@@ -210,79 +230,47 @@ public class MapView extends View {
         if (e.getAction() == KeyEvent.ACTION_DOWN) {
             if (e.isShiftPressed()) {
                 switch (key) {
-                case KeyEvent.KEYCODE_W:
-                    direction = 'W';
-                    break;
-                case KeyEvent.KEYCODE_A:
-                    direction = 'A';
-                    break;
-                case KeyEvent.KEYCODE_S:
-                    direction = 'S';
-                    break;
-                case KeyEvent.KEYCODE_D:
-                    direction = 'D';
-                    break;
-                case KeyEvent.KEYCODE_SPACE:
-                    pressedSpace = true;
-                    if (player.attack(mage)) {
-                        mage.die(context);
-                    }
-                    if (player.attack(orc)) {
-                        orc.die(context);
-                    }
-                    if (player.attack(shaman)) {
-                        shaman.die(context);
-                    }
-                    if (player.attack(skeleton)) {
-                        skeleton.die(context);
-                    }
-                    direction = ' ';
-                    break;
-                default:
-                    break;
+                    case KeyEvent.KEYCODE_W:
+                        direction = 'W';
+                        break;
+                    case KeyEvent.KEYCODE_A:
+                        direction = 'A';
+                        break;
+                    case KeyEvent.KEYCODE_S:
+                        direction = 'S';
+                        break;
+                    case KeyEvent.KEYCODE_D:
+                        direction = 'D';
+                        break;
+                    default:
+                        break;
                 }
                 if (direction != ' ') {
                     movement.run(direction);
                 }
             } else {
                 switch (key) {
-                case KeyEvent.KEYCODE_W:
-                    direction = 'w';
-                    break;
-                case KeyEvent.KEYCODE_A:
-                    direction = 'a';
-                    break;
-                case KeyEvent.KEYCODE_S:
-                    direction = 's';
-                    break;
-                case KeyEvent.KEYCODE_D:
-                    direction = 'd';
-                    break;
-                case KeyEvent.KEYCODE_SPACE:
-                    pressedSpace = true;
-                    Log.d("Mage position", String.valueOf(mage.getPositionX()));
-                    if (player.attack(mage)) {
-                        mage.die(context);
-                    }
-                    if (player.attack(orc)) {
-                        orc.die(context);
-                    }
-                    if (player.attack(shaman)) {
-                        shaman.die(context);
-                    }
-                    if (player.attack(skeleton)) {
-                        skeleton.die(context);
-                    }
-                    direction = ' ';
-                    break;
-                default:
-                    break;
+                    case KeyEvent.KEYCODE_W:
+                        direction = 'w';
+                        break;
+                    case KeyEvent.KEYCODE_A:
+                        direction = 'a';
+                        break;
+                    case KeyEvent.KEYCODE_S:
+                        direction = 's';
+                        break;
+                    case KeyEvent.KEYCODE_D:
+                        direction = 'd';
+                        break;
+                    default:
+                        break;
                 }
                 if (direction != ' ') {
                     movement.walk(direction);
                 }
             }
             if (direction != ' ') {
+                gameScreen.updateScore();
                 // edge checking logic
                 Log.d("moved", "");
                 if (EdgeReached.getEdgeReached().getIsEdgeReached()) {

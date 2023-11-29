@@ -172,6 +172,7 @@ public class ConfigScreen extends AppCompatActivity {
                 playerViewModel.setUsername(username[0]);
                 playerViewModel.setSprite(charIdentifierSelected[0]);
                 gameViewModel.setDifficulty(difficultySelected[0]);
+                playerViewModel.setSpeed(1);
                 Intent game = new Intent(ConfigScreen.this, GameScreen.class);
                 startActivity(game);
                 finish();

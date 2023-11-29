@@ -26,8 +26,9 @@ import android.util.Log;
 public class GameScreen extends AppCompatActivity {
     private PlayerViewModel playerViewModel;
     private GameViewModel gameViewModel;
-    private MapView mapView;
+    private Map1View map1View;
     private TextView hp;
+    private TextView score;
 
 
     @Override
@@ -45,7 +46,7 @@ public class GameScreen extends AppCompatActivity {
         TileMap map1TileMap = new TileMap(this, R.raw.new_map1);
         gameViewModel.setScreenCounter(1);
         Log.d("tileMap", String.valueOf(map1TileMap.getLayers()));
-        MapView mapView = new MapView(this, map1TileMap.getLayers(), map1TileMap,
+        Map1View mapView = new Map1View(this, map1TileMap.getLayers(), map1TileMap,
             this, 400, 400);
         setContentView(mapView);
 
@@ -53,9 +54,8 @@ public class GameScreen extends AppCompatActivity {
         addEndScreenButton();
         addSpriteImageView();
         addUsernameTextView();
-        addScoreTextView();
-        addHPTextView();
-        TextView score = findViewById(R.id.score);
+        score = addScoreTextView();
+        hp = addHPTextView();
         score.setText("60");
     }
 
@@ -108,7 +108,7 @@ public class GameScreen extends AppCompatActivity {
         addContentView(username, params);
     }
 
-    private void addScoreTextView() {
+    private TextView addScoreTextView() {
         TextView score = new TextView(this);
         score.setId(R.id.score);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
@@ -119,9 +119,10 @@ public class GameScreen extends AppCompatActivity {
         score.setLayoutParams(params);
         score.setTextColor(Color.WHITE);
         addContentView(score, params);
+        return score;
     }
 
-    private void addHPTextView() {
+    private TextView addHPTextView() {
         TextView hp = new TextView(this);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT
@@ -133,6 +134,7 @@ public class GameScreen extends AppCompatActivity {
         hp.setText(String.valueOf(playerViewModel.getHP()));
         hp.setId(R.id.HP);
         addContentView(hp, params);
+        return hp;
     }
 
     public void update() {
@@ -141,7 +143,7 @@ public class GameScreen extends AppCompatActivity {
             //set map
             TileMap map3TileMap = new TileMap(this, R.raw.new_map_3);
             Log.d("tileMap", String.valueOf(map3TileMap.getLayers()));
-            MapView map3View = new MapView(this, map3TileMap.getLayers(), map3TileMap,
+            Map3View map3View = new Map3View(this, map3TileMap.getLayers(), map3TileMap,
                 this, 200, 250);
             EdgeReached.getEdgeReached().setIsEdgeReached(false);
             setContentView(map3View);
@@ -149,18 +151,24 @@ public class GameScreen extends AppCompatActivity {
             addEndScreenButton();
             addSpriteImageView();
             addUsernameTextView();
-            addScoreTextView();
-            addHPTextView();
-            TextView score = findViewById(R.id.score);
+            score = addScoreTextView();
+            hp = addHPTextView();
             score.setText(String.valueOf(gameViewModel.getScore()));
         }
 
         if (GoalReached.getGoalReached().getIsGoalReached()) {
+            gameViewModel.addListScore(playerViewModel.getUsername(), gameViewModel.getScore());
             Intent intent = new Intent(GameScreen.this, EndScreen.class);
             startActivity(intent);
         }
 
         checkDeath();
+    }
+
+    public void updateScore() {
+        score.setText(String.valueOf(gameViewModel.getScore()));
+        hp.setText(String.valueOf(playerViewModel.getHP()));
+        Log.d(String.valueOf(gameViewModel.getScore()), "is score updated in gamescreen");
     }
 
     public void checkDeath() {

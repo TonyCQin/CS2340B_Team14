@@ -1,5 +1,12 @@
 package com.example.basementdungeoncrawler;
 
+
+import static com.example.basementdungeoncrawler.Model.EnemyCollision.getTileId;
+
+import org.junit.Before;
+
+import org.junit.Assert;
+
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -11,9 +18,16 @@ import com.example.basementdungeoncrawler.Model.EdgeReached;
 import com.example.basementdungeoncrawler.Model.Collision;
 import com.example.basementdungeoncrawler.Model.Game;
 import com.example.basementdungeoncrawler.Model.GoalReached;
+<<<<<<< HEAD
 import com.example.basementdungeoncrawler.Model.Player;
+=======
+import com.example.basementdungeoncrawler.Model.PlayerData;
+>>>>>>> main
 import com.example.basementdungeoncrawler.Model.Score;
 import com.example.basementdungeoncrawler.Model.ScoresList;
+import com.example.basementdungeoncrawler.Model.powerups.HPPowerUp;
+import com.example.basementdungeoncrawler.Model.powerups.PowerUpNotifier;
+import com.example.basementdungeoncrawler.Model.powerups.SpeedPowerUp;
 import com.example.basementdungeoncrawler.graphics.Tile;
 import com.example.basementdungeoncrawler.view.ConfigScreen;
 import com.example.basementdungeoncrawler.viewModel.EndScreenViewModel;
@@ -22,6 +36,7 @@ import com.example.basementdungeoncrawler.viewModel.LeaderBoardAdapter;
 import com.example.basementdungeoncrawler.viewModel.PlayerViewModel;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -348,6 +363,7 @@ public class UnitTest {
     }
 
     @Test
+<<<<<<< HEAD
     public void enemyAttackTrue() {
         int attackRange = 100;
         double playerX = 5;
@@ -392,4 +408,58 @@ public class UnitTest {
         player.setAttackRadius(50);
         assertTrue(player.getAttackRadius() == 50);
     }
+=======
+    public void collisionCheckWithArray() {
+        ArrayList<Integer> tileWallIds = new ArrayList<>(Arrays.asList(0));
+        int x = 0;
+        int r = 2;
+        int y = 0;
+        int s = 1;
+        assertTrue(tileWallIds.contains(getTileId(x+r, y)) || tileWallIds.contains(getTileId(
+            x + s, y))) ;
+    }
+
+    @Test
+    public void collisionCheckWithArrayFalse() {
+        ArrayList<Integer> tileWallIds = new ArrayList<>(Arrays.asList(1));
+        int x = 1;
+        int r = 1;
+        int y = 10;
+        int s = 5;
+        assertFalse(tileWallIds.contains(getTileId(x+r, y)) || tileWallIds.contains(getTileId(
+            x + s, y))) ;
+    }
+
+
+
+    @Test
+    public void settingSpeed() {
+        PlayerData player = PlayerData.getPlayer();
+        player.setSpeed(2);
+        assertEquals(2, player.getSpeed(), 0);
+        player.setSpeed(4);
+        assertEquals(4, player.getSpeed(), 0);
+        player.setSpeed(6);
+        assertEquals(6, player.getSpeed(), 0);
+    }
+
+    @Test
+    public void radiusSetting() {
+        PlayerData player = PlayerData.getPlayer();
+        player.setRadius(15);
+        player.setRadius(20);
+        assertEquals(player.getRadius(), 20, 0);
+        player.setRadius(15);
+        assertEquals(player.getRadius(), 15, 0);
+    }
+
+    @Test
+    public void testPowerUp() {
+        PowerUpNotifier notifier = new PowerUpNotifier();
+        HPPowerUp powerUp = new HPPowerUp(0, 0, 20, notifier);
+        powerUp.setClaimed(true);
+        assertTrue(powerUp.getClaimed());
+    }
+
+>>>>>>> main
 }

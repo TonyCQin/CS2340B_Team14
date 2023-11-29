@@ -24,7 +24,7 @@ public class TileMap {
     }
 
     /**
-     * Takes the mapLayout and generates and List of Tile[][] layers for use in MapView.java
+     * Takes the mapLayout and generates and List of Tile[][] layers for use in Map1View.java
      * @param context context to get resources from
      * @param mapLayout mapLayout that stored the tileIds from the parsed map
      */

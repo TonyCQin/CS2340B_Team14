@@ -44,10 +44,10 @@ public class Orc extends Enemy {
     public void move() {
         this.incrementPace();
         if (hp > 0) {
-            Log.d("orc up", String.valueOf(collision.getUp()));
-            Log.d("orc down", String.valueOf(collision.getBottom()));
-            Log.d("orc left", String.valueOf(collision.getLeft()));
-            Log.d("orc right", String.valueOf(collision.getRight()));
+//            Log.d("orc up", String.valueOf(collision.getUp()));
+//            Log.d("orc down", String.valueOf(collision.getBottom()));
+//            Log.d("orc left", String.valueOf(collision.getLeft()));
+//            Log.d("orc right", String.valueOf(collision.getRight()));
             if (this.getPace() % 5 == 0) {
                 direction = this.getRandomDirection();
             }
@@ -94,6 +94,8 @@ public class Orc extends Enemy {
             default:
                 break;
             }
+//            Log.d("orc new location", String.format("%f, %f", positionX, positionY));
+            notifySubscribers(positionX, positionY, radius, speed);
         }
         Log.d("orc new location", String.format("%f, %f", positionX, positionY));
         notifySubscribers(positionX, positionY, radius, speed);
