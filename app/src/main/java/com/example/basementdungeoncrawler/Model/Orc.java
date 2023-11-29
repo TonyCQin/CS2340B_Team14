@@ -27,8 +27,7 @@ public class Orc extends Enemy {
     public Orc(Context context, double positionX, double positionY, int hp, int damage,
                int radius, int speed) {
 
-        super(context, positionX, positionY, hp, radius, speed);
-        super.setDamage(damage);
+        super(context, positionX, positionY, hp, radius, speed, damage);
 
         this.positionX = positionX;
         this.positionY = positionY;
@@ -40,8 +39,6 @@ public class Orc extends Enemy {
         this.damage = 10;
 
         spriteBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.orc, null);
-
-        //this.die(context);
     }
 
     public void move() {
@@ -60,7 +57,8 @@ public class Orc extends Enemy {
             switch (direction) {
             case 'w':
                 if (!collision.getUp()) {
-                    this.positionY -= speed;
+                    positionY -= speed;
+                    setPositionY(getPositionY() - speed);
                 }
                 if (collision.getCollideWithPlayer()) {
                     damagePlayer();
@@ -68,7 +66,8 @@ public class Orc extends Enemy {
                 break;
             case 'a':
                 if (!collision.getLeft()) {
-                    this.positionX -= speed;
+                    positionX -= speed;
+                    setPositionX(getPositionX() - speed);
                 }
                 if (collision.getCollideWithPlayer()) {
                     damagePlayer();
@@ -76,7 +75,8 @@ public class Orc extends Enemy {
                 break;
             case 's':
                 if (!collision.getBottom()) {
-                    this.positionY += speed;
+                    positionY += speed;
+                    setPositionY(getPositionY() + speed);
                 }
                 if (collision.getCollideWithPlayer()) {
                     damagePlayer();
@@ -84,7 +84,8 @@ public class Orc extends Enemy {
                 break;
             case 'd':
                 if (!collision.getRight()) {
-                    this.positionX += speed;
+                    positionX += speed;
+                    setPositionX(getPositionX() + speed);
                 }
                 if (collision.getCollideWithPlayer()) {
                     damagePlayer();
@@ -93,9 +94,9 @@ public class Orc extends Enemy {
             default:
                 break;
             }
-            Log.d("orc new location", String.format("%f, %f", positionX, positionY));
-            notifySubscribers(positionX, positionY, radius, speed);
         }
+        Log.d("orc new location", String.format("%f, %f", positionX, positionY));
+        notifySubscribers(positionX, positionY, radius, speed);
     }
 
     public void draw(Canvas canvas) {
@@ -107,12 +108,13 @@ public class Orc extends Enemy {
         int finalDamage = damage * game.getDifficulty();
         int newHP = player.getHp() - finalDamage;
         player.setHp(newHP);
-        Log.d("", String.valueOf(player.getHp()));
+        Log.d("new HP", String.valueOf(player.getHp()));
     }
 
     public void die(Context context) {
         hp = 0;
         speed = 0;
+        game.setScore(game.getScore() + 25);
         spriteBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.orc_death,
                 null);
     }

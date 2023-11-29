@@ -27,8 +27,7 @@ public class Mage extends Enemy {
 
     public Mage(Context context, double positionX, double positionY, int hp, int damage,
                   int radius, int speed) {
-        super(context, positionX, positionY, hp, radius, speed);
-        super.setDamage(damage);
+        super(context, positionX, positionY, hp, radius, speed, damage);
 
         this.positionX = positionX;
         this.positionY = positionY;
@@ -58,6 +57,7 @@ public class Mage extends Enemy {
             case 'w':
                 if (!collision.getUp()) {
                     positionY -= speed;
+                    setPositionY(getPositionY() - speed);
                 }
                 if (collision.getCollideWithPlayer()) {
                     damagePlayer();
@@ -66,6 +66,7 @@ public class Mage extends Enemy {
             case 'a':
                 if (!collision.getLeft()) {
                     positionX -= speed;
+                    setPositionX(getPositionX() - speed);
                 }
                 if (collision.getCollideWithPlayer()) {
                     damagePlayer();
@@ -74,6 +75,7 @@ public class Mage extends Enemy {
             case 's':
                 if (!collision.getBottom()) {
                     positionY += speed;
+                    setPositionY(getPositionY() + speed);
                 }
                 if (collision.getCollideWithPlayer()) {
                     damagePlayer();
@@ -82,6 +84,7 @@ public class Mage extends Enemy {
             case 'd':
                 if (!collision.getRight()) {
                     positionX += speed;
+                    setPositionX(getPositionX() + speed);
                 }
                 if (collision.getCollideWithPlayer()) {
                     damagePlayer();
@@ -110,6 +113,7 @@ public class Mage extends Enemy {
     public void die(Context context) {
         hp = 0;
         speed = 0;
+        game.setScore(game.getScore() + 25);
         spriteBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.mage_death,
                 null);
     }

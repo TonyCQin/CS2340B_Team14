@@ -23,15 +23,47 @@ public abstract class Enemy {
     private ArrayList<EnemySubscriber> subscribers;
 
     protected EnemyCollision collision;
-
+    /**
+     * General super constructor for all enemies
+     * @param context context needed for sprite drawing
+     * @param positionX initial x position
+     * @param positionY initial y position
+     * @param hp enemy health points
+     * @param radius radius of enemy sprite
+     * @param speed enemy unique speed for movement
+     */
     public Enemy(Context context, double positionX, double positionY, int hp,
-                 int radius, int speed) {
+                 int radius, int speed, int damage) {
         this.xPosition = positionX;
         this.yPosition = positionY;
         this.hp = hp;
         this.radius = radius;
+        this.damage = damage;
     }
 
+    /**
+     * draw method for sprite rendering
+     * @param canvas Canvas where sprite is being drawn
+     */
+    public abstract void draw(Canvas canvas);
+    /**
+     * movement method all enemies will implement
+     */
+    public abstract void move();
+    /**
+     * damage to player method all enemies will implement
+     */
+    public abstract void damagePlayer();
+    /**
+     * method of each enemy dying
+     * @param context context needed to show dying sprite rendering
+     */
+
+    public abstract void die(Context context);
+    /**
+     * method that generates random direction for unique movement implementaiton of each enemy
+     * @return character representing a direction
+     */
     public char getRandomDirection() {
         int random = (int) (Math.random() * 4) + 1;
         char direction = ' ';
@@ -100,10 +132,6 @@ public abstract class Enemy {
         pace++;
     }
 
-    public void draw(Canvas canvas) {
-        canvas.drawCircle((float) xPosition, (float) yPosition, (float) radius, paint);
-    }
-
     public void subscribe(EnemySubscriber sub) {
         if (subscribers == null) {
             subscribers = new ArrayList<>();
@@ -117,8 +145,9 @@ public abstract class Enemy {
 
     protected void notifySubscribers(double x, double y, int radius, int speed) {
         for (EnemySubscriber sub : subscribers) {
-            Log.d("updating subscibers","");
-            Log.d("stuff getting sent", String.format("x: %f, y: %f, r: %d, s: %d", x, y, radius, speed));
+            Log.d("updating subscibers", "");
+            Log.d("stuff getting sent", String.format("x: %f, y: %f, r: %d, s: %d",
+                    x, y, radius, speed));
             sub.updateEnemyPosition(x, y, radius, speed);
         }
     }
@@ -133,7 +162,8 @@ public abstract class Enemy {
 
         double scaleWidth = radius / 32;
         double scaleHeight = radius / 32;
-        Bitmap scaledBitmap = Bitmap.createScaledBitmap(originalBitmap, (int) (originalWidth * scaleWidth), (int) (originalHeight * scaleHeight), true);
+        Bitmap scaledBitmap = Bitmap.createScaledBitmap(originalBitmap,
+                (int) (originalWidth * scaleWidth), (int) (originalHeight * scaleHeight), true);
         return scaledBitmap;
     }
 }

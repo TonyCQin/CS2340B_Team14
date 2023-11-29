@@ -19,6 +19,7 @@ public class PlayerData {
     private double positionY;
     private double radius;
     private Paint paint;
+    private double attackRadius = 200;
 
     private static volatile PlayerData playerData;
 
@@ -38,7 +39,7 @@ public class PlayerData {
         this.radius = radius;
 
         paint = new Paint();
-        int color = ContextCompat.getColor(context, R.color.player);
+        int color = ContextCompat.getColor(context, R.color.red);
         paint.setColor(color);
     }
   
@@ -108,6 +109,7 @@ public class PlayerData {
     public double getRadius() {
         return radius;
     }
+    public double getAttackRadius() { return attackRadius; }
 
     public void setPositionX(double positionX) {
         this.positionX = positionX;
@@ -119,4 +121,5 @@ public class PlayerData {
     public void setRadius(double radius) {
         this.radius = radius;
     }
+    public void setAttackRadius(double attackRadius) { this.attackRadius = attackRadius; }
 }
