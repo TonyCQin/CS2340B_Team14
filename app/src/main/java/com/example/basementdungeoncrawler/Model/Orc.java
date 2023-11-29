@@ -113,6 +113,7 @@ public class Orc extends Enemy {
     public void die(Context context) {
         hp = 0;
         speed = 0;
+        game.setScore(game.getScore() + 25);
         spriteBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.orc_death,
                 null);
     }
