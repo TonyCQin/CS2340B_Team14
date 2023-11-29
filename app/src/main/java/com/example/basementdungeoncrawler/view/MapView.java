@@ -224,16 +224,16 @@ public class MapView extends View {
                     break;
                 case KeyEvent.KEYCODE_SPACE:
                     pressedSpace = true;
-                    if (player.attack(mage.getPositionX(), mage.getPositionY())) {
+                    if (player.attack(mage)) {
                         mage.die(context);
                     }
-                    if (player.attack(orc.getPositionX(), orc.getPositionY())) {
+                    if (player.attack(orc)) {
                         orc.die(context);
                     }
-                    if (player.attack(shaman.getPositionX(), shaman.getPositionY())) {
+                    if (player.attack(shaman)) {
                         shaman.die(context);
                     }
-                    if (player.attack(skeleton.getPositionX(), skeleton.getPositionY())) {
+                    if (player.attack(skeleton)) {
                         skeleton.die(context);
                     }
                     direction = ' ';
@@ -260,16 +260,17 @@ public class MapView extends View {
                     break;
                 case KeyEvent.KEYCODE_SPACE:
                     pressedSpace = true;
-                    if (player.attack(mage.getPositionX(), mage.getPositionY())) {
+                    Log.d("Mage position", String.valueOf(mage.getPositionX()));
+                    if (player.attack(mage)) {
                         mage.die(context);
                     }
-                    if (player.attack(orc.getPositionX(), orc.getPositionY())) {
+                    if (player.attack(orc)) {
                         orc.die(context);
                     }
-                    if (player.attack(shaman.getPositionX(), shaman.getPositionY())) {
+                    if (player.attack(shaman)) {
                         shaman.die(context);
                     }
-                    if (player.attack(skeleton.getPositionX(), skeleton.getPositionY())) {
+                    if (player.attack(skeleton)) {
                         skeleton.die(context);
                     }
                     direction = ' ';
