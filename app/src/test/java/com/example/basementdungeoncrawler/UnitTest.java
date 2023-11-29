@@ -18,11 +18,7 @@ import com.example.basementdungeoncrawler.Model.EdgeReached;
 import com.example.basementdungeoncrawler.Model.Collision;
 import com.example.basementdungeoncrawler.Model.Game;
 import com.example.basementdungeoncrawler.Model.GoalReached;
-<<<<<<< HEAD
-import com.example.basementdungeoncrawler.Model.Player;
-=======
 import com.example.basementdungeoncrawler.Model.PlayerData;
->>>>>>> main
 import com.example.basementdungeoncrawler.Model.Score;
 import com.example.basementdungeoncrawler.Model.ScoresList;
 import com.example.basementdungeoncrawler.Model.powerups.HPPowerUp;
@@ -363,7 +359,6 @@ public class UnitTest {
     }
 
     @Test
-<<<<<<< HEAD
     public void enemyAttackTrue() {
         int attackRange = 100;
         double playerX = 5;
@@ -408,7 +403,7 @@ public class UnitTest {
         player.setAttackRadius(50);
         assertTrue(player.getAttackRadius() == 50);
     }
-=======
+
     public void collisionCheckWithArray() {
         ArrayList<Integer> tileWallIds = new ArrayList<>(Arrays.asList(0));
         int x = 0;
@@ -460,6 +455,4 @@ public class UnitTest {
         powerUp.setClaimed(true);
         assertTrue(powerUp.getClaimed());
     }
-
->>>>>>> main
 }
