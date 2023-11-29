@@ -99,7 +99,7 @@ public class Map1View extends View {
         //powerups
         PowerUpNotifier notifier = new PowerUpNotifier();
         speed = new SpeedPowerUp(800, 400, 2, notifier, context);
-        hp = new HPPowerUp(400, 400, 1000, notifier, context);
+        hp = new HPPowerUp(200, 400, 1000, notifier, context);
         inv = new InvincabilityPowerUp(600, 400, notifier, context);
 
 

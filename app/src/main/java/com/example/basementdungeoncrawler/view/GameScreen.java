@@ -156,6 +156,7 @@ public class GameScreen extends AppCompatActivity {
         }
 
         if (GoalReached.getGoalReached().getIsGoalReached()) {
+            gameViewModel.addListScore(playerViewModel.getUsername(), gameViewModel.getScore());
             Intent intent = new Intent(GameScreen.this, EndScreen.class);
             startActivity(intent);
         }
