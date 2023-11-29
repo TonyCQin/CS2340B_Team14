@@ -1,6 +1,12 @@
 package com.example.basementdungeoncrawler;
 
+
+import static com.example.basementdungeoncrawler.Model.EnemyCollision.getTileId;
+
+import org.junit.Before;
+
 import org.junit.Assert;
+
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -24,6 +30,7 @@ import com.example.basementdungeoncrawler.viewModel.LeaderBoardAdapter;
 import com.example.basementdungeoncrawler.viewModel.PlayerViewModel;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -336,6 +343,21 @@ public class UnitTest {
         assertEquals(end.getUserNamesAndScores(), nameAndScore);
     }
 
+
+
+    @Test
+    public void collisionCheckWithArray() {
+        ArrayList<Integer> tileWallIds = new ArrayList<>(Arrays.asList(0));
+        int x = 0;
+        int r = 2;
+        int y = 0;
+        int s = 1;
+        assertTrue(tileWallIds.contains(getTileId(x+r, y)) || tileWallIds.contains(getTileId(
+            x + s, y))) ;
+    }
+
+
+
     @Test
     public void settingSpeed() {
         PlayerData player = PlayerData.getPlayer();
@@ -356,4 +378,5 @@ public class UnitTest {
         player.setRadius(15);
         assertEquals(player.getRadius(), 15, 0);
     }
+
 }

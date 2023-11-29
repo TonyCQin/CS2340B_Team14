@@ -147,6 +147,10 @@ public class EnemyCollision implements PlayerSubscriber, EnemySubscriber {
 //        Log.d("down by speed", String.valueOf(tileBySpeed));
         bottom = (tileWallIds.contains(tileByRadius) || tileWallIds.contains(tileBySpeed));
     }
+
+    public static int getTileId(int x, int y) {
+        return 0;
+    }
 }
 
 
