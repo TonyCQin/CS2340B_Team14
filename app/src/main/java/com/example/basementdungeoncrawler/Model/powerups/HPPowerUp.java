@@ -12,7 +12,7 @@ import com.example.basementdungeoncrawler.R;
 public class HPPowerUp implements PowerUp, PlayerSubscriber {
     private double x;
     private double y;
-    private int HPIncrease;
+    private int hpIncrease;
     private int sprite;
     private PowerUpNotifier notifier;
     private Context context;
@@ -21,7 +21,7 @@ public class HPPowerUp implements PowerUp, PlayerSubscriber {
     public HPPowerUp(int x, int y, int hpIncrease, PowerUpNotifier notifier, Context context) {
         this.x = x;
         this.y = y;
-        this.HPIncrease = hpIncrease;
+        this.hpIncrease = hpIncrease;
         sprite = R.drawable.red_potion;
         this.notifier = notifier;
         this.context = context;
@@ -34,11 +34,11 @@ public class HPPowerUp implements PowerUp, PlayerSubscriber {
     }
 
     public int getHPIncrease() {
-        return HPIncrease;
+        return hpIncrease;
     }
 
     public void setHPIncrease(int newHPIncrease) {
-        HPIncrease = newHPIncrease;
+        hpIncrease = newHPIncrease;
     }
 
     @Override
@@ -86,7 +86,8 @@ public class HPPowerUp implements PowerUp, PlayerSubscriber {
 
         double scaleWidth = 2;
         double scaleHeight = 2;
-        Bitmap scaledBitmap = Bitmap.createScaledBitmap(originalBitmap, (int) (originalWidth * scaleWidth), (int) (originalHeight * scaleHeight), true);
+        Bitmap scaledBitmap = Bitmap.createScaledBitmap(originalBitmap,
+            (int) (originalWidth * scaleWidth), (int) (originalHeight * scaleHeight), true);
         return scaledBitmap;
     }
 }
