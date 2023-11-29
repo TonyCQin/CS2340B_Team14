@@ -75,7 +75,9 @@ public class Player {
     public double getRadius() {
         return radius;
     }
-    public double getAttackRadius() { return attackRange; }
+    public double getAttackRadius() {
+        return attackRange;
+    }
     public void setPositionX(double positionX) {
         this.positionX = positionX;
     }
@@ -91,6 +93,7 @@ public class Player {
 
     public boolean attack(double enemyX, double enemyY) {
         return ((((positionX + 100) - enemyX) * ((positionX + 100) - enemyX)
-                + (((positionY + 80) - enemyY) * ((positionY + 80) - enemyY))) <= attackRange * attackRange);
+                + (((positionY + 80) - enemyY) * ((positionY + 80) - enemyY)))
+                <= attackRange * attackRange);
     }
 }

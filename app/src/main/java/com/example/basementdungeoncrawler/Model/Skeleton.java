@@ -7,8 +7,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.Log;
 
-import androidx.core.content.ContextCompat;
-
 import com.example.basementdungeoncrawler.R;
 
 public class Skeleton extends Enemy {
@@ -40,7 +38,8 @@ public class Skeleton extends Enemy {
         this.player = PlayerData.getPlayer();
         this.game = Game.getGame();
 
-        spriteBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.skeleton, null);
+        spriteBitmap = BitmapFactory.decodeResource(context.getResources(),
+                R.drawable.skeleton, null);
     }
 
     public void move() {
@@ -57,44 +56,42 @@ public class Skeleton extends Enemy {
                 damagePlayer();
             }
             switch (direction) {
-                case 'w':
-                    if (!collision.getUp()) {
-                        positionY -= speed;
-                    }
+            case 'w':
+                if (!collision.getUp()) {
+                    positionY -= speed;
+                }
 
-                    if (collision.getCollideWithPlayer()) {
-                        damagePlayer();
-                    }
-                    break;
-                case 'a':
-                    if (!collision.getLeft()) {
-                        positionX -= speed;
-                    }
+                if (collision.getCollideWithPlayer()) {
+                    damagePlayer();
+                }
+                break;
+            case 'a':
+                if (!collision.getLeft()) {
+                    positionX -= speed;
+                }
 
-                    if (collision.getCollideWithPlayer()) {
-                        damagePlayer();
-                    }
-                    break;
-                case 's':
-                    if (!collision.getBottom()) {
-                        positionY += speed;
-                    }
-
-                    if (collision.getCollideWithPlayer()) {
-                        damagePlayer();
-                    }
-                    break;
-                case 'd':
-                    if (!collision.getRight()) {
-                        positionX += speed;
-                    }
-
-                    if (collision.getCollideWithPlayer()) {
-                        damagePlayer();
-                    }
-                    break;
-                default:
-                    break;
+                if (collision.getCollideWithPlayer()) {
+                    damagePlayer();
+                }
+                break;
+            case 's':
+                if (!collision.getBottom()) {
+                    positionY += speed;
+                }
+                if (collision.getCollideWithPlayer()) {
+                    damagePlayer();
+                }
+                break;
+            case 'd':
+                if (!collision.getRight()) {
+                    positionX += speed;
+                }
+                if (collision.getCollideWithPlayer()) {
+                    damagePlayer();
+                }
+                break;
+            default:
+                break;
             }
             Log.d("skeleton new location", String.format("%f, %f", positionX, positionY));
             notifySubscribers(positionX, positionY, radius, speed);
@@ -102,7 +99,8 @@ public class Skeleton extends Enemy {
     }
 
     public void draw(Canvas canvas) {
-        canvas.drawBitmap(super.scaleBitmap(spriteBitmap), (float) positionX, (float) positionY, null);
+        canvas.drawBitmap(super.scaleBitmap(spriteBitmap), (float) positionX,
+                (float) positionY, null);
     }
 
     public void damagePlayer() {
@@ -115,6 +113,7 @@ public class Skeleton extends Enemy {
         hp = 0;
         speed = 0;
         game.setScore(game.getScore() + 50);
-        spriteBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.skeleton_death, null);
+        spriteBitmap = BitmapFactory.decodeResource(context.getResources(),
+                R.drawable.skeleton_death, null);
     }
 }

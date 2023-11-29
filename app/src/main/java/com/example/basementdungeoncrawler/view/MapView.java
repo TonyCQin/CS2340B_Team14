@@ -125,7 +125,7 @@ public class MapView extends View {
         mage.draw(canvas);
         shaman.draw(canvas);
         skeleton.draw(canvas);
-        if (pressedSpace == true) {
+        if (pressedSpace) {
             canvas.drawCircle((float) player.getPositionX() + 100,
                     (float) player.getPositionY() + 80,
                     (float) player.getAttackRadius(), paint);
