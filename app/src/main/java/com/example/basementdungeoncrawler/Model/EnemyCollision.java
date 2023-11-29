@@ -101,6 +101,10 @@ public class EnemyCollision implements PlayerSubscriber, EnemySubscriber {
     private int getTileId(TileMap tilemap, double positionX, double positionY) {
         return tilemap.getTile(positionX, positionY).getTileId();
     }
+
+    public static int getTileId(int x, int y) {
+        return 0;
+    }
 }
 
 
