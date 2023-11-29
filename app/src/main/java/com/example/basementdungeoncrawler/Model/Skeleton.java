@@ -54,45 +54,45 @@ public class Skeleton extends Enemy {
             if (collision.getCollideWithPlayer()) {
                 damagePlayer();
             }
-                switch (direction) {
-                    case 'w':
-                        if (!collision.getUp()) {
-                            positionY -= speed;
-                            setPositionY(getPositionY() - speed);
-                        }
-                        if (collision.getCollideWithPlayer()) {
-                            damagePlayer();
-                        }
-                        break;
-                    case 'a':
-                        if (!collision.getLeft()) {
-                            positionX -= speed;
-                            setPositionX(getPositionX() - speed);
-                        }
-                        if (collision.getCollideWithPlayer()) {
-                            damagePlayer();
-                        }
-                        break;
-                    case 's':
-                        if (!collision.getBottom()) {
-                            positionY += speed;
-                            setPositionY(getPositionY() + speed);
-                        }
-                        if (collision.getCollideWithPlayer()) {
-                            damagePlayer();
-                        }
-                        break;
-                    case 'd':
-                        if (!collision.getRight()) {
-                            positionX += speed;
-                            setPositionX(getPositionX() + speed);
-                        }
-                        if (collision.getCollideWithPlayer()) {
-                            damagePlayer();
-                        }
-                        break;
-                default:
-                    break;
+            switch (direction) {
+            case 'w':
+                if (!collision.getUp()) {
+                    positionY -= speed;
+                    setPositionY(getPositionY() - speed);
+                }
+                if (collision.getCollideWithPlayer()) {
+                    damagePlayer();
+                }
+                break;
+            case 'a':
+                if (!collision.getLeft()) {
+                    positionX -= speed;
+                    setPositionX(getPositionX() - speed);
+                }
+                if (collision.getCollideWithPlayer()) {
+                    damagePlayer();
+                }
+                break;
+            case 's':
+                if (!collision.getBottom()) {
+                    positionY += speed;
+                    setPositionY(getPositionY() + speed);
+                }
+                if (collision.getCollideWithPlayer()) {
+                    damagePlayer();
+                }
+                break;
+            case 'd':
+                if (!collision.getRight()) {
+                    positionX += speed;
+                    setPositionX(getPositionX() + speed);
+                }
+                if (collision.getCollideWithPlayer()) {
+                    damagePlayer();
+                }
+                break;
+            default:
+                break;
             }
             Log.d("skeleton new location", String.format("%f, %f", positionX, positionY));
             notifySubscribers(positionX, positionY, radius, speed);
