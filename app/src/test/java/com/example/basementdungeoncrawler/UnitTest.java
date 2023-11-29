@@ -343,8 +343,6 @@ public class UnitTest {
         assertEquals(end.getUserNamesAndScores(), nameAndScore);
     }
 
-
-
     @Test
     public void collisionCheckWithArray() {
         ArrayList<Integer> tileWallIds = new ArrayList<>(Arrays.asList(0));
@@ -353,6 +351,17 @@ public class UnitTest {
         int y = 0;
         int s = 1;
         assertTrue(tileWallIds.contains(getTileId(x+r, y)) || tileWallIds.contains(getTileId(
+            x + s, y))) ;
+    }
+
+    @Test
+    public void collisionCheckWithArrayFalse() {
+        ArrayList<Integer> tileWallIds = new ArrayList<>(Arrays.asList(1));
+        int x = 1;
+        int r = 1;
+        int y = 10;
+        int s = 5;
+        assertFalse(tileWallIds.contains(getTileId(x+r, y)) || tileWallIds.contains(getTileId(
             x + s, y))) ;
     }
 
