@@ -28,6 +28,15 @@ public class HPPowerUp implements PowerUp, PlayerSubscriber {
         claimed = false;
     }
 
+    public HPPowerUp(int x, int y, int hpIncrease, PowerUpNotifier notifier) {
+        this.x = x;
+        this.y = y;
+        this.hpIncrease = hpIncrease;
+        sprite = R.drawable.red_potion;
+        this.notifier = notifier;
+        claimed = false;
+    }
+
     public void draw(Canvas canvas) {
         Bitmap spriteBitmap = BitmapFactory.decodeResource(context.getResources(), sprite);
         canvas.drawBitmap(scaleBitmap(spriteBitmap), (float) x, (float) y, null);

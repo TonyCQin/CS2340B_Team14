@@ -20,6 +20,7 @@ import com.example.basementdungeoncrawler.Model.GoalReached;
 import com.example.basementdungeoncrawler.Model.PlayerData;
 import com.example.basementdungeoncrawler.Model.Score;
 import com.example.basementdungeoncrawler.Model.ScoresList;
+import com.example.basementdungeoncrawler.Model.powerups.HPPowerUp;
 import com.example.basementdungeoncrawler.Model.powerups.PowerUpNotifier;
 import com.example.basementdungeoncrawler.Model.powerups.SpeedPowerUp;
 import com.example.basementdungeoncrawler.graphics.Tile;
@@ -386,6 +387,14 @@ public class UnitTest {
         assertEquals(player.getRadius(), 20, 0);
         player.setRadius(15);
         assertEquals(player.getRadius(), 15, 0);
+    }
+
+    @Test
+    public void testPowerUp() {
+        PowerUpNotifier notifier = new PowerUpNotifier();
+        HPPowerUp powerUp = new HPPowerUp(0, 0, 20, notifier);
+        powerUp.setClaimed(true);
+        assertTrue(powerUp.getClaimed());
     }
 
 }
