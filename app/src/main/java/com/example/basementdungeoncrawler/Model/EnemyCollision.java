@@ -1,7 +1,7 @@
 
 package com.example.basementdungeoncrawler.Model;
 
-import android.util.Log;
+//import android.util.Log;
 import com.example.basementdungeoncrawler.graphics.TileMap;
 
 import java.util.ArrayList;
@@ -64,7 +64,7 @@ public class EnemyCollision implements PlayerSubscriber, EnemySubscriber {
 
     @Override
     public void updateEnemyPosition(double positionX, double positionY, double radius, int speed) {
-//        Log.d("updating to", String.format("x: %f, y: %f", positionX, positionY));
+        // Log.d("updating to", String.format("x: %f, y: %f", positionX, positionY));
         this.positionX = positionX;
         this.positionY = positionY;
         this.radius = radius;
@@ -79,20 +79,20 @@ public class EnemyCollision implements PlayerSubscriber, EnemySubscriber {
         } else {
             collideWithPlayer = false;
         }
-        if (collideWithPlayer) {
-//            Log.d("Collide with player", "");
-        }
+        // if (collideWithPlayer) {
+        //      Log.d("Collide with player", "");
+        // }
     }
 
     private void checkCollisionWithWall(double posX, double posY) {
         posX += 32;
-        posY += 16;
-//        Log.d("checking collision with", String.format("x: %f, y: %f", positionX, positionY));
+        posY += 16; // Log.d("checking collision with", String.format("x: %f, y: %f", positionX,
+        // positionY));
         checkRight(posX, posY);
         checkLeft(posX, posY);
         checkDown(posX, posY);
-        checkUp(posX, posY);
-//        Log.d("values", String.format("right: %b, up: %b, down: %b, left: %b", right, up, bottom, left));
+        checkUp(posX, posY); //  Log.d("values", String.format("right: %b, up: %b, down: %b,
+        // left: %b", right, up, bottom, left));
     }
 
     private int getTileId(TileMap tilemap, double positionX, double positionY) {
@@ -105,9 +105,9 @@ public class EnemyCollision implements PlayerSubscriber, EnemySubscriber {
             return;
         }
         int tileByRadius = getTileId(tileMap, positionX + radius, positionY);
-        int tileBySpeed = getTileId(tileMap, positionX + speed, positionY);
-//        Log.d("right by radius", String.valueOf(tileByRadius));
-//        Log.d("right by speed", String.valueOf(tileBySpeed));
+        int tileBySpeed = getTileId(tileMap, positionX + speed, positionY); // Log.d("right
+        // by radius", String.valueOf(tileByRadius)); Log.d("right by speed",
+        // String.valueOf(tileBySpeed));
         right = (tileWallIds.contains(tileByRadius) || tileWallIds.contains(tileBySpeed));
     }
 
@@ -117,9 +117,9 @@ public class EnemyCollision implements PlayerSubscriber, EnemySubscriber {
             return;
         }
         int tileByRadius = getTileId(tileMap, positionX, positionY + radius);
-        int tileBySpeed = getTileId(tileMap, positionX, positionY + speed);
-//        Log.d("up by radius", String.valueOf(tileByRadius));
-//        Log.d("up by speed", String.valueOf(tileBySpeed));
+        int tileBySpeed = getTileId(tileMap, positionX, positionY + speed); // Log.d("up by
+        // radius", String.valueOf(tileByRadius)); Log.d("up by speed",
+        // String.valueOf(tileBySpeed));
         up = (tileWallIds.contains(tileByRadius) || tileWallIds.contains(tileBySpeed));
     }
 
@@ -129,22 +129,21 @@ public class EnemyCollision implements PlayerSubscriber, EnemySubscriber {
             return;
         }
         int tileByRadius = getTileId(tileMap, positionX - radius, positionY);
-        int tileBySpeed = getTileId(tileMap, positionX - speed, positionY);
-//        Log.d("left by radius", String.valueOf(tileByRadius));
-//        Log.d("left by speed", String.valueOf(tileBySpeed));
+        int tileBySpeed = getTileId(tileMap, positionX - speed, positionY); // Log.d("left
+        // by radius", String.valueOf(tileByRadius)); Log.d("left by speed",
+        // String.valueOf(tileBySpeed));
         left =  (tileWallIds.contains(tileByRadius) || tileWallIds.contains(tileBySpeed));
     }
 
     private void checkDown(double positionX, double positionY) {
-        if (positionY + radius > 1900 || positionY + speed > 1900) {
-//            Log.d("bottom edge", "");
+        if (positionY + radius > 1900 || positionY + speed > 1900) { // Log.d("bottom edge", "");
             bottom = true;
             return;
         }
         int tileByRadius = getTileId(tileMap, positionX, positionY - radius);
         int tileBySpeed = getTileId(tileMap, positionX, positionY - speed);
-//        Log.d("down by radius", String.valueOf(tileByRadius));
-//        Log.d("down by speed", String.valueOf(tileBySpeed));
+        // Log.d("down by radius", String.valueOf(tileByRadius));
+        // Log.d("down by speed", String.valueOf(tileBySpeed));
         bottom = (tileWallIds.contains(tileByRadius) || tileWallIds.contains(tileBySpeed));
     }
 
