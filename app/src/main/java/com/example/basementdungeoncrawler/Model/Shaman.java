@@ -59,8 +59,8 @@ public class Shaman extends Enemy {
                 case 'w':
                     if (!collision.getUp()) {
                         positionY -= speed;
+                        setPositionY(getPositionY() - speed);
                     }
-
                     if (collision.getCollideWithPlayer()) {
                         damagePlayer();
                     }
@@ -68,8 +68,8 @@ public class Shaman extends Enemy {
                 case 'a':
                     if (!collision.getLeft()) {
                         positionX -= speed;
+                        setPositionX(getPositionX() - speed);
                     }
-
                     if (collision.getCollideWithPlayer()) {
                         damagePlayer();
                     }
@@ -77,8 +77,8 @@ public class Shaman extends Enemy {
                 case 's':
                     if (!collision.getBottom()) {
                         positionY += speed;
+                        setPositionY(getPositionY() + speed);
                     }
-
                     if (collision.getCollideWithPlayer()) {
                         damagePlayer();
                     }
@@ -86,8 +86,8 @@ public class Shaman extends Enemy {
                 case 'd':
                     if (!collision.getRight()) {
                         positionX += speed;
+                        setPositionX(getPositionX() + speed);
                     }
-
                     if (collision.getCollideWithPlayer()) {
                         damagePlayer();
                     }
