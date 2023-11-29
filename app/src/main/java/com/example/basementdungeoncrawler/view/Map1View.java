@@ -259,15 +259,19 @@ public class Map1View extends View {
                     pressedSpace = true;
                     if (player.attack(mage)) {
                         mage.die(context);
+                        gameScreen.updateScore();
                     }
                     if (player.attack(orc)) {
                         orc.die(context);
+                        gameScreen.updateScore();
                     }
                     if (player.attack(shaman)) {
                         shaman.die(context);
+                        gameScreen.updateScore();
                     }
                     if (player.attack(skeleton)) {
                         skeleton.die(context);
+                        gameScreen.updateScore();
                     }
                     direction = ' ';
                     break;
@@ -296,15 +300,19 @@ public class Map1View extends View {
                     Log.d("Mage position", String.valueOf(mage.getPositionX()));
                     if (player.attack(mage)) {
                         mage.die(context);
+                        gameScreen.updateScore();
                     }
                     if (player.attack(orc)) {
                         orc.die(context);
+                        gameScreen.updateScore();
                     }
                     if (player.attack(shaman)) {
                         shaman.die(context);
+                        gameScreen.updateScore();
                     }
                     if (player.attack(skeleton)) {
                         skeleton.die(context);
+                        gameScreen.updateScore();
                     }
                     direction = ' ';
                     break;
