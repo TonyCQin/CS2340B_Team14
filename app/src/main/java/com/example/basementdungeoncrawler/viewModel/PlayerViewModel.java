@@ -45,10 +45,10 @@ public class PlayerViewModel extends ViewModel {
     public double getY() {
         return playerData.getPositionY();
     }
-    public void setX(double positionX) {
-        playerData.setPositionX(positionX);
-    }
+    public double getAttackRadius() { return playerData.getAttackRadius(); }
+    public void setX(double positionX) { playerData.setPositionX(positionX); }
     public void setY(double positionY) {
         playerData.setPositionY(positionY);
     }
+    public void setAttackRadius(double attackRadius) { playerData.setAttackRadius(attackRadius); }
 }

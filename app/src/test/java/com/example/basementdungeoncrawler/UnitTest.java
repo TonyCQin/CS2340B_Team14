@@ -11,6 +11,7 @@ import com.example.basementdungeoncrawler.Model.EdgeReached;
 import com.example.basementdungeoncrawler.Model.Collision;
 import com.example.basementdungeoncrawler.Model.Game;
 import com.example.basementdungeoncrawler.Model.GoalReached;
+import com.example.basementdungeoncrawler.Model.Player;
 import com.example.basementdungeoncrawler.Model.Score;
 import com.example.basementdungeoncrawler.Model.ScoresList;
 import com.example.basementdungeoncrawler.graphics.Tile;
@@ -376,5 +377,19 @@ public class UnitTest {
             enemyDies = true;
         }
         assertFalse(enemyDies);
+    }
+
+    @Test
+    public void testGetAttackRadius1() {
+        PlayerViewModel player = new PlayerViewModel();
+        player.setAttackRadius(200);
+        assertTrue(player.getAttackRadius() == 200);
+    }
+
+    @Test
+    public void testGetAttackRadius2() {
+        PlayerViewModel player = new PlayerViewModel();
+        player.setAttackRadius(50);
+        assertTrue(player.getAttackRadius() == 50);
     }
 }
