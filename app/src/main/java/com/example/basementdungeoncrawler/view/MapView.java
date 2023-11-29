@@ -224,6 +224,7 @@ public class MapView extends View {
                     break;
                 case KeyEvent.KEYCODE_SPACE:
                     pressedSpace = true;
+                    skeleton.move();
                     if (player.attack(mage.getPositionX(), mage.getPositionY())) {
                         mage.die(context);
                     }
