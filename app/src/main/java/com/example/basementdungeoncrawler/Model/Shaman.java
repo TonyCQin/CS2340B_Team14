@@ -7,8 +7,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.Log;
 
-import androidx.core.content.ContextCompat;
-
 import com.example.basementdungeoncrawler.R;
 
 public class Shaman extends Enemy {
@@ -39,7 +37,8 @@ public class Shaman extends Enemy {
         this.player = PlayerData.getPlayer();
         this.game = Game.getGame();
 
-        spriteBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.shaman, null);
+        spriteBitmap = BitmapFactory.decodeResource(context.getResources(),
+                R.drawable.shaman, null);
     }
 
     public void move() {
@@ -56,44 +55,44 @@ public class Shaman extends Enemy {
                 damagePlayer();
             }
             switch (direction) {
-                case 'w':
-                    if (!collision.getUp()) {
-                        positionY -= speed;
-                        setPositionY(getPositionY() - speed);
-                    }
-                    if (collision.getCollideWithPlayer()) {
-                        damagePlayer();
-                    }
-                    break;
-                case 'a':
-                    if (!collision.getLeft()) {
-                        positionX -= speed;
-                        setPositionX(getPositionX() - speed);
-                    }
-                    if (collision.getCollideWithPlayer()) {
-                        damagePlayer();
-                    }
-                    break;
-                case 's':
-                    if (!collision.getBottom()) {
-                        positionY += speed;
-                        setPositionY(getPositionY() + speed);
-                    }
-                    if (collision.getCollideWithPlayer()) {
-                        damagePlayer();
-                    }
-                    break;
-                case 'd':
-                    if (!collision.getRight()) {
-                        positionX += speed;
-                        setPositionX(getPositionX() + speed);
-                    }
-                    if (collision.getCollideWithPlayer()) {
-                        damagePlayer();
-                    }
-                    break;
-                default:
-                    break;
+            case 'w':
+                if (!collision.getUp()) {
+                    positionY -= speed;
+                    setPositionY(getPositionY() - speed);
+                }
+                if (collision.getCollideWithPlayer()) {
+                    damagePlayer();
+                }
+                break;
+            case 'a':
+                if (!collision.getLeft()) {
+                    positionX -= speed;
+                    setPositionX(getPositionX() - speed);
+                }
+                if (collision.getCollideWithPlayer()) {
+                    damagePlayer();
+                }
+                break;
+            case 's':
+                if (!collision.getBottom()) {
+                    positionY += speed;
+                    setPositionY(getPositionY() + speed);
+                }
+                if (collision.getCollideWithPlayer()) {
+                    damagePlayer();
+                }
+                break;
+            case 'd':
+                if (!collision.getRight()) {
+                    positionX += speed;
+                    setPositionX(getPositionX() + speed);
+                }
+                if (collision.getCollideWithPlayer()) {
+                    damagePlayer();
+                }
+                break;
+            default:
+                break;
             }
             Log.d("shaman new location", String.format("%f, %f", positionX, positionY));
             notifySubscribers(positionX, positionY, radius, speed);
@@ -101,7 +100,8 @@ public class Shaman extends Enemy {
     }
 
     public void draw(Canvas canvas) {
-        canvas.drawBitmap(super.scaleBitmap(spriteBitmap), (float) positionX, (float) positionY, null);
+        canvas.drawBitmap(super.scaleBitmap(spriteBitmap), (float) positionX,
+                (float) positionY, null);
     }
 
     public void damagePlayer() {
@@ -115,7 +115,8 @@ public class Shaman extends Enemy {
         hp = 0;
         speed = 0;
         game.setScore(game.getScore() + 100);
-        spriteBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.shaman_death, null);
+        spriteBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.shaman_death,
+                null);
     }
 }
 
