@@ -38,7 +38,7 @@ public class PlayerData {
         this.radius = radius;
 
         paint = new Paint();
-        int color = ContextCompat.getColor(context, R.color.player);
+        int color = ContextCompat.getColor(context, R.color.red);
         paint.setColor(color);
     }
   

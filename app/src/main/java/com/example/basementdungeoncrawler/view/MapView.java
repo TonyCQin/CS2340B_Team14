@@ -54,6 +54,8 @@ public class MapView extends View {
     private GameScreen gameScreen;
     private Context context;
     private Movement movement;
+    private boolean pressedSpace = false;
+    private Paint paint = new Paint(R.color.red);
 
     public MapView(Context context, ArrayList<Tile[][]> layers, TileMap tileMap,
                    GameScreen gameScreen, int x, int y) {
@@ -123,6 +125,12 @@ public class MapView extends View {
         mage.draw(canvas);
         shaman.draw(canvas);
         skeleton.draw(canvas);
+        if (pressedSpace == true) {
+            canvas.drawCircle((float) player.getPositionX() + 100,
+                    (float) player.getPositionY() + 80,
+                    (float) player.getAttackRadius(), paint);
+            pressedSpace = false;
+        }
         super.onDraw(canvas);
     }
 
@@ -189,6 +197,12 @@ public class MapView extends View {
         }
     }
 
+    public void drawPlayerAttack(Canvas canvas, double attackRadius) {
+        canvas.drawCircle((float) player.getPositionX(), (float) player.getPositionY(),
+                (float) player.getAttackRadius(), paint);
+        invalidate();
+    }
+
     @Override
     public boolean onKeyDown(int key, KeyEvent e) {
         gameScreen.checkDeath();
@@ -209,6 +223,7 @@ public class MapView extends View {
                     direction = 'D';
                     break;
                 case KeyEvent.KEYCODE_SPACE:
+                    pressedSpace = true;
                     if (player.attack(mage.getPositionX(), mage.getPositionY())) {
                         mage.die(context);
                     }
@@ -244,6 +259,7 @@ public class MapView extends View {
                     direction = 'd';
                     break;
                 case KeyEvent.KEYCODE_SPACE:
+                    pressedSpace = true;
                     if (player.attack(mage.getPositionX(), mage.getPositionY())) {
                         mage.die(context);
                     }

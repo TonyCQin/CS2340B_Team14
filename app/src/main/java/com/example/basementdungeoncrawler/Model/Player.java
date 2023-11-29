@@ -14,7 +14,7 @@ public class Player {
     private double positionX;
     private double positionY;
     private double radius;
-    private double attackRange = 50;
+    private double attackRange = 200;
     private Paint paint;
     private Movement movement;
     private ArrayList<PlayerSubscriber> subscribers;
@@ -75,7 +75,7 @@ public class Player {
     public double getRadius() {
         return radius;
     }
-
+    public double getAttackRadius() { return attackRange; }
     public void setPositionX(double positionX) {
         this.positionX = positionX;
     }
@@ -87,7 +87,7 @@ public class Player {
     }
 
     public boolean attack(double enemyX, double enemyY) {
-        return (((positionX - enemyX) * (positionX - enemyX)
-                + ((positionY - enemyY) * (positionX - enemyY))) <= attackRange * attackRange);
+        return ((((positionX + 100) - enemyX) * ((positionX + 100) - enemyX)
+                + (((positionY + 80) - enemyY) * ((positionY + 80) - enemyY))) <= attackRange * attackRange);
     }
 }
