@@ -92,8 +92,9 @@ public class Player {
     }
   
     public boolean attack(Enemy enemy) {
-        return ((((positionX + 100) - enemy.getPositionX()) * ((positionX + 100) - enemy.getPositionX())
-                + (((positionY + 80) - enemy.getPositionY()) * ((positionY + 80) - enemy.getPositionY()))
+        return ((((positionX + 100) - enemy.getPositionX()) * ((positionX + 100)
+                - enemy.getPositionX()) + (((positionY + 80) - enemy.getPositionY())
+                * ((positionY + 80) - enemy.getPositionY()))
                 <= attackRange * attackRange));
     }
 }
