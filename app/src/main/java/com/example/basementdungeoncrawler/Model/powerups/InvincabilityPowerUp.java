@@ -12,7 +12,7 @@ import com.example.basementdungeoncrawler.R;
 public class InvincabilityPowerUp implements PowerUp, PlayerSubscriber {
     private double x;
     private double y;
-    private int HPIncrease;
+    private int hpIncrease;
     private int sprite;
     private PowerUpNotifier notifier;
     private Context context;
@@ -42,10 +42,10 @@ public class InvincabilityPowerUp implements PowerUp, PlayerSubscriber {
     }
 
     public boolean checkCollision(double positionX, double positionY) {
-//        Log.d("X", String.valueOf(x));
-//        Log.d("Y", String.valueOf(y));
-//        Log.d("player X", String.valueOf(positionX));
-//        Log.d("player Y", String.valueOf(positionY));
+        //        Log.d("X", String.valueOf(x));
+        //        Log.d("Y", String.valueOf(y));
+        //        Log.d("player X", String.valueOf(positionX));
+        //        Log.d("player Y", String.valueOf(positionY));
         return (x - 64 < positionX && positionX < x + 64)
                 && (y - 128 < positionY && positionY < y + 32);
     }
@@ -78,7 +78,8 @@ public class InvincabilityPowerUp implements PowerUp, PlayerSubscriber {
 
         double scaleWidth = 2;
         double scaleHeight = 2;
-        Bitmap scaledBitmap = Bitmap.createScaledBitmap(originalBitmap, (int) (originalWidth * scaleWidth), (int) (originalHeight * scaleHeight), true);
+        Bitmap scaledBitmap = Bitmap.createScaledBitmap(originalBitmap,
+            (int) (originalWidth * scaleWidth), (int) (originalHeight * scaleHeight), true);
         return scaledBitmap;
     }
 }

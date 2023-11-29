@@ -92,7 +92,8 @@ public class SpeedPowerUp implements PowerUp, PlayerSubscriber {
 
         double scaleWidth = 2;
         double scaleHeight = 2;
-        Bitmap scaledBitmap = Bitmap.createScaledBitmap(originalBitmap, (int) (originalWidth * scaleWidth), (int) (originalHeight * scaleHeight), true);
+        Bitmap scaledBitmap = Bitmap.createScaledBitmap(originalBitmap,
+            (int) (originalWidth * scaleWidth), (int) (originalHeight * scaleHeight), true);
         return scaledBitmap;
     }
 }
