@@ -58,49 +58,49 @@ public class Orc extends Enemy {
                 damagePlayer();
             }
             switch (direction) {
-                case 'w':
-                    if (!collision.getUp()) {
-                        positionY -= speed;
-                        setPositionY(getPositionY() - speed);
-                    }
-                    if (collision.getCollideWithPlayer()) {
-                        damagePlayer();
-                    }
-                    break;
-                case 'a':
-                    if (!collision.getLeft()) {
-                        positionX -= speed;
-                        setPositionX(getPositionX() - speed);
-                    }
-                    if (collision.getCollideWithPlayer()) {
-                        damagePlayer();
-                    }
-                    break;
-                case 's':
-                    if (!collision.getBottom()) {
-                        positionY += speed;
-                        setPositionY(getPositionY() + speed);
-                    }
-                    if (collision.getCollideWithPlayer()) {
-                        damagePlayer();
-                    }
-                    break;
-                case 'd':
-                    if (!collision.getRight()) {
-                        positionX += speed;
-                        setPositionX(getPositionX() + speed);
-                    }
-                    if (collision.getCollideWithPlayer()) {
-                        damagePlayer();
-                    }
-                    break;
-                default:
-                    break;
+            case 'w':
+                if (!collision.getUp()) {
+                    positionY -= speed;
+                    setPositionY(getPositionY() - speed);
+                }
+                if (collision.getCollideWithPlayer()) {
+                    damagePlayer();
+                }
+                break;
+            case 'a':
+                if (!collision.getLeft()) {
+                    positionX -= speed;
+                    setPositionX(getPositionX() - speed);
+                }
+                if (collision.getCollideWithPlayer()) {
+                    damagePlayer();
+                }
+                break;
+            case 's':
+                if (!collision.getBottom()) {
+                    positionY += speed;
+                    setPositionY(getPositionY() + speed);
+                }
+                if (collision.getCollideWithPlayer()) {
+                    damagePlayer();
+                }
+                break;
+            case 'd':
+                if (!collision.getRight()) {
+                    positionX += speed;
+                    setPositionX(getPositionX() + speed);
+                }
+                if (collision.getCollideWithPlayer()) {
+                    damagePlayer();
+                }
+                break;
+            default:
+                break;
             }
-            }
-            Log.d("orc new location", String.format("%f, %f", positionX, positionY));
-            notifySubscribers(positionX, positionY, radius, speed);
         }
+        Log.d("orc new location", String.format("%f, %f", positionX, positionY));
+        notifySubscribers(positionX, positionY, radius, speed);
+    }
 
     public void draw(Canvas canvas) {
         canvas.drawBitmap(super.scaleBitmap(spriteBitmap), (float) positionX, (float) positionY,
