@@ -15,6 +15,7 @@ public class EnemyCollision implements PlayerSubscriber, EnemySubscriber {
     private boolean bottom;
     private boolean up;
     private boolean collideWithPlayer;
+    private boolean attacked;
 
     private TileMap tileMap;
     private final ArrayList<Integer> tileWallIds = new ArrayList<>(Arrays.asList(0, 1, 2, 3,
@@ -29,6 +30,7 @@ public class EnemyCollision implements PlayerSubscriber, EnemySubscriber {
     private double playerPosX;
     private double playerPosY;
     private double playerR;
+    private double playerAttackR = 20;
 
     private int speed;
 
@@ -55,6 +57,7 @@ public class EnemyCollision implements PlayerSubscriber, EnemySubscriber {
     public boolean getCollideWithPlayer() {
         return collideWithPlayer;
     }
+    public boolean getAttacked() { return attacked;}
 
     @Override
     public void update(double positionX, double positionY) {
@@ -69,6 +72,7 @@ public class EnemyCollision implements PlayerSubscriber, EnemySubscriber {
         this.positionY = positionY;
         this.radius = radius;
         checkCollisionWithPlayer();
+        checkAttackFromPlayer();
         checkCollisionWithWall(positionX, positionY);
     }
 
@@ -82,6 +86,15 @@ public class EnemyCollision implements PlayerSubscriber, EnemySubscriber {
         // if (collideWithPlayer) {
         //      Log.d("Collide with player", "");
         // }
+    }
+
+    private void checkAttackFromPlayer() {
+        if (Math.abs(this.playerPosX + playerAttackR - this.positionX) < radius + playerR
+                && Math.abs(this.playerPosY + playerAttackR - this.positionY) < radius + playerR) {
+            attacked = true;
+        } else {
+            attacked = false;
+        }
     }
 
     private void checkCollisionWithWall(double posX, double posY) {

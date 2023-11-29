@@ -62,6 +62,8 @@ public class Map1View extends View {
     private GameScreen gameScreen;
     private Context context;
     private Movement movement;
+    private boolean pressedSpace = false;
+    private Paint paint = new Paint(R.color.red);
 
     public Map1View(Context context, ArrayList<Tile[][]> layers, TileMap tileMap,
                    GameScreen gameScreen, int x, int y) {
@@ -143,6 +145,12 @@ public class Map1View extends View {
         mage.draw(canvas);
         shaman.draw(canvas);
         skeleton.draw(canvas);
+        if (pressedSpace) {
+            canvas.drawCircle((float) player.getPositionX() + 100,
+                    (float) player.getPositionY() + 80,
+                    (float) player.getAttackRadius(), paint);
+            pressedSpace = false;
+        }
 
         //powerup drawing
         if (!speed.getClaimed()) {
@@ -156,7 +164,6 @@ public class Map1View extends View {
         if (!inv.getClaimed()) {
             inv.draw(canvas);
         }
-
         super.onDraw(canvas);
     }
 
@@ -223,6 +230,12 @@ public class Map1View extends View {
         }
     }
 
+    public void drawPlayerAttack(Canvas canvas, double attackRadius) {
+        canvas.drawCircle((float) player.getPositionX(), (float) player.getPositionY(),
+                (float) player.getAttackRadius(), paint);
+        invalidate();
+    }
+
     @Override
     public boolean onKeyDown(int key, KeyEvent e) {
         gameScreen.checkDeath();
@@ -241,6 +254,22 @@ public class Map1View extends View {
                     break;
                 case KeyEvent.KEYCODE_D:
                     direction = 'D';
+                    break;
+                case KeyEvent.KEYCODE_SPACE:
+                    pressedSpace = true;
+                    if (player.attack(mage)) {
+                        mage.die(context);
+                    }
+                    if (player.attack(orc)) {
+                        orc.die(context);
+                    }
+                    if (player.attack(shaman)) {
+                        shaman.die(context);
+                    }
+                    if (player.attack(skeleton)) {
+                        skeleton.die(context);
+                    }
+                    direction = ' ';
                     break;
                 default:
                     break;
@@ -261,6 +290,23 @@ public class Map1View extends View {
                     break;
                 case KeyEvent.KEYCODE_D:
                     direction = 'd';
+                    break;
+                case KeyEvent.KEYCODE_SPACE:
+                    pressedSpace = true;
+                    Log.d("Mage position", String.valueOf(mage.getPositionX()));
+                    if (player.attack(mage)) {
+                        mage.die(context);
+                    }
+                    if (player.attack(orc)) {
+                        orc.die(context);
+                    }
+                    if (player.attack(shaman)) {
+                        shaman.die(context);
+                    }
+                    if (player.attack(skeleton)) {
+                        skeleton.die(context);
+                    }
+                    direction = ' ';
                     break;
                 default:
                     break;

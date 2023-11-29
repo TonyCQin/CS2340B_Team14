@@ -26,8 +26,7 @@ public class Shaman extends Enemy {
 
     public Shaman(Context context, double positionX, double positionY, int hp, int damage,
                   int radius, int speed) {
-        super(context, positionX, positionY, hp, radius, speed);
-        super.setDamage(damage);
+        super(context, positionX, positionY, hp, radius, speed, damage);
 
         this.positionX = positionX;
         this.positionY = positionY;
@@ -37,8 +36,8 @@ public class Shaman extends Enemy {
         this.player = PlayerData.getPlayer();
         this.game = Game.getGame();
 
-        spriteBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.shaman,
-                null);
+        spriteBitmap = BitmapFactory.decodeResource(context.getResources(),
+                R.drawable.shaman, null);
     }
 
     public void move() {
@@ -58,6 +57,7 @@ public class Shaman extends Enemy {
             case 'w':
                 if (!collision.getUp()) {
                     positionY -= speed;
+                    setPositionY(getPositionY() - speed);
                 }
                 if (collision.getCollideWithPlayer()) {
                     damagePlayer();
@@ -66,6 +66,7 @@ public class Shaman extends Enemy {
             case 'a':
                 if (!collision.getLeft()) {
                     positionX -= speed;
+                    setPositionX(getPositionX() - speed);
                 }
                 if (collision.getCollideWithPlayer()) {
                     damagePlayer();
@@ -74,6 +75,7 @@ public class Shaman extends Enemy {
             case 's':
                 if (!collision.getBottom()) {
                     positionY += speed;
+                    setPositionY(getPositionY() + speed);
                 }
                 if (collision.getCollideWithPlayer()) {
                     damagePlayer();
@@ -82,6 +84,7 @@ public class Shaman extends Enemy {
             case 'd':
                 if (!collision.getRight()) {
                     positionX += speed;
+                    setPositionX(getPositionX() + speed);
                 }
                 if (collision.getCollideWithPlayer()) {
                     damagePlayer();
@@ -96,8 +99,8 @@ public class Shaman extends Enemy {
     }
 
     public void draw(Canvas canvas) {
-        canvas.drawBitmap(super.scaleBitmap(spriteBitmap), (float) positionX, (float) positionY,
-                null);
+        canvas.drawBitmap(super.scaleBitmap(spriteBitmap), (float) positionX,
+                (float) positionY, null);
     }
 
     public void damagePlayer() {
@@ -105,6 +108,14 @@ public class Shaman extends Enemy {
         int newHP = player.getHp() - finalDamage;
         player.setHp(newHP);
         Log.d("new HP", String.valueOf(player.getHp()));
+    }
+
+    public void die(Context context) {
+        hp = 0;
+        speed = 0;
+        game.setScore(game.getScore() + 100);
+        spriteBitmap = BitmapFactory.decodeResource(context.getResources(),
+                R.drawable.shaman_death, null);
     }
 }
 

@@ -27,8 +27,7 @@ public class Skeleton extends Enemy {
 
     public Skeleton(Context context, double positionX, double positionY, int hp, int damage,
                     int radius, int speed) {
-        super(context, positionX, positionY, hp, radius, speed);
-        super.setDamage(damage);
+        super(context, positionX, positionY, hp, radius, speed, damage);
 
         this.positionX = positionX;
         this.positionY = positionY;
@@ -38,8 +37,8 @@ public class Skeleton extends Enemy {
         this.player = PlayerData.getPlayer();
         this.game = Game.getGame();
 
-        spriteBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.skeleton,
-                null);
+        spriteBitmap = BitmapFactory.decodeResource(context.getResources(),
+                R.drawable.skeleton, null);
     }
 
     public void move() {
@@ -59,6 +58,7 @@ public class Skeleton extends Enemy {
             case 'w':
                 if (!collision.getUp()) {
                     positionY -= speed;
+                    setPositionY(getPositionY() - speed);
                 }
                 if (collision.getCollideWithPlayer()) {
                     damagePlayer();
@@ -67,6 +67,7 @@ public class Skeleton extends Enemy {
             case 'a':
                 if (!collision.getLeft()) {
                     positionX -= speed;
+                    setPositionX(getPositionX() - speed);
                 }
                 if (collision.getCollideWithPlayer()) {
                     damagePlayer();
@@ -75,6 +76,7 @@ public class Skeleton extends Enemy {
             case 's':
                 if (!collision.getBottom()) {
                     positionY += speed;
+                    setPositionY(getPositionY() + speed);
                 }
                 if (collision.getCollideWithPlayer()) {
                     damagePlayer();
@@ -83,6 +85,7 @@ public class Skeleton extends Enemy {
             case 'd':
                 if (!collision.getRight()) {
                     positionX += speed;
+                    setPositionX(getPositionX() + speed);
                 }
                 if (collision.getCollideWithPlayer()) {
                     damagePlayer();
@@ -97,8 +100,8 @@ public class Skeleton extends Enemy {
     }
 
     public void draw(Canvas canvas) {
-        canvas.drawBitmap(super.scaleBitmap(spriteBitmap), (float) positionX, (float) positionY,
-                null);
+        canvas.drawBitmap(super.scaleBitmap(spriteBitmap), (float) positionX,
+                (float) positionY, null);
     }
 
     public void damagePlayer() {
@@ -106,5 +109,12 @@ public class Skeleton extends Enemy {
         int newHP = player.getHp() - finalDamage;
         player.setHp(newHP);
         Log.d("new HP", String.valueOf(player.getHp()));
+    }
+    public void die(Context context) {
+        hp = 0;
+        speed = 0;
+        game.setScore(game.getScore() + 50);
+        spriteBitmap = BitmapFactory.decodeResource(context.getResources(),
+                R.drawable.skeleton_death, null);
     }
 }

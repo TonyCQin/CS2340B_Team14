@@ -21,6 +21,8 @@ public class PlayerData {
     private double positionX;
     private double positionY;
     private double radius;
+    private Paint paint;
+    private double attackRadius = 200;
     private boolean invincible;
 
     private static volatile PlayerData playerData;
@@ -112,6 +114,7 @@ public class PlayerData {
     public double getRadius() {
         return radius;
     }
+    public double getAttackRadius() { return attackRadius; }
 
     public void setPositionX(double positionX) {
         this.positionX = positionX;
@@ -123,6 +126,7 @@ public class PlayerData {
     public void setRadius(double radius) {
         this.radius = radius;
     }
+    public void setAttackRadius(double attackRadius) { this.attackRadius = attackRadius; }
     public void setSpeed(double newSpeed) {
         speed = newSpeed;
     }

@@ -16,8 +16,13 @@ import static org.mockito.Mockito.mock;
 
 import com.example.basementdungeoncrawler.Model.EdgeReached;
 import com.example.basementdungeoncrawler.Model.Collision;
+import com.example.basementdungeoncrawler.Model.Game;
 import com.example.basementdungeoncrawler.Model.GoalReached;
+<<<<<<< HEAD
+import com.example.basementdungeoncrawler.Model.Player;
+=======
 import com.example.basementdungeoncrawler.Model.PlayerData;
+>>>>>>> main
 import com.example.basementdungeoncrawler.Model.Score;
 import com.example.basementdungeoncrawler.Model.ScoresList;
 import com.example.basementdungeoncrawler.Model.powerups.HPPowerUp;
@@ -264,6 +269,19 @@ public class UnitTest {
     }
 
     @Test
+    public void testEnemyDeathAffectsScore() {
+        Game game = new Game();
+        int ogScore = game.getScore();
+        game.setScore(game.getScore() + 25); //Simulates mage death
+        game.setScore(game.getScore() + 25); //Simulates orc death
+        game.setScore(game.getScore() + 50); //Simulates skeleton death
+        game.setScore(game.getScore() + 100); //Simulates shaman death
+        int finalScore = game.getScore();
+        int difference = finalScore - ogScore;
+        assertTrue(difference == 200);
+    }
+
+    @Test
     public void enemyPlayerCollisionFalse() {
         double playerPosX = 10;
         double playerPosY = 10;
@@ -345,6 +363,52 @@ public class UnitTest {
     }
 
     @Test
+<<<<<<< HEAD
+    public void enemyAttackTrue() {
+        int attackRange = 100;
+        double playerX = 5;
+        double playerY = 5;
+
+        double enemyX = 6;
+        double enemyY = 6;
+
+        boolean enemyDies = false;
+        if ((enemyX-playerX)*(enemyX-playerX) + (enemyY-playerY)*(enemyY-playerY) <= attackRange*attackRange) {
+            enemyDies = true;
+        }
+        assertTrue(enemyDies);
+    }
+
+    @Test
+    public void enemyAttackFalse() {
+        int attackRange = 10;
+        double playerX = 5;
+        double playerY = 5;
+
+        double enemyX = 15;
+        double enemyY = 15;
+
+        boolean enemyDies = false;
+        if ((enemyX-playerX)*(enemyX-playerX) + (enemyY-playerY)*(enemyY-playerY) <= attackRange*attackRange) {
+            enemyDies = true;
+        }
+        assertFalse(enemyDies);
+    }
+
+    @Test
+    public void testGetAttackRadius1() {
+        PlayerViewModel player = new PlayerViewModel();
+        player.setAttackRadius(200);
+        assertTrue(player.getAttackRadius() == 200);
+    }
+
+    @Test
+    public void testGetAttackRadius2() {
+        PlayerViewModel player = new PlayerViewModel();
+        player.setAttackRadius(50);
+        assertTrue(player.getAttackRadius() == 50);
+    }
+=======
     public void collisionCheckWithArray() {
         ArrayList<Integer> tileWallIds = new ArrayList<>(Arrays.asList(0));
         int x = 0;
@@ -397,4 +461,5 @@ public class UnitTest {
         assertTrue(powerUp.getClaimed());
     }
 
+>>>>>>> main
 }
